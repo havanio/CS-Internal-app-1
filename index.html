@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TTMI SK CS INTERNAL APP</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">CUSTOMER SERVICE APP</p>
+          <h1>KỊCH BẢN CHAT VÀ THÔNG TIN CTKM</h1>
+          <p id="dataSource" class="data-source">Loading Google Sheet...</p>
+        </div>
+        <div class="topbar-actions">
+          <button id="exportButton" class="icon-button" type="button" title="Export local notes">Export</button>
+          <button id="clearButton" class="icon-button subtle" type="button" title="Clear filters">Reset</button>
+        </div>
+      </header>
+
+      <main class="layout">
+        <aside class="sidebar" aria-label="Filters">
+          <section class="panel">
+            <label class="field-label" for="searchInput">Search</label>
+            <input id="searchInput" type="search" placeholder="Try: refund, matcha, District 1" autocomplete="off" />
+          </section>
+
+          <section class="panel">
+            <div class="section-title">Brand</div>
+            <div id="brandFilters" class="segmented" role="group" aria-label="Brand filter"></div>
+          </section>
+
+          <section class="panel">
+            <div class="section-title">Category</div>
+            <div id="categoryFilters" class="checkbox-list" aria-label="Category filter"></div>
+          </section>
+
+          <section class="panel">
+            <div class="section-title">Content</div>
+            <div id="typeFilters" class="tabs" role="group" aria-label="Content type filter"></div>
+          </section>
+
+          <section class="panel">
+            <div class="section-title">Quick Stats</div>
+            <div id="stats" class="stats"></div>
+          </section>
+
+          <section class="panel note-panel">
+            <div class="section-title">Local Note</div>
+            <form id="noteForm" class="note-form">
+              <input id="noteTitle" type="text" placeholder="Note title" required />
+              <textarea id="noteBody" placeholder="Temporary info for this browser" rows="4" required></textarea>
+              <button type="submit">Save Note</button>
+            </form>
+          </section>
+        </aside>
+
+        <section class="content-area">
+          <div class="content-header">
+            <div>
+              <p id="resultSummary" class="muted"></p>
+              <h2 id="currentView">All Support Content</h2>
+            </div>
+            <select id="statusFilter" aria-label="Promotion status filter">
+              <option value="all">All statuses</option>
+              <option value="active">Active promos</option>
+              <option value="upcoming">Upcoming promos</option>
+              <option value="expired">Expired promos</option>
+            </select>
+          </div>
+
+          <div id="results" class="results-grid" aria-live="polite"></div>
+          <div id="emptyState" class="empty-state" hidden>
+            <h3>No matching content</h3>
+            <p>Try a different brand, content type, or search keyword.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

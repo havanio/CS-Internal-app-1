@@ -1,0 +1,800 @@
+const state = {
+  brand: "all",
+  type: "all",
+  query: "",
+  status: "all",
+  categories: new Set(),
+  items: Array.isArray(supportData) ? [...supportData] : [],
+  notes: JSON.parse(localStorage.getItem("supportHubNotes") || "[]")
+};
+
+const sheetConfig = {
+  id: "1_brDqDzZl13Sn1YlU2wMnBNAywG86fEVQ4pN0qeLlPQ",
+  gid: "0"
+};
+
+const typeLabels = {
+  all: "TẤT CẢ",
+  script: "KỊCH BẢN CHAT",
+  promotion: "CTKM",
+  store: "CỬA HÀNG",
+  menu: "MENU",
+  note: "GHI CHÚ KHÁC"
+};
+
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
+const elements = {
+  search: document.querySelector("#searchInput"),
+  brandFilters: document.querySelector("#brandFilters"),
+  typeFilters: document.querySelector("#typeFilters"),
+  categoryFilters: document.querySelector("#categoryFilters"),
+  status: document.querySelector("#statusFilter"),
+  results: document.querySelector("#results"),
+  empty: document.querySelector("#emptyState"),
+  summary: document.querySelector("#resultSummary"),
+  currentView: document.querySelector("#currentView"),
+  stats: document.querySelector("#stats"),
+  toast: document.querySelector("#toast"),
+  noteForm: document.querySelector("#noteForm"),
+  noteTitle: document.querySelector("#noteTitle"),
+  noteBody: document.querySelector("#noteBody"),
+  clearButton: document.querySelector("#clearButton"),
+  exportButton: document.querySelector("#exportButton"),
+  dataSource: document.querySelector("#dataSource")
+};
+
+function getAllItems() {
+  return [...state.items, ...state.notes];
+}
+
+function getBrands() {
+  return ["all", ...new Set(state.items.map((item) => item.brand).filter(Boolean))];
+}
+
+function getTypes() {
+  return ["all", "script", "promotion", "store", "menu", "note"];
+}
+
+function getCategorySourceItems() {
+  return getAllItems().filter((item) => {
+    const brandMatch = state.brand === "all" || item.brand === state.brand;
+    const typeMatch = state.type === "all" || item.type === state.type;
+
+    return brandMatch && typeMatch;
+  });
+}
+
+function getCategories() {
+  return [
+    ...new Set(
+      getCategorySourceItems()
+        .map((item) => item.category)
+        .filter(Boolean)
+    )
+  ].sort((first, second) => first.localeCompare(second));
+}
+
+function normalize(value) {
+  return String(value || "").toLowerCase();
+}
+
+function escapeHtml(value) {
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function slugify(value) {
+  return normalize(value)
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+function splitList(value) {
+  if (!value) return [];
+  return String(value)
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function normalizeContentType(value) {
+  const type = slugify(value);
+  const aliases = {
+    chatscript: "script",
+    chatscripts: "script",
+    scripts: "script",
+    promos: "promotion",
+    promotions: "promotion",
+    stores: "store",
+    locations: "store",
+    menus: "menu"
+  };
+
+  return aliases[type.replace(/-/g, "")] || type || "script";
+}
+
+function parseCsv(csvText) {
+  const rows = [];
+  let row = [];
+  let cell = "";
+  let inQuotes = false;
+
+  for (let index = 0; index < csvText.length; index += 1) {
+    const char = csvText[index];
+    const nextChar = csvText[index + 1];
+
+    if (char === '"' && inQuotes && nextChar === '"') {
+      cell += '"';
+      index += 1;
+    } else if (char === '"') {
+      inQuotes = !inQuotes;
+    } else if (char === "," && !inQuotes) {
+      row.push(cell);
+      cell = "";
+    } else if ((char === "\n" || char === "\r") && !inQuotes) {
+      if (char === "\r" && nextChar === "\n") index += 1;
+      row.push(cell);
+      rows.push(row);
+      row = [];
+      cell = "";
+    } else {
+      cell += char;
+    }
+  }
+
+  if (cell || row.length) {
+    row.push(cell);
+    rows.push(row);
+  }
+
+  const knownHeaders = new Set([
+    "id",
+    "type",
+    "brand",
+    "category",
+    "title",
+    "content",
+    "phone",
+    "managername",
+    "managerphone",
+    "storephone1",
+    "storephone2",
+    "address",
+    "hours",
+    "notes",
+    "startdate",
+    "enddate",
+    "channels",
+    "tags",
+    "imageurl",
+    "imagelabel",
+    "updatedat"
+  ]);
+  const [headers = [], ...records] = rows;
+  const normalizedHeaders = headers.map((header) => {
+    const normalized = slugify(header).replace(/-/g, "");
+    const firstToken = slugify(String(header).trim().split(/\s+/)[0]).replace(/-/g, "");
+
+    return knownHeaders.has(firstToken) ? firstToken : normalized;
+  });
+
+  return records
+    .filter((record) => record.some((cellValue) => cellValue.trim()))
+    .map((record) =>
+      normalizedHeaders.reduce((entry, header, index) => {
+        entry[header] = (record[index] || "").trim();
+        return entry;
+      }, {})
+    );
+}
+
+function buildItemFromSheetRow(row, index) {
+  const item = {
+    id: slugify(row.id) || slugify(`${row.type}-${row.brand}-${row.title}`) || `sheet-item-${index + 1}`,
+    type: normalizeContentType(row.type),
+    brand: row.brand || "General",
+    title: row.title || "Untitled",
+    tags: splitList(row.tags)
+  };
+
+  [
+    "category",
+    "content",
+    "phone",
+    "managerName",
+    "managerPhone",
+    "storePhone1",
+    "storePhone2",
+    "address",
+    "hours",
+    "notes",
+    "startDate",
+    "endDate",
+    "imageUrl",
+    "imageLabel",
+    "updatedAt"
+  ].forEach((field) => {
+    const key = field.toLowerCase();
+    if (row[key]) item[field] = row[key];
+  });
+
+  const channels = splitList(row.channels);
+  if (channels.length) item.channels = channels;
+
+  return item;
+}
+
+async function loadSheetData() {
+  const url = `https://docs.google.com/spreadsheets/d/${sheetConfig.id}/gviz/tq?tqx=out:csv&gid=${sheetConfig.gid}`;
+
+  try {
+    const response = await fetch(url, { cache: "no-store" });
+    if (!response.ok) throw new Error(`Sheet returned ${response.status}`);
+
+    const rows = parseCsv(await response.text());
+    const sheetItems = rows.map(buildItemFromSheetRow).filter((item) => item.title || item.content);
+    if (!sheetItems.length) throw new Error("Sheet has no usable rows");
+
+    state.items = sheetItems;
+    elements.dataSource.textContent = `Loaded ${sheetItems.length} items from Google Sheets`;
+  } catch (error) {
+    elements.dataSource.textContent = "Using fallback data. Check Google Sheet sharing or publishing settings.";
+    console.warn("Google Sheet load failed:", error);
+  }
+
+  renderFilters();
+  renderResults();
+}
+
+function getPromotionStatus(item) {
+  if (item.type !== "promotion") return "";
+
+  const start = new Date(item.startDate);
+  const end = new Date(item.endDate);
+  start.setHours(0, 0, 0, 0);
+  end.setHours(23, 59, 59, 999);
+
+  if (today < start) return "upcoming";
+  if (today > end) return "expired";
+  return "active";
+}
+
+function itemMatchesQuery(item) {
+  if (!state.query) return true;
+
+  const searchable = [
+    item.brand,
+    item.type,
+    item.category,
+    item.title,
+    item.content,
+    item.phone,
+    item.managerName,
+    item.managerPhone,
+    item.storePhone1,
+    item.storePhone2,
+    item.address,
+    item.hours,
+    item.notes,
+    item.imageUrl,
+    item.startDate,
+    item.endDate,
+    ...(item.tags || []),
+    ...(item.channels || [])
+  ]
+    .map(normalize)
+    .join(" ");
+
+  return searchable.includes(normalize(state.query));
+}
+
+function getStorePhones(item) {
+  return [item.storePhone1, item.storePhone2].filter(Boolean);
+}
+
+function getManagerPhone(item) {
+  return item.managerPhone || "";
+}
+
+function getManagerName(item) {
+  return item.managerName || "";
+}
+
+function getLegacyStorePhone(item) {
+  return item.phone && !item.managerPhone && !getStorePhones(item).length ? item.phone : "";
+}
+
+function getFilteredItems() {
+  return getAllItems().filter((item) => {
+    const brandMatch = state.brand === "all" || item.brand === state.brand;
+    const typeMatch = state.type === "all" || item.type === state.type;
+    const categoryMatch = !state.categories.size || state.categories.has(item.category);
+    const queryMatch = itemMatchesQuery(item);
+    const statusMatch =
+      state.status === "all" || item.type !== "promotion" || getPromotionStatus(item) === state.status;
+
+    return brandMatch && typeMatch && categoryMatch && queryMatch && statusMatch;
+  });
+}
+
+function syncSelectedCategories() {
+  const availableCategories = new Set(getCategories());
+  state.categories = new Set([...state.categories].filter((category) => availableCategories.has(category)));
+}
+
+function renderFilters() {
+  syncSelectedCategories();
+
+  elements.brandFilters.innerHTML = getBrands()
+    .map(
+      (brand) => `
+        <button class="filter-button ${state.brand === brand ? "is-active" : ""}" type="button" data-brand="${escapeHtml(brand)}">
+          ${brand === "all" ? "All" : escapeHtml(brand)}
+        </button>
+      `
+    )
+    .join("");
+
+  elements.typeFilters.innerHTML = getTypes()
+    .map(
+      (type) => `
+        <button class="filter-button ${state.type === type ? "is-active" : ""}" type="button" data-type="${type}">
+          ${typeLabels[type]}
+        </button>
+      `
+    )
+    .join("");
+
+  const categories = getCategories();
+  elements.categoryFilters.innerHTML = categories.length
+    ? categories
+        .map((category, index) => {
+          const categoryId = `category-${slugify(category) || "item"}-${index}`;
+          const checked = state.categories.has(category) ? "checked" : "";
+
+          return `
+            <label class="checkbox-option" for="${escapeHtml(categoryId)}">
+              <input id="${escapeHtml(categoryId)}" type="checkbox" value="${escapeHtml(category)}" ${checked} />
+              <span>${escapeHtml(category)}</span>
+            </label>
+          `;
+        })
+        .join("")
+    : `<p class="checkbox-empty">No categories for this view.</p>`;
+}
+
+function renderStats(items) {
+  const allItems = getAllItems();
+  const activePromos = allItems.filter((item) => item.type === "promotion" && getPromotionStatus(item) === "active");
+  const scripts = allItems.filter((item) => item.type === "script");
+  const stores = allItems.filter((item) => item.type === "store");
+
+  elements.stats.innerHTML = [
+    ["Results", items.length],
+    ["Scripts", scripts.length],
+    ["Stores", stores.length],
+    ["Active Promos", activePromos.length]
+  ]
+    .map(
+      ([label, value]) => `
+        <div class="stat">
+          <strong>${value}</strong>
+          <span>${label}</span>
+        </div>
+      `
+    )
+    .join("");
+}
+
+function getCopyText(item) {
+  if (item.type === "store") {
+    const managerName = getManagerName(item);
+    const managerPhone = getManagerPhone(item);
+    const storePhones = getStorePhones(item);
+    const legacyPhone = getLegacyStorePhone(item);
+    const phoneLines = [
+      managerName ? `Manager: ${managerName}` : "",
+      managerPhone ? `Manager phone: ${managerPhone}` : "",
+      storePhones.length ? `Store phone: ${storePhones.join(" / ")}` : "",
+      legacyPhone ? `Phone: ${legacyPhone}` : ""
+    ].filter(Boolean);
+
+    return [
+      item.title,
+      ...phoneLines,
+      item.address ? `Address: ${item.address}` : "",
+      item.hours ? `Hours: ${item.hours}` : "",
+      item.notes ? `Notes: ${item.notes}` : ""
+    ]
+      .filter(Boolean)
+      .join("\n");
+  }
+
+  if (item.type === "promotion") {
+    return `${item.title}\n${item.content}\nValid: ${item.startDate} to ${item.endDate}\nChannels: ${(item.channels || []).join(", ")}`;
+  }
+
+  return item.content || item.notes || item.title;
+}
+
+function renderItemImage(item) {
+  if (!item.imageUrl) {
+    return item.type === "menu" ? `<div class="menu-preview">${escapeHtml(item.imageLabel || "Menu image")}</div>` : "";
+  }
+
+  return `
+    <figure class="card-image">
+      <img src="${escapeHtml(item.imageUrl)}" alt="${escapeHtml(item.title)}" loading="lazy" crossorigin="anonymous" />
+    </figure>
+  `;
+}
+
+function renderMeta(item) {
+  const rows = [];
+  const managerName = getManagerName(item);
+  const storePhones = getStorePhones(item);
+  const legacyPhone = getLegacyStorePhone(item);
+
+  if (item.category) rows.push(["Category", item.category]);
+  if (managerName) rows.push(["Manager", managerName]);
+  if (item.managerPhone) rows.push(["Manager Phone", item.managerPhone]);
+  if (storePhones.length) rows.push(["Store Phone", storePhones.join(" / ")]);
+  if (legacyPhone) rows.push(["Phone", legacyPhone]);
+  if (item.address) rows.push(["Address", item.address]);
+  if (item.hours) rows.push(["Hours", item.hours]);
+  if (item.startDate && item.endDate) rows.push(["Valid", `${item.startDate} to ${item.endDate}`]);
+  if (item.channels) rows.push(["Channels", item.channels.join(", ")]);
+  if (item.updatedAt) rows.push(["Updated", item.updatedAt]);
+
+  if (!rows.length) return "";
+
+  return `
+    <div class="meta-list">
+      ${rows.map(([label, value]) => `<span><strong>${label}:</strong> ${escapeHtml(value)}</span>`).join("")}
+    </div>
+  `;
+}
+
+function renderCard(item) {
+  const promoStatus = getPromotionStatus(item);
+  const tags = (item.tags || []).slice(0, 4);
+  const copyLabel = item.imageUrl ? "Copy Image" : item.type === "store" ? "Copy Info" : "Copy";
+  const typeClass = escapeHtml(slugify(item.type));
+  const typeLabel = escapeHtml(typeLabels[item.type] || item.type);
+  const managerName = getManagerName(item);
+  const managerPhone = getManagerPhone(item);
+  const storePhones = getStorePhones(item);
+  const legacyPhone = getLegacyStorePhone(item);
+
+  return `
+    <article class="content-card">
+      <div class="card-topline">
+        <div class="badge-row">
+          <span class="badge ${typeClass}">${typeLabel}</span>
+          <span class="badge">${escapeHtml(item.brand)}</span>
+          ${promoStatus ? `<span class="badge ${promoStatus}">${escapeHtml(promoStatus)}</span>` : ""}
+        </div>
+      </div>
+
+      <div>
+        <h3>${escapeHtml(item.title)}</h3>
+        <div class="card-body">${escapeHtml(item.content || item.notes || "")}</div>
+      </div>
+
+      ${item.type === "menu" || item.type === "promotion" ? renderItemImage(item) : ""}
+      ${renderMeta(item)}
+
+      ${
+        tags.length
+          ? `<div class="badge-row">${tags.map((tag) => `<span class="badge">${escapeHtml(tag)}</span>`).join("")}</div>`
+          : ""
+      }
+
+      <div class="card-actions">
+        <button type="button" ${item.imageUrl ? `data-copy-image="${escapeHtml(item.id)}"` : `data-copy="${escapeHtml(item.id)}"`}>${copyLabel}</button>
+        ${item.imageUrl ? `<button class="secondary" type="button" data-copy="${escapeHtml(item.id)}">Copy Info</button>` : ""}
+        ${item.imageUrl ? `<button class="secondary" type="button" data-copy-image-link="${escapeHtml(item.id)}">Copy Link</button>` : ""}
+        ${item.imageUrl ? `<button class="secondary" type="button" data-open-image="${escapeHtml(item.id)}">Open Image</button>` : ""}
+        ${item.imageUrl ? `<a class="button secondary" href="${escapeHtml(item.imageUrl)}" download>Download</a>` : ""}
+        ${item.type === "note" ? `<button class="secondary" type="button" data-delete-note="${escapeHtml(item.id)}">Delete</button>` : ""}
+        ${managerPhone ? `<button class="secondary" type="button" data-copy-manager-phone="${escapeHtml(item.id)}">Copy Manager</button>` : ""}
+        ${storePhones.length ? `<button class="secondary" type="button" data-copy-store-phone="${escapeHtml(item.id)}">Copy Store Phone</button>` : ""}
+        ${legacyPhone ? `<button class="secondary" type="button" data-copy-phone="${escapeHtml(item.id)}">Copy Phone</button>` : ""}
+      </div>
+    </article>
+  `;
+}
+
+function renderResults() {
+  const items = getFilteredItems();
+
+  elements.results.innerHTML = items.map(renderCard).join("");
+  elements.empty.hidden = items.length > 0;
+  elements.summary.textContent = `${items.length} result${items.length === 1 ? "" : "s"} found`;
+  elements.currentView.textContent = typeLabels[state.type];
+  renderStats(items);
+}
+
+function showToast(message) {
+  elements.toast.textContent = message;
+  elements.toast.classList.add("is-visible");
+  window.clearTimeout(showToast.timer);
+  showToast.timer = window.setTimeout(() => {
+    elements.toast.classList.remove("is-visible");
+  }, 1800);
+}
+
+async function copyToClipboard(text, message) {
+  try {
+    await navigator.clipboard.writeText(text);
+    showToast(message);
+  } catch {
+    showToast("Copy failed. Select the text manually.");
+  }
+}
+
+function loadImage(url) {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.crossOrigin = "anonymous";
+    image.onload = () => resolve(image);
+    image.onerror = reject;
+    image.src = url;
+  });
+}
+
+function imageToCanvas(image) {
+  const maxClipboardImageSide = 2400;
+  const scale = Math.min(1, maxClipboardImageSide / Math.max(image.naturalWidth, image.naturalHeight));
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.round(image.naturalWidth * scale);
+  canvas.height = Math.round(image.naturalHeight * scale);
+
+  const context = canvas.getContext("2d");
+  context.drawImage(image, 0, 0, canvas.width, canvas.height);
+  return canvas;
+}
+
+function canvasToPngBlob(canvas) {
+  return new Promise((resolve, reject) => {
+    canvas.toBlob((blob) => {
+      if (blob) {
+        resolve(blob);
+      } else {
+        reject(new Error("Could not convert image"));
+      }
+    }, "image/png");
+  });
+}
+
+async function imageToPngBlob(url) {
+  const image = await loadImage(url);
+  return canvasToPngBlob(imageToCanvas(image));
+}
+
+function copyImageAsHtml(image, title) {
+  const selection = window.getSelection();
+  const previousRange = selection?.rangeCount ? selection.getRangeAt(0).cloneRange() : null;
+  const temporaryCopyArea = document.createElement("div");
+  try {
+    const dataUrl = imageToCanvas(image).toDataURL("image/png");
+    const html = `<img src="${dataUrl}" alt="${escapeHtml(title)}">`;
+    const copyHandler = (event) => {
+      event.preventDefault();
+      event.clipboardData.setData("text/html", html);
+      event.clipboardData.setData("text/plain", title);
+    };
+
+    temporaryCopyArea.contentEditable = "true";
+    temporaryCopyArea.style.position = "fixed";
+    temporaryCopyArea.style.left = "-9999px";
+    temporaryCopyArea.style.top = "0";
+    temporaryCopyArea.innerHTML = html;
+    document.body.appendChild(temporaryCopyArea);
+
+    const range = document.createRange();
+    range.selectNodeContents(temporaryCopyArea);
+    selection?.removeAllRanges();
+    selection?.addRange(range);
+
+    document.addEventListener("copy", copyHandler, { once: true });
+    const copied = document.execCommand("copy");
+    document.removeEventListener("copy", copyHandler);
+    return copied;
+  } catch (error) {
+    console.warn("HTML image copy failed", error);
+    return false;
+  } finally {
+    temporaryCopyArea.remove();
+    if (selection) {
+      selection.removeAllRanges();
+      if (previousRange) selection.addRange(previousRange);
+    }
+  }
+}
+
+async function copyImageToClipboard(url, title, imageElement) {
+  const htmlCopied =
+    imageElement?.complete && imageElement.naturalWidth ? copyImageAsHtml(imageElement, title) : false;
+
+  if (!window.ClipboardItem || !navigator.clipboard?.write) {
+    showToast(htmlCopied ? "Image copied" : "Image copy is not supported in this browser.");
+    return;
+  }
+
+  try {
+    const pngBlob = imageElement?.complete && imageElement.naturalWidth
+      ? canvasToPngBlob(imageToCanvas(imageElement))
+      : imageToPngBlob(url);
+    const item = new ClipboardItem({
+      "image/png": pngBlob,
+    });
+    await navigator.clipboard.write([item]);
+    showToast("Image copied");
+  } catch (error) {
+    console.warn("Image copy failed", error);
+    showToast(htmlCopied ? "Image copied" : "Image copy failed. Open the image and copy it manually.");
+  }
+}
+
+function saveNotes() {
+  localStorage.setItem("supportHubNotes", JSON.stringify(state.notes));
+}
+
+function resetFilters() {
+  state.brand = "all";
+  state.type = "all";
+  state.query = "";
+  state.status = "all";
+  state.categories.clear();
+  elements.search.value = "";
+  elements.status.value = "all";
+  renderFilters();
+  renderResults();
+}
+
+function bindEvents() {
+  elements.search.addEventListener("input", (event) => {
+    state.query = event.target.value.trim();
+    renderResults();
+  });
+
+  elements.brandFilters.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-brand]");
+    if (!button) return;
+    state.brand = button.dataset.brand;
+    syncSelectedCategories();
+    renderFilters();
+    renderResults();
+  });
+
+  elements.typeFilters.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-type]");
+    if (!button) return;
+    state.type = button.dataset.type;
+    syncSelectedCategories();
+    renderFilters();
+    renderResults();
+  });
+
+  elements.categoryFilters.addEventListener("change", (event) => {
+    const checkbox = event.target.closest('input[type="checkbox"]');
+    if (!checkbox) return;
+
+    if (checkbox.checked) {
+      state.categories.add(checkbox.value);
+    } else {
+      state.categories.delete(checkbox.value);
+    }
+
+    renderFilters();
+    renderResults();
+  });
+
+  elements.status.addEventListener("change", (event) => {
+    state.status = event.target.value;
+    renderResults();
+  });
+
+  elements.results.addEventListener("click", (event) => {
+    const copyButton = event.target.closest("[data-copy]");
+    const copyImageButton = event.target.closest("[data-copy-image]");
+    const copyImageLinkButton = event.target.closest("[data-copy-image-link]");
+    const openImageButton = event.target.closest("[data-open-image]");
+    const phoneButton = event.target.closest("[data-copy-phone]");
+    const managerPhoneButton = event.target.closest("[data-copy-manager-phone]");
+    const storePhoneButton = event.target.closest("[data-copy-store-phone]");
+    const deleteButton = event.target.closest("[data-delete-note]");
+    const itemId =
+      copyButton?.dataset.copy ||
+      copyImageButton?.dataset.copyImage ||
+      copyImageLinkButton?.dataset.copyImageLink ||
+      openImageButton?.dataset.openImage ||
+      phoneButton?.dataset.copyPhone ||
+      managerPhoneButton?.dataset.copyManagerPhone ||
+      storePhoneButton?.dataset.copyStorePhone ||
+      deleteButton?.dataset.deleteNote;
+    const item = getAllItems().find((entry) => entry.id === itemId);
+
+    if (!item) return;
+
+    if (deleteButton) {
+      state.notes = state.notes.filter((note) => note.id !== item.id);
+      saveNotes();
+      showToast("Local note deleted");
+      renderResults();
+      return;
+    }
+
+    if (copyImageLinkButton) {
+      copyToClipboard(new URL(item.imageUrl, window.location.href).href, "Image link copied");
+      return;
+    }
+
+    if (openImageButton) {
+      window.open(item.imageUrl, "_blank", "noopener");
+      return;
+    }
+
+    if (copyImageButton) {
+      const imageElement = copyImageButton.closest(".content-card")?.querySelector(".card-image img");
+      copyImageToClipboard(item.imageUrl, item.title, imageElement);
+      return;
+    }
+
+    if (phoneButton) {
+      copyToClipboard(item.phone, "Phone number copied");
+      return;
+    }
+
+    if (managerPhoneButton) {
+      copyToClipboard(getManagerPhone(item), "Manager phone copied");
+      return;
+    }
+
+    if (storePhoneButton) {
+      copyToClipboard(getStorePhones(item).join("\n"), "Store phone copied");
+      return;
+    }
+
+    copyToClipboard(getCopyText(item), "Content copied");
+  });
+
+  elements.noteForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const note = {
+      id: `note-${Date.now()}`,
+      type: "note",
+      brand: state.brand === "all" ? "General" : state.brand,
+      title: elements.noteTitle.value.trim(),
+      content: elements.noteBody.value.trim(),
+      tags: ["local note"],
+      updatedAt: new Date().toISOString().slice(0, 10)
+    };
+
+    state.notes.unshift(note);
+    saveNotes();
+    elements.noteForm.reset();
+    showToast("Local note saved");
+    renderFilters();
+    renderResults();
+  });
+
+  elements.clearButton.addEventListener("click", resetFilters);
+
+  elements.exportButton.addEventListener("click", () => {
+    const payload = JSON.stringify(state.notes, null, 2);
+    copyToClipboard(payload, "Local notes exported to clipboard");
+  });
+}
+
+renderFilters();
+renderResults();
+bindEvents();
+loadSheetData();
