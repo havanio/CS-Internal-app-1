@@ -230,6 +230,26 @@ function buildItemFromSheetRow(row, index) {
   return item;
 }
 
+function parseSheetDate(value, endOfDay = false) {
+  if (!value) return null;
+
+  const normalizedValue = String(value).trim();
+  const isoMatch = normalizedValue.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  const date = isoMatch
+    ? new Date(Number(isoMatch[1]), Number(isoMatch[2]) - 1, Number(isoMatch[3]))
+    : new Date(normalizedValue);
+
+  if (Number.isNaN(date.getTime())) return null;
+
+  if (endOfDay) {
+    date.setHours(23, 59, 59, 999);
+  } else {
+    date.setHours(0, 0, 0, 0);
+  }
+
+  return date;
+}
+
 async function loadSheetData() {
   const url = `https://docs.google.com/spreadsheets/d/${sheetConfig.id}/gviz/tq?tqx=out:csv&gid=${sheetConfig.gid}`;
 
@@ -255,13 +275,11 @@ async function loadSheetData() {
 function getPromotionStatus(item) {
   if (item.type !== "promotion") return "";
 
-  const start = new Date(item.startDate);
-  const end = new Date(item.endDate);
-  start.setHours(0, 0, 0, 0);
-  end.setHours(23, 59, 59, 999);
+  const start = parseSheetDate(item.startDate);
+  const end = parseSheetDate(item.endDate, true);
 
-  if (today < start) return "upcoming";
-  if (today > end) return "expired";
+  if (start && today < start) return "upcoming";
+  if (end && today > end) return "expired";
   return "active";
 }
 
