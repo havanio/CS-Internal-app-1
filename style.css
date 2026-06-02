@@ -119,33 +119,23 @@ h3 {
   border: 1px solid var(--line);
 }
 
-.layout {
+.workspace {
   display: grid;
-  grid-template-columns: 310px 1fr;
-  gap: 18px;
-  align-items: start;
+  gap: 14px;
 }
 
-.sidebar,
-.content-area {
-  min-width: 0;
-}
-
-.sidebar {
-  position: sticky;
-  top: 16px;
-  max-height: calc(100vh - 32px);
-  overflow: auto;
-  padding-right: 2px;
-}
-
-.panel {
+.filter-board {
+  display: grid;
+  gap: 12px;
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 12px;
+  padding: 14px;
   box-shadow: var(--shadow);
+}
+
+.filter-section {
+  min-width: 0;
 }
 
 .section-title,
@@ -179,15 +169,11 @@ textarea {
   padding: 10px 12px;
 }
 
-.segmented,
-.tabs,
-.checkbox-list {
-  display: grid;
+.filter-row,
+.category-row {
+  display: flex;
+  flex-wrap: wrap;
   gap: 8px;
-}
-
-.segmented {
-  grid-template-columns: 1fr 1fr;
 }
 
 .filter-button {
@@ -197,41 +183,13 @@ textarea {
   background: var(--surface);
   color: var(--ink);
   font-weight: 700;
+  padding: 0 14px;
 }
 
 .filter-button.is-active {
   border-color: var(--green);
   background: var(--green);
   color: #fff;
-}
-
-.tabs .filter-button {
-  text-align: left;
-  padding: 0 12px;
-}
-
-.checkbox-list {
-  max-height: 260px;
-  overflow: auto;
-}
-
-.checkbox-option {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 38px;
-  border: 1px solid var(--line);
-  border-radius: 7px;
-  background: var(--surface);
-  padding: 8px 10px;
-  color: var(--ink);
-  font-weight: 700;
-}
-
-.checkbox-option input {
-  width: 16px;
-  min-height: 16px;
-  accent-color: var(--green);
 }
 
 .checkbox-empty {
@@ -273,7 +231,7 @@ textarea {
   background: rgba(255, 255, 255, 0.58);
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 18px;
+  padding: 14px;
   min-height: 75vh;
 }
 
@@ -283,6 +241,10 @@ textarea {
   align-items: end;
   gap: 16px;
   margin-bottom: 16px;
+}
+
+.store-search {
+  margin-bottom: 12px;
 }
 
 .content-header select {
@@ -297,8 +259,111 @@ textarea {
 
 .results-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 12px;
+}
+
+.results-grid.is-script-table {
+  display: block;
+}
+
+.script-table {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.script-group {
+  display: grid;
+  grid-template-columns: minmax(150px, 210px) 1fr;
+  border-bottom: 1px solid var(--line);
+}
+
+.script-group:last-child {
+  border-bottom: 0;
+}
+
+.script-category {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  background: var(--surface-2);
+  border-right: 1px solid var(--line);
+  padding: 14px;
+}
+
+.script-category strong {
+  font-size: 0.98rem;
+}
+
+.script-category span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.script-rows {
+  min-width: 0;
+}
+
+.script-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 92px;
+  gap: 12px;
+  align-items: start;
+  border-bottom: 1px solid var(--line);
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: background 0.16s ease, box-shadow 0.16s ease;
+}
+
+.script-row:last-child {
+  border-bottom: 0;
+}
+
+.script-row:hover {
+  background: #f5faf7;
+}
+
+.script-row:focus-within {
+  box-shadow: inset 3px 0 0 var(--green);
+}
+
+.script-copy {
+  min-width: 0;
+}
+
+.script-copy h3 {
+  margin-bottom: 6px;
+}
+
+.script-copy p {
+  display: -webkit-box;
+  margin-bottom: 0;
+  overflow: hidden;
+  color: #3b443f;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+.script-action {
+  display: flex;
+  justify-content: end;
+}
+
+.script-action button {
+  min-height: 36px;
+  min-width: 76px;
+  border: 0;
+  border-radius: 7px;
+  background: var(--green);
+  color: #fff;
+  font-weight: 750;
 }
 
 .content-card {
@@ -478,18 +543,34 @@ textarea {
     width: 100%;
   }
 
-  .layout {
+  .filter-board,
+  .content-area {
+    padding: 12px;
+  }
+
+  .filter-button {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  .script-group {
+    display: block;
+  }
+
+  .script-category {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .script-row {
     grid-template-columns: 1fr;
   }
 
-  .sidebar {
-    position: static;
-    max-height: none;
-    overflow: visible;
-    padding-right: 0;
+  .script-action {
+    justify-content: stretch;
   }
 
-  .segmented {
-    grid-template-columns: 1fr;
+  .script-action button {
+    width: 100%;
   }
 }

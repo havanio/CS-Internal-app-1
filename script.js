@@ -1,9 +1,9 @@
 const state = {
-  brand: "all",
-  type: "all",
+  brand: "TUTIMI",
+  type: "script",
   query: "",
   status: "all",
-  categories: new Set(),
+  category: "",
   items: Array.isArray(supportData) ? [...supportData] : [],
   notes: JSON.parse(localStorage.getItem("supportHubNotes") || "[]")
 };
@@ -27,6 +27,7 @@ today.setHours(0, 0, 0, 0);
 
 const elements = {
   search: document.querySelector("#searchInput"),
+  storeSearchSection: document.querySelector("#storeSearchSection"),
   brandFilters: document.querySelector("#brandFilters"),
   typeFilters: document.querySelector("#typeFilters"),
   categoryFilters: document.querySelector("#categoryFilters"),
@@ -50,17 +51,29 @@ function getAllItems() {
 }
 
 function getBrands() {
-  return ["all", ...new Set(state.items.map((item) => item.brand).filter(Boolean))];
+  return [...new Set(state.items.map((item) => item.brand).filter(Boolean))];
 }
 
 function getTypes() {
-  return ["all", "script", "promotion", "store", "menu", "note"];
+  return ["script", "promotion", "store", "menu"];
+}
+
+function ensureDefaultFilters() {
+  const brands = getBrands();
+  const preferredBrand = brands.find((brand) => slugify(brand) === "tutimi");
+  if (!brands.includes(state.brand)) {
+    state.brand = preferredBrand || brands[0] || "";
+  }
+
+  if (!getTypes().includes(state.type)) {
+    state.type = "script";
+  }
 }
 
 function getCategorySourceItems() {
   return getAllItems().filter((item) => {
-    const brandMatch = state.brand === "all" || item.brand === state.brand;
-    const typeMatch = state.type === "all" || item.type === state.type;
+    const brandMatch = item.brand === state.brand;
+    const typeMatch = item.type === state.type;
 
     return brandMatch && typeMatch;
   });
@@ -330,10 +343,10 @@ function getLegacyStorePhone(item) {
 
 function getFilteredItems() {
   return getAllItems().filter((item) => {
-    const brandMatch = state.brand === "all" || item.brand === state.brand;
-    const typeMatch = state.type === "all" || item.type === state.type;
-    const categoryMatch = !state.categories.size || state.categories.has(item.category);
-    const queryMatch = itemMatchesQuery(item);
+    const brandMatch = item.brand === state.brand;
+    const typeMatch = item.type === state.type;
+    const categoryMatch = !state.category || item.category === state.category;
+    const queryMatch = state.type !== "store" || itemMatchesQuery(item);
     const statusMatch =
       state.status === "all" || item.type !== "promotion" || getPromotionStatus(item) === state.status;
 
@@ -343,17 +356,20 @@ function getFilteredItems() {
 
 function syncSelectedCategories() {
   const availableCategories = new Set(getCategories());
-  state.categories = new Set([...state.categories].filter((category) => availableCategories.has(category)));
+  if (state.category && !availableCategories.has(state.category)) {
+    state.category = "";
+  }
 }
 
 function renderFilters() {
+  ensureDefaultFilters();
   syncSelectedCategories();
 
   elements.brandFilters.innerHTML = getBrands()
     .map(
       (brand) => `
         <button class="filter-button ${state.brand === brand ? "is-active" : ""}" type="button" data-brand="${escapeHtml(brand)}">
-          ${brand === "all" ? "All" : escapeHtml(brand)}
+          ${escapeHtml(brand)}
         </button>
       `
     )
@@ -372,22 +388,20 @@ function renderFilters() {
   const categories = getCategories();
   elements.categoryFilters.innerHTML = categories.length
     ? categories
-        .map((category, index) => {
-          const categoryId = `category-${slugify(category) || "item"}-${index}`;
-          const checked = state.categories.has(category) ? "checked" : "";
-
-          return `
-            <label class="checkbox-option" for="${escapeHtml(categoryId)}">
-              <input id="${escapeHtml(categoryId)}" type="checkbox" value="${escapeHtml(category)}" ${checked} />
-              <span>${escapeHtml(category)}</span>
-            </label>
-          `;
-        })
+        .map(
+          (category) => `
+            <button class="filter-button ${state.category === category ? "is-active" : ""}" type="button" data-category="${escapeHtml(category)}">
+              ${escapeHtml(category)}
+            </button>
+          `
+        )
         .join("")
     : `<p class="checkbox-empty">No categories for this view.</p>`;
 }
 
 function renderStats(items) {
+  if (!elements.stats) return;
+
   const allItems = getAllItems();
   const activePromos = allItems.filter((item) => item.type === "promotion" && getPromotionStatus(item) === "active");
   const scripts = allItems.filter((item) => item.type === "script");
@@ -529,10 +543,61 @@ function renderCard(item) {
   `;
 }
 
+function groupItemsByCategory(items) {
+  return items.reduce((groups, item) => {
+    const category = item.category || "Uncategorized";
+    if (!groups.has(category)) groups.set(category, []);
+    groups.get(category).push(item);
+    return groups;
+  }, new Map());
+}
+
+function renderScriptTable(items) {
+  const groups = groupItemsByCategory(items);
+
+  return `
+    <div class="script-table" role="table" aria-label="Chat scripts grouped by category">
+      ${[...groups]
+        .map(
+          ([category, scripts]) => `
+            <section class="script-group" role="rowgroup">
+              <div class="script-category" role="rowheader">
+                <strong>${escapeHtml(category)}</strong>
+                <span>${scripts.length} script${scripts.length === 1 ? "" : "s"}</span>
+              </div>
+              <div class="script-rows">
+                ${scripts
+                  .map(
+                    (script) => `
+                      <article class="script-row" role="row" data-copy-row="${escapeHtml(script.id)}" title="Click to copy">
+                        <div class="script-copy" role="cell">
+                          <h3>${escapeHtml(script.title)}</h3>
+                          <p>${escapeHtml(script.content || script.notes || "")}</p>
+                        </div>
+                        <div class="script-action" role="cell">
+                          <button type="button" data-copy="${escapeHtml(script.id)}">Copy</button>
+                        </div>
+                      </article>
+                    `
+                  )
+                  .join("")}
+              </div>
+            </section>
+          `
+        )
+        .join("")}
+    </div>
+  `;
+}
+
 function renderResults() {
   const items = getFilteredItems();
+  const useScriptTable = state.type === "script" || (items.length > 0 && items.every((item) => item.type === "script"));
 
-  elements.results.innerHTML = items.map(renderCard).join("");
+  if (elements.status) elements.status.hidden = state.type !== "promotion";
+  if (elements.storeSearchSection) elements.storeSearchSection.hidden = state.type !== "store";
+  elements.results.classList.toggle("is-script-table", useScriptTable);
+  elements.results.innerHTML = useScriptTable ? renderScriptTable(items) : items.map(renderCard).join("");
   elements.empty.hidden = items.length > 0;
   elements.summary.textContent = `${items.length} result${items.length === 1 ? "" : "s"} found`;
   elements.currentView.textContent = typeLabels[state.type];
@@ -666,19 +731,19 @@ function saveNotes() {
 }
 
 function resetFilters() {
-  state.brand = "all";
-  state.type = "all";
+  state.brand = "TUTIMI";
+  state.type = "script";
   state.query = "";
   state.status = "all";
-  state.categories.clear();
-  elements.search.value = "";
-  elements.status.value = "all";
+  state.category = "";
+  if (elements.search) elements.search.value = "";
+  if (elements.status) elements.status.value = "all";
   renderFilters();
   renderResults();
 }
 
 function bindEvents() {
-  elements.search.addEventListener("input", (event) => {
+  elements.search?.addEventListener("input", (event) => {
     state.query = event.target.value.trim();
     renderResults();
   });
@@ -696,32 +761,31 @@ function bindEvents() {
     const button = event.target.closest("[data-type]");
     if (!button) return;
     state.type = button.dataset.type;
+    if (state.type !== "store") {
+      state.query = "";
+      if (elements.search) elements.search.value = "";
+    }
     syncSelectedCategories();
     renderFilters();
     renderResults();
   });
 
-  elements.categoryFilters.addEventListener("change", (event) => {
-    const checkbox = event.target.closest('input[type="checkbox"]');
-    if (!checkbox) return;
-
-    if (checkbox.checked) {
-      state.categories.add(checkbox.value);
-    } else {
-      state.categories.delete(checkbox.value);
-    }
-
+  elements.categoryFilters.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-category]");
+    if (!button) return;
+    state.category = state.category === button.dataset.category ? "" : button.dataset.category;
     renderFilters();
     renderResults();
   });
 
-  elements.status.addEventListener("change", (event) => {
+  elements.status?.addEventListener("change", (event) => {
     state.status = event.target.value;
     renderResults();
   });
 
   elements.results.addEventListener("click", (event) => {
     const copyButton = event.target.closest("[data-copy]");
+    const copyRow = event.target.closest("[data-copy-row]");
     const copyImageButton = event.target.closest("[data-copy-image]");
     const copyImageLinkButton = event.target.closest("[data-copy-image-link]");
     const openImageButton = event.target.closest("[data-open-image]");
@@ -731,6 +795,7 @@ function bindEvents() {
     const deleteButton = event.target.closest("[data-delete-note]");
     const itemId =
       copyButton?.dataset.copy ||
+      copyRow?.dataset.copyRow ||
       copyImageButton?.dataset.copyImage ||
       copyImageLinkButton?.dataset.copyImageLink ||
       openImageButton?.dataset.openImage ||
@@ -784,12 +849,12 @@ function bindEvents() {
     copyToClipboard(getCopyText(item), "Content copied");
   });
 
-  elements.noteForm.addEventListener("submit", (event) => {
+  elements.noteForm?.addEventListener("submit", (event) => {
     event.preventDefault();
     const note = {
       id: `note-${Date.now()}`,
       type: "note",
-      brand: state.brand === "all" ? "General" : state.brand,
+      brand: state.brand || "General",
       title: elements.noteTitle.value.trim(),
       content: elements.noteBody.value.trim(),
       tags: ["local note"],
@@ -806,7 +871,7 @@ function bindEvents() {
 
   elements.clearButton.addEventListener("click", resetFilters);
 
-  elements.exportButton.addEventListener("click", () => {
+  elements.exportButton?.addEventListener("click", () => {
     const payload = JSON.stringify(state.notes, null, 2);
     copyToClipboard(payload, "Local notes exported to clipboard");
   });
