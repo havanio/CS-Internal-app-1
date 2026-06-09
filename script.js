@@ -492,7 +492,7 @@ function renderItemImage(item) {
 
   return `
     <figure class="card-image">
-      <img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(item.title)}" loading="lazy" crossorigin="anonymous" />
+      <img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(item.title)}" loading="lazy" />
     </figure>
   `;
 }
