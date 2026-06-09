@@ -455,14 +455,44 @@ function getCopyText(item) {
   return item.content || item.notes || item.title;
 }
 
+function getGoogleDriveFileId(url) {
+  const filePathMatch = String(url).match(/drive\.google\.com\/file\/d\/([^/]+)/i);
+  if (filePathMatch) return filePathMatch[1];
+
+  try {
+    const parsedUrl = new URL(url);
+    if (!parsedUrl.hostname.includes("drive.google.com")) return "";
+    return parsedUrl.searchParams.get("id") || "";
+  } catch {
+    return "";
+  }
+}
+
+function getDisplayImageUrl(imageUrl) {
+  if (!imageUrl) return "";
+  const driveFileId = getGoogleDriveFileId(imageUrl);
+  if (driveFileId) {
+    return `https://drive.google.com/thumbnail?id=${encodeURIComponent(driveFileId)}&sz=w2400`;
+  }
+
+  return imageUrl;
+}
+
+function getAbsoluteImageUrl(imageUrl) {
+  const displayUrl = getDisplayImageUrl(imageUrl);
+  return displayUrl ? new URL(displayUrl, window.location.href).href : "";
+}
+
 function renderItemImage(item) {
-  if (!item.imageUrl) {
+  const imageUrl = getDisplayImageUrl(item.imageUrl);
+
+  if (!imageUrl) {
     return item.type === "menu" ? `<div class="menu-preview">${escapeHtml(item.imageLabel || "Menu image")}</div>` : "";
   }
 
   return `
     <figure class="card-image">
-      <img src="${escapeHtml(item.imageUrl)}" alt="${escapeHtml(item.title)}" loading="lazy" crossorigin="anonymous" />
+      <img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(item.title)}" loading="lazy" crossorigin="anonymous" />
     </figure>
   `;
 }
@@ -496,7 +526,8 @@ function renderMeta(item) {
 function renderCard(item) {
   const promoStatus = getPromotionStatus(item);
   const tags = (item.tags || []).slice(0, 4);
-  const copyLabel = item.imageUrl ? "Copy Image" : item.type === "store" ? "Copy Info" : "Copy";
+  const imageUrl = getDisplayImageUrl(item.imageUrl);
+  const copyLabel = imageUrl ? "Copy Image" : item.type === "store" ? "Copy Info" : "Copy";
   const typeClass = escapeHtml(slugify(item.type));
   const typeLabel = escapeHtml(typeLabels[item.type] || item.type);
   const managerName = getManagerName(item);
@@ -529,11 +560,11 @@ function renderCard(item) {
       }
 
       <div class="card-actions">
-        <button type="button" ${item.imageUrl ? `data-copy-image="${escapeHtml(item.id)}"` : `data-copy="${escapeHtml(item.id)}"`}>${copyLabel}</button>
-        ${item.imageUrl ? `<button class="secondary" type="button" data-copy="${escapeHtml(item.id)}">Copy Info</button>` : ""}
-        ${item.imageUrl ? `<button class="secondary" type="button" data-copy-image-link="${escapeHtml(item.id)}">Copy Link</button>` : ""}
-        ${item.imageUrl ? `<button class="secondary" type="button" data-open-image="${escapeHtml(item.id)}">Open Image</button>` : ""}
-        ${item.imageUrl ? `<a class="button secondary" href="${escapeHtml(item.imageUrl)}" download>Download</a>` : ""}
+        <button type="button" ${imageUrl ? `data-copy-image="${escapeHtml(item.id)}"` : `data-copy="${escapeHtml(item.id)}"`}>${copyLabel}</button>
+        ${imageUrl ? `<button class="secondary" type="button" data-copy="${escapeHtml(item.id)}">Copy Info</button>` : ""}
+        ${imageUrl ? `<button class="secondary" type="button" data-copy-image-link="${escapeHtml(item.id)}">Copy Link</button>` : ""}
+        ${imageUrl ? `<button class="secondary" type="button" data-open-image="${escapeHtml(item.id)}">Open Image</button>` : ""}
+        ${imageUrl ? `<a class="button secondary" href="${escapeHtml(imageUrl)}" download>Download</a>` : ""}
         ${item.type === "note" ? `<button class="secondary" type="button" data-delete-note="${escapeHtml(item.id)}">Delete</button>` : ""}
         ${managerPhone ? `<button class="secondary" type="button" data-copy-manager-phone="${escapeHtml(item.id)}">Copy Manager</button>` : ""}
         ${storePhones.length ? `<button class="secondary" type="button" data-copy-store-phone="${escapeHtml(item.id)}">Copy Store Phone</button>` : ""}
@@ -816,18 +847,18 @@ function bindEvents() {
     }
 
     if (copyImageLinkButton) {
-      copyToClipboard(new URL(item.imageUrl, window.location.href).href, "Image link copied");
+      copyToClipboard(getAbsoluteImageUrl(item.imageUrl), "Image link copied");
       return;
     }
 
     if (openImageButton) {
-      window.open(item.imageUrl, "_blank", "noopener");
+      window.open(getAbsoluteImageUrl(item.imageUrl), "_blank", "noopener");
       return;
     }
 
     if (copyImageButton) {
       const imageElement = copyImageButton.closest(".content-card")?.querySelector(".card-image img");
-      copyImageToClipboard(item.imageUrl, item.title, imageElement);
+      copyImageToClipboard(getDisplayImageUrl(item.imageUrl), item.title, imageElement);
       return;
     }
 
