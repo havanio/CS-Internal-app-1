@@ -108,6 +108,10 @@ function slugify(value) {
     .replace(/^-|-$/g, "");
 }
 
+function getBrandClass(brand) {
+  return `brand-${slugify(brand) || "general"}`;
+}
+
 function splitList(value) {
   if (!value) return [];
   return String(value)
@@ -472,7 +476,7 @@ function getDisplayImageUrl(imageUrl) {
   if (!imageUrl) return "";
   const driveFileId = getGoogleDriveFileId(imageUrl);
   if (driveFileId) {
-    return `https://drive.google.com/thumbnail?id=${encodeURIComponent(driveFileId)}&sz=w2400`;
+    return `https://lh3.googleusercontent.com/d/${encodeURIComponent(driveFileId)}=w2400`;
   }
 
   return imageUrl;
@@ -529,6 +533,7 @@ function renderCard(item) {
   const imageUrl = getDisplayImageUrl(item.imageUrl);
   const copyLabel = imageUrl ? "Copy Image" : item.type === "store" ? "Copy Info" : "Copy";
   const typeClass = escapeHtml(slugify(item.type));
+  const brandClass = escapeHtml(getBrandClass(item.brand));
   const typeLabel = escapeHtml(typeLabels[item.type] || item.type);
   const managerName = getManagerName(item);
   const managerPhone = getManagerPhone(item);
@@ -536,11 +541,11 @@ function renderCard(item) {
   const legacyPhone = getLegacyStorePhone(item);
 
   return `
-    <article class="content-card">
+    <article class="content-card ${brandClass}">
       <div class="card-topline">
         <div class="badge-row">
           <span class="badge ${typeClass}">${typeLabel}</span>
-          <span class="badge">${escapeHtml(item.brand)}</span>
+          <span class="badge brand-badge ${brandClass}">${escapeHtml(item.brand)}</span>
           ${promoStatus ? `<span class="badge ${promoStatus}">${escapeHtml(promoStatus)}</span>` : ""}
         </div>
       </div>
@@ -624,9 +629,13 @@ function renderScriptTable(items) {
 function renderResults() {
   const items = getFilteredItems();
   const useScriptTable = state.type === "script" || (items.length > 0 && items.every((item) => item.type === "script"));
+  const brandClass = getBrandClass(state.brand);
 
   if (elements.status) elements.status.hidden = state.type !== "promotion";
   if (elements.storeSearchSection) elements.storeSearchSection.hidden = state.type !== "store";
+  elements.results.dataset.brand = brandClass;
+  elements.results.classList.remove("brand-tutimi", "brand-sekai", "brand-dhi", "brand-general");
+  elements.results.classList.add(brandClass);
   elements.results.classList.toggle("is-script-table", useScriptTable);
   elements.results.innerHTML = useScriptTable ? renderScriptTable(items) : items.map(renderCard).join("");
   elements.empty.hidden = items.length > 0;

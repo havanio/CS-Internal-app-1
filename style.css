@@ -12,6 +12,10 @@
   --amber: #a15c07;
   --blue: #315c99;
   --shadow: 0 18px 50px rgba(31, 41, 35, 0.08);
+  --brand-color: var(--green);
+  --brand-soft: var(--surface-2);
+  --brand-hover: #f5faf7;
+  --brand-ink: var(--ink);
 }
 
 * {
@@ -192,6 +196,24 @@ textarea {
   color: #fff;
 }
 
+.filter-button[data-brand="TUTIMI"].is-active {
+  border-color: #6bbbe9;
+  background: #9fd7f9;
+  color: #08354f;
+}
+
+.filter-button[data-brand="SEKAI"].is-active {
+  border-color: #e85f5f;
+  background: #ff8a8a;
+  color: #5a0909;
+}
+
+.filter-button[data-brand="DHI"].is-active {
+  border-color: #8fe0a0;
+  background: #d6f8de;
+  color: #164c26;
+}
+
 .checkbox-empty {
   margin: 0;
   color: var(--muted);
@@ -267,9 +289,37 @@ textarea {
   display: block;
 }
 
+.results-grid.brand-tutimi,
+.content-card.brand-tutimi,
+.brand-badge.brand-tutimi {
+  --brand-color: #9fd7f9;
+  --brand-soft: #e7f5fe;
+  --brand-hover: #f2fbff;
+  --brand-ink: #08354f;
+}
+
+.results-grid.brand-sekai,
+.content-card.brand-sekai,
+.brand-badge.brand-sekai {
+  --brand-color: #ff8a8a;
+  --brand-soft: #ffe7e7;
+  --brand-hover: #fff5f5;
+  --brand-ink: #5a0909;
+}
+
+.results-grid.brand-dhi,
+.content-card.brand-dhi,
+.brand-badge.brand-dhi {
+  --brand-color: #d6f8de;
+  --brand-soft: #eefcf1;
+  --brand-hover: #f7fef9;
+  --brand-ink: #164c26;
+}
+
 .script-table {
   overflow: hidden;
   border: 1px solid var(--line);
+  border-top: 5px solid var(--brand-color);
   border-radius: 8px;
   background: var(--surface);
   box-shadow: var(--shadow);
@@ -289,7 +339,7 @@ textarea {
   display: grid;
   align-content: start;
   gap: 6px;
-  background: var(--surface-2);
+  background: var(--brand-soft);
   border-right: 1px solid var(--line);
   padding: 14px;
 }
@@ -325,11 +375,11 @@ textarea {
 }
 
 .script-row:hover {
-  background: #f5faf7;
+  background: var(--brand-hover);
 }
 
 .script-row:focus-within {
-  box-shadow: inset 3px 0 0 var(--green);
+  box-shadow: inset 3px 0 0 var(--brand-color);
 }
 
 .script-copy {
@@ -371,6 +421,7 @@ textarea {
   gap: 12px;
   min-height: 260px;
   border: 1px solid var(--line);
+  border-top: 5px solid var(--brand-color);
   border-radius: 8px;
   background: var(--surface);
   padding: 16px;
@@ -400,6 +451,11 @@ textarea {
   padding: 0 9px;
   font-size: 0.76rem;
   font-weight: 800;
+}
+
+.brand-badge {
+  background: var(--brand-color);
+  color: var(--brand-ink);
 }
 
 .badge.script {
