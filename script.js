@@ -1,16 +1,32 @@
-const state = {
-  brand: "TUTIMI",
+npm const sheetConfig = {
+  id: "1_brDqDzZl13Sn1YlU2wMnBNAywG86fEVQ4pN0qeLlPQ",
+  gid: "0"
+};
+
+const storageKeys = {
+  notes: "supportHubNotes",
+  sheetCache: "supportHubSheetCache"
+};
+
+const initialUrlState = readUrlState();
+let canSyncUrl = false;
+const defaultFilters = {
+  brand: initialUrlState.brand || "TUTIMI",
   type: "script",
   query: "",
   status: "all",
-  category: "",
-  items: Array.isArray(supportData) ? [...supportData] : [],
-  notes: JSON.parse(localStorage.getItem("supportHubNotes") || "[]")
+  category: ""
 };
 
-const sheetConfig = {
-  id: "1_brDqDzZl13Sn1YlU2wMnBNAywG86fEVQ4pN0qeLlPQ",
-  gid: "0"
+const state = {
+  brand: defaultFilters.brand,
+  type: initialUrlState.type || defaultFilters.type,
+  query: initialUrlState.query || defaultFilters.query,
+  status: initialUrlState.status || defaultFilters.status,
+  category: initialUrlState.category || defaultFilters.category,
+  items: Array.isArray(supportData) ? [...supportData] : [],
+  notes: readStoredJson(storageKeys.notes, []),
+  imageWarnings: []
 };
 
 const typeLabels = {
@@ -43,8 +59,77 @@ const elements = {
   noteBody: document.querySelector("#noteBody"),
   clearButton: document.querySelector("#clearButton"),
   exportButton: document.querySelector("#exportButton"),
-  dataSource: document.querySelector("#dataSource")
+  dataSource: document.querySelector("#dataSource"),
+  imageWarningBanner: document.querySelector("#imageWarningBanner")
 };
+
+if (elements.search) elements.search.value = state.query;
+if (elements.status) elements.status.value = state.status;
+
+function readStoredJson(key, fallbackValue) {
+  try {
+    const rawValue = localStorage.getItem(key);
+    if (!rawValue) return fallbackValue;
+
+    const parsedValue = JSON.parse(rawValue);
+    return parsedValue ?? fallbackValue;
+  } catch (error) {
+    console.warn(`Could not read ${key} from localStorage`, error);
+    return fallbackValue;
+  }
+}
+
+function writeStoredJson(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+    return true;
+  } catch (error) {
+    console.warn(`Could not write ${key} to localStorage`, error);
+    return false;
+  }
+}
+
+function readUrlState() {
+  const params = new URLSearchParams(window.location.search);
+  const allowedStatuses = new Set(["all", "active", "upcoming", "expired"]);
+  const type = normalizeContentType(params.get("type"));
+  const status = params.get("status");
+
+  return {
+    brand: (params.get("brand") || "").trim(),
+    type: getTypes().includes(type) ? type : "",
+    category: (params.get("category") || "").trim(),
+    query: (params.get("q") || "").trim(),
+    status: allowedStatuses.has(status) ? status : ""
+  };
+}
+
+function applyUrlState(nextState = initialUrlState) {
+  if (nextState.brand) state.brand = nextState.brand;
+  if (nextState.type) state.type = nextState.type;
+  state.category = nextState.category || "";
+  state.query = nextState.query || "";
+  state.status = nextState.status || "all";
+
+  if (elements.search) elements.search.value = state.query;
+  if (elements.status) elements.status.value = state.status;
+}
+
+function syncUrlState() {
+  if (!canSyncUrl) return;
+
+  const params = new URLSearchParams();
+
+  if (state.brand) params.set("brand", state.brand);
+  if (state.type && state.type !== "script") params.set("type", state.type);
+  if (state.category) params.set("category", state.category);
+  if (state.status !== "all" && state.type === "promotion") params.set("status", state.status);
+  if (state.query && state.type === "store") params.set("q", state.query);
+
+  const nextQuery = params.toString();
+  const nextUrl = `${window.location.pathname}${nextQuery ? `?${nextQuery}` : ""}`;
+  window.history.replaceState({}, "", nextUrl);
+}
 
 function getAllItems() {
   return [...state.items, ...state.notes];
@@ -267,6 +352,35 @@ function parseSheetDate(value, endOfDay = false) {
   return date;
 }
 
+function formatCacheTimestamp(value) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+
+  return new Intl.DateTimeFormat("vi-VN", {
+    dateStyle: "short",
+    timeStyle: "short"
+  }).format(date);
+}
+
+function saveSheetCache(items) {
+  writeStoredJson(storageKeys.sheetCache, {
+    items,
+    savedAt: new Date().toISOString()
+  });
+}
+
+function readSheetCache() {
+  const cachedValue = readStoredJson(storageKeys.sheetCache, null);
+  if (!cachedValue || !Array.isArray(cachedValue.items) || !cachedValue.items.length) {
+    return null;
+  }
+
+  return {
+    items: cachedValue.items,
+    savedAt: cachedValue.savedAt || ""
+  };
+}
+
 async function loadSheetData() {
   const url = `https://docs.google.com/spreadsheets/d/${sheetConfig.id}/gviz/tq?tqx=out:csv&gid=${sheetConfig.gid}`;
 
@@ -275,16 +389,30 @@ async function loadSheetData() {
     if (!response.ok) throw new Error(`Sheet returned ${response.status}`);
 
     const rows = parseCsv(await response.text());
-    const sheetItems = rows.map(buildItemFromSheetRow).filter((item) => item.title || item.content);
+    const sheetItems = rows
+      .map(buildItemFromSheetRow)
+      .filter((item) => item.brand && item.type && (item.title !== "Untitled" || item.content || item.address || item.imageUrl));
     if (!sheetItems.length) throw new Error("Sheet has no usable rows");
 
     state.items = sheetItems;
+    saveSheetCache(sheetItems);
     elements.dataSource.textContent = `Loaded ${sheetItems.length} items from Google Sheets`;
   } catch (error) {
-    elements.dataSource.textContent = "Using fallback data. Check Google Sheet sharing or publishing settings.";
+    const cachedSheet = readSheetCache();
+    if (cachedSheet) {
+      state.items = cachedSheet.items;
+      const cachedTime = formatCacheTimestamp(cachedSheet.savedAt);
+      elements.dataSource.textContent = cachedTime
+        ? `Using cached sheet data from ${cachedTime}`
+        : "Using cached sheet data";
+    } else {
+      elements.dataSource.textContent = "Using fallback data. Check Google Sheet sharing or publishing settings.";
+    }
     console.warn("Google Sheet load failed:", error);
   }
 
+  applyUrlState();
+  canSyncUrl = true;
   renderFilters();
   renderResults();
 }
@@ -484,7 +612,50 @@ function getDisplayImageUrl(imageUrl) {
 
 function getAbsoluteImageUrl(imageUrl) {
   const displayUrl = getDisplayImageUrl(imageUrl);
-  return displayUrl ? new URL(displayUrl, window.location.href).href : "";
+  if (!displayUrl) return "";
+
+  try {
+    return new URL(displayUrl, window.location.href).href;
+  } catch {
+    return "";
+  }
+}
+
+function getImageIssue(item) {
+  if (!item.imageUrl) return null;
+
+  const rawUrl = String(item.imageUrl).trim();
+  if (!rawUrl) return null;
+
+  if (rawUrl.includes("drive.google.com") && !getGoogleDriveFileId(rawUrl)) {
+    return `${item.title}: link Google Drive không đúng định dạng`;
+  }
+
+  if (!getAbsoluteImageUrl(rawUrl)) {
+    return `${item.title}: link hình ảnh không hợp lệ`;
+  }
+
+  return null;
+}
+
+function updateImageWarnings() {
+  state.imageWarnings = state.items.map(getImageIssue).filter(Boolean);
+
+  if (!elements.imageWarningBanner) return;
+
+  if (!state.imageWarnings.length) {
+    elements.imageWarningBanner.hidden = true;
+    elements.imageWarningBanner.textContent = "";
+    return;
+  }
+
+  const previewWarnings = state.imageWarnings.slice(0, 3).join(" | ");
+  const remainingCount = state.imageWarnings.length - 3;
+  elements.imageWarningBanner.textContent =
+    remainingCount > 0
+      ? `${state.imageWarnings.length} mục hình ảnh cần kiểm tra: ${previewWarnings} | +${remainingCount} mục nữa`
+      : `${state.imageWarnings.length} mục hình ảnh cần kiểm tra: ${previewWarnings}`;
+  elements.imageWarningBanner.hidden = false;
 }
 
 function renderItemImage(item) {
@@ -642,6 +813,8 @@ function renderResults() {
   elements.summary.textContent = `${items.length} result${items.length === 1 ? "" : "s"} found`;
   elements.currentView.textContent = typeLabels[state.type];
   renderStats(items);
+  updateImageWarnings();
+  syncUrlState();
 }
 
 function showToast(message) {
@@ -767,15 +940,15 @@ async function copyImageToClipboard(url, title, imageElement) {
 }
 
 function saveNotes() {
-  localStorage.setItem("supportHubNotes", JSON.stringify(state.notes));
+  writeStoredJson(storageKeys.notes, state.notes);
 }
 
 function resetFilters() {
-  state.brand = "TUTIMI";
-  state.type = "script";
-  state.query = "";
-  state.status = "all";
-  state.category = "";
+  state.brand = defaultFilters.brand;
+  state.type = defaultFilters.type;
+  state.query = defaultFilters.query;
+  state.status = defaultFilters.status;
+  state.category = defaultFilters.category;
   if (elements.search) elements.search.value = "";
   if (elements.status) elements.status.value = "all";
   renderFilters();

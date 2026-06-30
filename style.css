@@ -128,6 +128,20 @@ h3 {
   gap: 14px;
 }
 
+.notice {
+  margin-bottom: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px 14px;
+  box-shadow: var(--shadow);
+}
+
+.notice-warning {
+  background: #fff7e7;
+  border-color: #f0d296;
+  color: #7a4b00;
+}
+
 .filter-board {
   display: grid;
   gap: 12px;
