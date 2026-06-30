@@ -1,4 +1,4 @@
-npm const sheetConfig = {
+const sheetConfig = {
   id: "1_brDqDzZl13Sn1YlU2wMnBNAywG86fEVQ4pN0qeLlPQ",
   gid: "0"
 };
