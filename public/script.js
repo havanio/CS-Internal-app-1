@@ -382,33 +382,32 @@ function readSheetCache() {
 }
 
 async function loadSheetData() {
-  const url = `https://docs.google.com/spreadsheets/d/${sheetConfig.id}/gviz/tq?tqx=out:csv&gid=${sheetConfig.gid}`;
-
+  // Data now comes from the Netlify CMS API (/api/data) instead of Google Sheets.
+  // Items are already in the final internal shape, so no CSV parsing/normalizing
+  // is needed here. The localStorage cache below is kept as an offline fallback.
   try {
-    const response = await fetch(url, { cache: "no-store" });
-    if (!response.ok) throw new Error(`Sheet returned ${response.status}`);
+    const response = await fetch("/api/data", { cache: "no-store" });
+    if (!response.ok) throw new Error(`API returned ${response.status}`);
 
-    const rows = parseCsv(await response.text());
-    const sheetItems = rows
-      .map(buildItemFromSheetRow)
-      .filter((item) => item.brand && item.type && (item.title !== "Untitled" || item.content || item.address || item.imageUrl));
-    if (!sheetItems.length) throw new Error("Sheet has no usable rows");
+    const data = await response.json();
+    const items = Array.isArray(data.items) ? data.items : [];
+    if (!items.length) throw new Error("No content items returned");
 
-    state.items = sheetItems;
-    saveSheetCache(sheetItems);
-    elements.dataSource.textContent = `Loaded ${sheetItems.length} items from Google Sheets`;
+    state.items = items;
+    saveSheetCache(items);
+    elements.dataSource.textContent = `Đã tải ${items.length} mục`;
   } catch (error) {
     const cachedSheet = readSheetCache();
     if (cachedSheet) {
       state.items = cachedSheet.items;
       const cachedTime = formatCacheTimestamp(cachedSheet.savedAt);
       elements.dataSource.textContent = cachedTime
-        ? `Using cached sheet data from ${cachedTime}`
-        : "Using cached sheet data";
+        ? `Đang dùng dữ liệu cache lúc ${cachedTime}`
+        : "Đang dùng dữ liệu cache";
     } else {
-      elements.dataSource.textContent = "Using fallback data. Check Google Sheet sharing or publishing settings.";
+      elements.dataSource.textContent = "Không tải được dữ liệu (kiểm tra /api/data).";
     }
-    console.warn("Google Sheet load failed:", error);
+    console.warn("Content load failed:", error);
   }
 
   applyUrlState();
@@ -916,27 +915,32 @@ function copyImageAsHtml(image, title) {
 }
 
 async function copyImageToClipboard(url, title, imageElement) {
+  // Build the clipboard PNG by loading a FRESH image with crossOrigin="anonymous"
+  // (imageToPngBlob) instead of reusing the displayed <img>. The rendered <img>
+  // has no `crossorigin` attribute, so for cross-origin sources (e.g. jsDelivr or
+  // Google Drive) it taints the canvas and canvas.toBlob() throws a SecurityError.
+  // A fresh CORS load yields a clean canvas whenever the host sends
+  // Access-Control-Allow-Origin (jsDelivr and lh3.googleusercontent.com both do).
+  if (window.ClipboardItem && navigator.clipboard?.write) {
+    try {
+      // Pass the blob Promise straight to ClipboardItem so the write stays inside
+      // the user gesture (required by Safari) while the image loads.
+      const item = new ClipboardItem({ "image/png": imageToPngBlob(url) });
+      await navigator.clipboard.write([item]);
+      showToast("Image copied");
+      return;
+    } catch (error) {
+      console.warn("Image copy via Clipboard API failed", error);
+      // fall through to the legacy fallback below
+    }
+  }
+
+  // Legacy fallback: rich-text copy of the already-rendered image (works for
+  // same-origin images and older browsers). Cross-origin images are tainted, so
+  // if this also fails we ask the user to copy the image manually.
   const htmlCopied =
     imageElement?.complete && imageElement.naturalWidth ? copyImageAsHtml(imageElement, title) : false;
-
-  if (!window.ClipboardItem || !navigator.clipboard?.write) {
-    showToast(htmlCopied ? "Image copied" : "Image copy is not supported in this browser.");
-    return;
-  }
-
-  try {
-    const pngBlob = imageElement?.complete && imageElement.naturalWidth
-      ? canvasToPngBlob(imageToCanvas(imageElement))
-      : imageToPngBlob(url);
-    const item = new ClipboardItem({
-      "image/png": pngBlob,
-    });
-    await navigator.clipboard.write([item]);
-    showToast("Image copied");
-  } catch (error) {
-    console.warn("Image copy failed", error);
-    showToast(htmlCopied ? "Image copied" : "Image copy failed. Open the image and copy it manually.");
-  }
+  showToast(htmlCopied ? "Image copied" : "Image copy failed. Open the image and copy it manually.");
 }
 
 function saveNotes() {

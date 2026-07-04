@@ -1,2 +1,14 @@
 [build]
-publish = "."
+  publish = "public"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Clean URL for the admin CMS
+[[redirects]]
+  from = "/admin"
+  to = "/admin/index.html"
+  status = 200
+
+# API endpoints are routed by each function's `config.path` (Netlify Functions v2).

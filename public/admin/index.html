@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản trị CMS · CS Internal App</title>
+    <!-- Reuse the public app's design tokens & components, then layer admin styles -->
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/admin/admin.css" />
+  </head>
+  <body>
+    <!-- ============ LOGIN GATE ============ -->
+    <div id="loginView" class="login-view" hidden>
+      <form id="loginForm" class="login-card" autocomplete="off">
+        <p class="eyebrow">Customer Service · CMS</p>
+        <h1 class="login-title">Quản trị nội dung</h1>
+        <p class="muted">Nhập mật khẩu để truy cập trang quản trị.</p>
+        <div class="field">
+          <label class="field-label" for="loginPw">Mật khẩu</label>
+          <input id="loginPw" type="password" autocomplete="current-password" placeholder="••••••••" required />
+        </div>
+        <p id="loginError" class="login-error" role="alert" hidden></p>
+        <button id="loginSubmit" class="icon-button login-submit" type="submit">Đăng nhập</button>
+      </form>
+    </div>
+
+    <!-- ============ CMS APP ============ -->
+    <div id="appView" class="app-shell admin-shell" hidden>
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Customer Service · CMS</p>
+          <h1>Quản trị nội dung</h1>
+          <p id="dataSource" class="data-source">Đang tải dữ liệu…</p>
+        </div>
+        <div class="topbar-actions">
+          <button id="saveAllBtn" class="icon-button" type="button" disabled>
+            💾 Lưu tất cả<span class="dirty-dot" aria-hidden="true"></span>
+          </button>
+          <button id="logoutBtn" class="icon-button subtle" type="button">Đăng xuất</button>
+        </div>
+      </header>
+
+      <!-- Load error / retry banner -->
+      <div id="loadError" class="notice notice-warning" role="alert" hidden>
+        <div class="loaderr-row">
+          <span id="loadErrorMsg">Không tải được dữ liệu.</span>
+          <button id="loadRetry" class="filter-button" type="button">Thử lại</button>
+        </div>
+      </div>
+
+      <main class="workspace">
+        <!-- Toolbar / filters -->
+        <section class="filter-board admin-toolbar" aria-label="Bộ lọc &amp; thao tác">
+          <div class="toolbar-grid">
+            <div class="filter-section">
+              <label class="field-label" for="filterType">Loại nội dung</label>
+              <select id="filterType">
+                <option value="">Tất cả loại</option>
+                <option value="script">KỊCH BẢN CHAT</option>
+                <option value="promotion">CTKM</option>
+                <option value="store">CỬA HÀNG</option>
+                <option value="menu">MENU</option>
+                <option value="note">GHI CHÚ KHÁC</option>
+              </select>
+            </div>
+            <div class="filter-section">
+              <label class="field-label" for="filterBrand">Brand</label>
+              <select id="filterBrand">
+                <option value="">Tất cả brand</option>
+              </select>
+            </div>
+            <div class="filter-section toolbar-search">
+              <label class="field-label" for="searchInput">Tìm kiếm</label>
+              <input id="searchInput" type="search" placeholder="Tìm theo tiêu đề, nội dung, brand…" autocomplete="off" />
+            </div>
+            <div class="filter-section toolbar-add">
+              <button id="addBtn" class="icon-button" type="button">＋ Thêm mới</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Table -->
+        <section class="content-area admin-content">
+          <div class="content-header">
+            <div>
+              <p id="resultSummary" class="muted"></p>
+              <h2>Danh sách nội dung</h2>
+            </div>
+          </div>
+
+          <div id="tableWrap" class="table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th scope="col" class="th-thumb">Ảnh</th>
+                  <th scope="col">Loại</th>
+                  <th scope="col">Brand</th>
+                  <th scope="col">Tiêu đề</th>
+                  <th scope="col">Danh mục</th>
+                  <th scope="col">Cập nhật</th>
+                  <th scope="col" class="th-actions"><span class="sr-only">Hành động</span></th>
+                </tr>
+              </thead>
+              <tbody id="tableBody"></tbody>
+            </table>
+          </div>
+
+          <div id="emptyState" class="empty-state" hidden>
+            <h3>Chưa có nội dung phù hợp</h3>
+            <p>Thử đổi bộ lọc loại / brand / từ khoá, hoặc bấm “＋ Thêm mới”.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- ============ EDITOR DRAWER ============ -->
+    <div id="editorOverlay" class="editor-overlay" aria-hidden="true"></div>
+    <aside
+      id="editorPanel"
+      class="editor-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="editorTitle"
+      aria-hidden="true"
+    >
+      <header class="editor-head">
+        <div>
+          <p class="eyebrow">Trình soạn thảo</p>
+          <h2 id="editorTitle">Thêm mới</h2>
+        </div>
+        <button id="editorClose" class="icon-button subtle icon-close" type="button" aria-label="Đóng">✕</button>
+      </header>
+
+      <div class="editor-body">
+        <form id="editorForm" autocomplete="off">
+          <!-- Group: Thông tin chính -->
+          <section class="editor-group" role="group" aria-labelledby="grpMain">
+            <p class="section-title" id="grpMain">Thông tin chính</p>
+            <div class="group-grid">
+              <div class="field">
+                <label class="field-label" for="f_type">Loại <span class="req">*</span></label>
+                <select id="f_type" required>
+                  <option value="script">KỊCH BẢN CHAT</option>
+                  <option value="promotion">CTKM</option>
+                  <option value="store">CỬA HÀNG</option>
+                  <option value="menu">MENU</option>
+                  <option value="note">GHI CHÚ KHÁC</option>
+                </select>
+              </div>
+              <div class="field">
+                <label class="field-label" for="f_brand">Brand <span class="req">*</span></label>
+                <input id="f_brand" type="text" list="brandList" placeholder="TUTIMI, SEKAI…" required />
+                <datalist id="brandList"></datalist>
+              </div>
+              <div class="field col-span">
+                <label class="field-label" for="f_title">Tiêu đề <span class="req">*</span></label>
+                <input id="f_title" type="text" placeholder="VD: Chào khách" required />
+              </div>
+              <div class="field">
+                <label class="field-label" for="f_id">ID / Slug</label>
+                <input id="f_id" type="text" placeholder="Tự tạo từ tiêu đề" />
+                <p class="field-hint">Bỏ trống để tự sinh từ tiêu đề.</p>
+              </div>
+              <div class="field">
+                <label class="field-label" for="f_category">Danh mục</label>
+                <input id="f_category" type="text" placeholder="VD: 1. Tiếp nhận" />
+              </div>
+            </div>
+          </section>
+
+          <!-- Group: Nội dung -->
+          <section class="editor-group" role="group" aria-labelledby="grpBody">
+            <p class="section-title" id="grpBody">Nội dung</p>
+            <div class="group-grid">
+              <div class="field col-span">
+                <label class="field-label" for="f_content">Nội dung</label>
+                <textarea id="f_content" rows="6" placeholder="Nội dung kịch bản / mô tả…"></textarea>
+              </div>
+              <div class="field">
+                <label class="field-label" for="f_tags">Tags</label>
+                <input id="f_tags" type="text" placeholder="tag1, tag2" />
+                <p class="field-hint">Ngăn cách bằng dấu phẩy.</p>
+              </div>
+              <div class="field">
+                <label class="field-label" for="f_channels">Kênh (channels)</label>
+                <input id="f_channels" type="text" placeholder="app, hotline" />
+                <p class="field-hint">Ngăn cách bằng dấu phẩy.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Group: Hình ảnh -->
+          <section class="editor-group" role="group" aria-labelledby="grpImg">
+            <p class="section-title" id="grpImg">Hình ảnh</p>
+            <div class="group-grid">
+              <div class="field col-span">
+                <span class="field-label" id="dzLabel">Tải ảnh lên</span>
+                <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-labelledby="dzLabel">
+                  <input id="fileInput" type="file" accept="image/*" />
+                  <p class="dz-main"><strong>Kéo &amp; thả ảnh</strong> hoặc bấm để chọn</p>
+                  <p class="field-hint">Chỉ nhận tệp ảnh, tối đa 10MB.</p>
+                </div>
+              </div>
+              <div class="field col-span">
+                <label class="field-label" for="f_imageUrl">Hoặc dán URL ảnh</label>
+                <input id="f_imageUrl" type="text" placeholder="https://… hoặc /api/img/…" />
+              </div>
+              <div class="field col-span">
+                <label class="field-label" for="f_imageLabel">Nhãn ảnh</label>
+                <input id="f_imageLabel" type="text" placeholder="Mô tả ngắn cho ảnh" />
+              </div>
+              <div id="imgPreview" class="img-preview col-span">
+                <figure><img id="imgPreviewImg" alt="Xem trước ảnh" /></figure>
+                <button type="button" id="clearImgBtn" class="row-btn danger">Xoá ảnh</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Group: Liên hệ & cửa hàng -->
+          <section class="editor-group" role="group" aria-labelledby="grpStore">
+            <p class="section-title" id="grpStore">Liên hệ &amp; cửa hàng</p>
+            <div class="group-grid">
+              <div class="field">
+                <label class="field-label" for="f_phone">Điện thoại (chung)</label>
+                <input id="f_phone" type="text" />
+              </div>
+              <div class="field">
+                <label class="field-label" for="f_managerName">Quản lý</label>
+                <input id="f_managerName" type="text" />
+              </div>
+              <div class="field">
+                <label class="field-label" for="f_managerPhone">SĐT quản lý</label>
+                <input id="f_managerPhone" type="text" />
+              </div>
+              <div class="field">
+                <label class="field-label" for="f_storePhone1">SĐT cửa hàng 1</label>
+                <input id="f_storePhone1" type="text" />
+              </div>
+              <div class="field">
+                <label class="field-label" for="f_storePhone2">SĐT cửa hàng 2</label>
+                <input id="f_storePhone2" type="text" />
+              </div>
+              <div class="field col-span">
+                <label class="field-label" for="f_address">Địa chỉ</label>
+                <input id="f_address" type="text" />
+              </div>
+              <div class="field col-span">
+                <label class="field-label" for="f_hours">Giờ mở cửa</label>
+                <input id="f_hours" type="text" placeholder="VD: 08:00 – 22:00" />
+              </div>
+              <div class="field col-span">
+                <label class="field-label" for="f_notes">Ghi chú</label>
+                <textarea id="f_notes" rows="3"></textarea>
+              </div>
+            </div>
+          </section>
+
+          <!-- Group: Khuyến mãi -->
+          <section class="editor-group" role="group" aria-labelledby="grpPromo">
+            <p class="section-title" id="grpPromo">Thời gian khuyến mãi</p>
+            <div class="group-grid">
+              <div class="field">
+                <label class="field-label" for="f_startDate">Ngày bắt đầu</label>
+                <input id="f_startDate" type="date" />
+              </div>
+              <div class="field">
+                <label class="field-label" for="f_endDate">Ngày kết thúc</label>
+                <input id="f_endDate" type="date" />
+              </div>
+            </div>
+          </section>
+        </form>
+      </div>
+
+      <footer class="editor-foot">
+        <button type="button" id="editorCancel" class="icon-button subtle">Huỷ</button>
+        <button type="submit" form="editorForm" id="editorSave" class="icon-button">Lưu</button>
+      </footer>
+    </aside>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script src="/admin/admin.js"></script>
+  </body>
+</html>

@@ -1,5 +1,17 @@
 {
+  "name": "cs-internal-app",
+  "private": true,
   "scripts": {
-    "local": "npx serve . -l 7003"
+    "local": "npx serve public -l 7003",
+    "dev": "netlify dev",
+    "build:seed": "node scripts/build-seed.mjs",
+    "seed:export": "node scripts/seed-export.mjs",
+    "seed:import": "node scripts/seed-import.mjs"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
   }
 }

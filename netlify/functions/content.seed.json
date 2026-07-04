@@ -1,0 +1,1350 @@
+{
+  "generatedAt": "2026-07-03T16:40:28.247Z",
+  "source": "google-sheet:1_brDqDzZl13Sn1YlU2wMnBNAywG86fEVQ4pN0qeLlPQ",
+  "count": 135,
+  "items": [
+    {
+      "id": "script-greeting-ttm-1",
+      "type": "script",
+      "brand": "TUTIMI",
+      "title": "Chào khách",
+      "tags": [],
+      "category": "1. Tiếp nhận",
+      "content": "TuTiMi xin chào! Mình cần hỗ trợ về vấn đề gì ạ?"
+    },
+    {
+      "id": "script-greeting-ttm-2",
+      "type": "script",
+      "brand": "TUTIMI",
+      "title": "Xin lỗi lần đầu",
+      "tags": [],
+      "category": "1. Tiếp nhận",
+      "content": "Trước tiên TuTiMi xin gửi lời xin lỗi chân thành nhất vì mình đã có trải nghiệm chưa trọn vẹn khi sử dụng dịch vụ ạ.\nBên em sẽ kiểm tra lại thông tin đơn hàng của mình với phía cửa hàng để tìm ra nguyên nhân và rút kinh nghiệm tránh tái diễn ạ."
+    },
+    {
+      "id": "script-greeting-ttm-3",
+      "type": "script",
+      "brand": "TUTIMI",
+      "title": "Xin bill",
+      "tags": [],
+      "category": "1. Tiếp nhận",
+      "content": "Dạ để có đủ thông tin hỗ trợ nhanh nhất, nhờ mình cung cấp giúp em:\n- Hình ảnh đặt hàng trên app (có mã đơn)\n- SĐT đặt hàng\n- Hình ảnh tem trắng dán trên ly có thông tin món đang gặp vấn đề\nEm sẽ kiểm tra và hỗ trợ xử lý ngay cho mình ạ!"
+    },
+    {
+      "id": "script-greeting-ttm-4",
+      "type": "script",
+      "brand": "TUTIMI",
+      "title": "Check cửa hàng",
+      "tags": [],
+      "category": "1. Tiếp nhận",
+      "content": "Dạ TuTiMi đang kiểm tra với phía cửa hàng, em sẽ phản hồi lại ngay khi có thông tin để hỗ trợ xử lý cho mình ạ!"
+    },
+    {
+      "id": "script-category-ttm-1",
+      "type": "script",
+      "brand": "TUTIMI",
+      "title": "Dị vật lạ",
+      "tags": [],
+      "category": "2. Vấn đề",
+      "content": "Dạ TuTiMi chân thành xin lỗi vì sự cố không mong muốn lần này ạ.\nEm thực sự rất tiếc khi biết rằng sản phẩm mình nhận có dị vật, gây hoang mang và làm mình mất lòng tin khi sử dụng.\nNgay khi nhận được phản hồi, em đã chuyển thông tin về cửa hàng để tiến hành rà soát lại quy trình pha chế – đóng gói – kiểm soát đơn hàng để làm rõ và khắc phục triệt để, tuyệt đối không để trường hợp này tái diễn."
+    },
+    {
+      "id": "script-category-ttm-2",
+      "type": "script",
+      "brand": "TUTIMI",
+      "title": "Thái độ nhân viên",
+      "tags": [],
+      "category": "2. Vấn đề",
+      "content": "TuTiMi chân thành xin lỗi vì thái độ chưa chuẩn mực của nhân viên đã ảnh hưởng đến trải nghiệm của mình.\nBên em luôn đề cao sự tử tế và tôn trọng khách hàng, nên sẽ rà soát – nhắc nhở – đào tạo lại để tránh lặp lại tình huống tương tự.\nEm rất biết ơn vì mình đã đã góp ý để TuTiMi ngày càng tốt hơn ạ 💛"
+    },
+    {
+      "id": "script-category-ttm-3",
+      "type": "script",
+      "brand": "TUTIMI",
+      "title": "Giao sai thương hiệu",
+      "tags": [],
+      "category": "2. Vấn đề",
+      "content": "TuTiMi rất xin lỗi vì sự cố này đã khiến mình lo lắng ạ.\nỞ khu vực chuẩn bị đồ uống, bên em có sử dụng bộ ly tiêu chuẩn để đóng gói.\nTrong lúc hoàn thiện đơn, nhân viên đã lấy nhầm ly/tem sang thương hiệu khác.\n\nMón chị nhận vẫn được pha đúng công thức – đúng vị – đúng topping như chị order, không bị thay đổi ạ. Mình yên tâm sử dụng chị nhé."
+    },
+    {
+      "id": "script-category-ttm-4",
+      "type": "script",
+      "brand": "TUTIMI",
+      "title": "Tài xế phản ánh",
+      "tags": [],
+      "category": "2. Vấn đề",
+      "content": "Dạ em ghi nhận vấn đề của anh nhé. Phía cửa hàng em nhận được thông tin là tỉ lệ huỷ đơn từ sàn khá cao, nên để tránh làm xong phải huỷ món, giảm thiểu rủi ro thì cửa hàng sẽ chờ tài xế tới lấy rồi mới nhận đơn. Em biết đây cũng là điểm hạn chế của cửa hàng gây ra mất thời gian chờ đợi của cả 2 bên. \nEm sẽ báo lại phản ánh này của mình lên bộ phận cấp cao hơn để họ đánh giá lại tỉ lệ đơn huỷ cũng như rủi ro mà phía tài xế phải chịu, để thay đổi quy trình cho phù hợp hơn với cả bên đối tác tài xế ạ.\nEm cũng xin gửi lời xin lỗi đến riêng anh và bộ phận tài xế nói chung vì quy trình bên em đã làm ảnh hưởng đến công việc của mình, bên em sẽ cố gắng tìm cách để thay đổi cách vận hành hiện tại ạ."
+    },
+    {
+      "id": "script-category-ttm-5",
+      "type": "script",
+      "brand": "TUTIMI",
+      "title": "Sai yêu cầu của khách",
+      "tags": [],
+      "category": "2. Vấn đề",
+      "content": "TuTiMi gửi lời xin lỗi chân thành vì trải nghiệm chưa tốt và thông tin về việc món giao không đúng sản phẩm/size/topping.\nBên em đánh giá là sự cố trong khâu xử lý đơn và đang rà soát lại quy trình pha chế – đóng gói – kiểm soát đơn hàng để làm rõ và khắc phục triệt để, hạn chế việc tái diễn."
+    },
+    {
+      "id": "script-solution-ttm-1",
+      "type": "script",
+      "brand": "TUTIMI",
+      "title": "Ship/hoàn ly",
+      "tags": [],
+      "category": "3. Phương án",
+      "content": "Để đảm bảo quyền lợi và trải nghiệm của mình, TuTiMi xin được hỗ trợ 1 trong 2 phương án sau:\n> Gửi lại ly mới, hoặc hoàn tiền theo giá trị trên app\nLy đã gửi bên em không thu hồi ạ, mình xử lý giúp em nhé\nMình chọn phương án thuận tiện nhất để bên em hỗ trợ xử lý ngay nhé."
+    },
+    {
+      "id": "script-solution-ttm-2",
+      "type": "script",
+      "brand": "TUTIMI",
+      "title": "Ship/hoàn topping",
+      "tags": [],
+      "category": "3. Phương án",
+      "content": "Để đảm bảo quyền lợi và trải nghiệm của mình, TuTiMi xin được hỗ trợ 1 trong 2 phương án sau:\n> Gửi lại phần topping bị thiếu, hoặc hoàn tiền phần topping này theo giá trị trên app\nMình chọn phương án thuận tiện nhất để bên em hỗ trợ xử lý ngay nhé."
+    },
+    {
+      "id": "script-solution-ttm-5",
+      "type": "script",
+      "brand": "TUTIMI",
+      "title": "Hoàn tiền 1 phần",
+      "tags": [],
+      "category": "3. Phương án",
+      "content": "Để đảm bảo quyền lợi và trải nghiệm của mình, Tutimi xin được hỗ trợ hoàn tiền 30% giá trị ly theo giá trị trên app, để mình đồng ý nhận và sử dụng ly này ạ.\nNếu mình đồng ý, mình vui lòng cung cấp giúp em số momo hoặc STK để bên em hoàn tiền cho mình nhé ạ."
+    },
+    {
+      "id": "script-solution-ttm-3",
+      "type": "script",
+      "brand": "TUTIMI",
+      "title": "Ship lại",
+      "tags": [],
+      "category": "3. Phương án",
+      "content": "TuTiMi xin phép lấy thông tin để hỗ trợ gửi lại món mới ạ. Mình cung cấp giúp các thông tin sau nha:\n> Tên người nhận\n> Số điện thoại\n> Địa chỉ\nĐơn sẽ được giao hoàn toàn miễn phí ạ 💛"
+    },
+    {
+      "id": "script-solution-ttm-4",
+      "type": "script",
+      "brand": "TUTIMI",
+      "title": "Hoàn tiền",
+      "tags": [],
+      "category": "3. Phương án",
+      "content": "Dạ mình vui lòng cung cấp giúp em số momo hoặc STK để bên em hoàn tiền cho mình nhé ạ."
+    },
+    {
+      "id": "script-ending-ttm-1",
+      "type": "script",
+      "brand": "TUTIMI",
+      "title": "Khách góp ý",
+      "tags": [],
+      "category": "4. Kết thúc",
+      "content": "Mỗi góp ý đều là cơ hội để Tutimi hoàn thiện và phục vụ mình tốt hơn ở những lần tới.\nTuTiMi luôn mong muốn mang đến không chỉ một ly trà ngon, mà còn là sự chăm chút trong từng trải nghiệm.\nEm cảm ơn mình rất nhiều vì đã chia sẻ trải nghiệm ạ 💛\n\nHiện bên em sẽ chuyển qua hỗ trợ KH tại kênh Zalo Official: https://zalo.me/3761794265517786684\nMình có thể bấm Quan tâm trước, sau này nếu cần hỗ trợ mình cứ nhắn qua tài khoản zalo mới giúp em nha."
+    },
+    {
+      "id": "script-ending-ttm-2",
+      "type": "script",
+      "brand": "TUTIMI",
+      "title": "Khách xử lý",
+      "tags": [],
+      "category": "4. Kết thúc",
+      "content": "Tutimi rất biết ơn vì mình đã thông cảm cho bên em. Tutimi cam kết sẽ rà soát toàn bộ quy trình và nâng cao chất lượng sản phẩm để phục vụ tốt hơn. Mong là Tutimi sẽ có cơ hội mang đến trải nghiệm trọn vẹn hơn cho mình vào lần sau ạ 💛\n\nHiện bên em sẽ chuyển qua hỗ trợ KH tại kênh Zalo Official: https://zalo.me/3761794265517786684\nMình có thể bấm Quan tâm trước, sau này nếu cần hỗ trợ mình cứ nhắn qua tài khoản zalo mới giúp em nha."
+    },
+    {
+      "id": "script-ending-ttm-3",
+      "type": "script",
+      "brand": "TUTIMI",
+      "title": "Khách khó",
+      "tags": [],
+      "category": "4. Kết thúc",
+      "content": "TuTiMi chân thành cảm ơn mình đã góp ý và vẫn chọn chia sẻ thay vì lặng lẽ rời đi — điều đó thật sự đáng quý với bên em.\nVới TuTiMi, mỗi phản hồi từ khách hàng không chỉ là góp ý, mà còn là cơ hội để bên em nhìn lại chính mình, học cách phục vụ tốt hơn và hiểu sâu hơn điều khách hàng mong đợi.\nBên em sẽ ghi nhận nghiêm túc và xem đây là bài học để điều chỉnh lại cách phục vụ, để những lần sau khi mình ghé TuTiMi, trải nghiệm sẽ đúng như sự kỳ vọng và niềm tin mình đã dành cho tụi em ạ"
+    },
+    {
+      "id": "script-greeting-sk-1",
+      "type": "script",
+      "brand": "SEKAI",
+      "title": "Chào khách",
+      "tags": [],
+      "category": "1. Tiếp nhận",
+      "content": "Sekai xin chào! Mình cần hỗ trợ về vấn đề gì ạ?"
+    },
+    {
+      "id": "script-greeting-sk-2",
+      "type": "script",
+      "brand": "SEKAI",
+      "title": "Xin lỗi lần đầu",
+      "tags": [],
+      "category": "1. Tiếp nhận",
+      "content": "Trước tiên Sekai xin gửi lời xin lỗi chân thành nhất vì mình đã có trải nghiệm chưa trọn vẹn khi sử dụng dịch vụ ạ.\nBên em sẽ kiểm tra lại thông tin đơn hàng của mình với phía cửa hàng để tìm ra nguyên nhân và rút kinh nghiệm tránh tái diễn ạ."
+    },
+    {
+      "id": "script-greeting-sk-3",
+      "type": "script",
+      "brand": "SEKAI",
+      "title": "Xin bill",
+      "tags": [],
+      "category": "1. Tiếp nhận",
+      "content": "Dạ để có đủ thông tin hỗ trợ nhanh nhất, nhờ mình cung cấp giúp em:\n- Hình ảnh đặt hàng trên app (có mã đơn)\n- SĐT đặt hàng\n- Hình ảnh tem trắng dán trên ly có thông tin món đang gặp vấn đề\nEm sẽ kiểm tra và hỗ trợ xử lý ngay cho mình ạ!"
+    },
+    {
+      "id": "script-greeting-sk-4",
+      "type": "script",
+      "brand": "SEKAI",
+      "title": "Check cửa hàng",
+      "tags": [],
+      "category": "1. Tiếp nhận",
+      "content": "Dạ Sekai đang kiểm tra với phía cửa hàng, em sẽ phản hồi lại ngay khi có thông tin để hỗ trợ xử lý cho mình ạ!"
+    },
+    {
+      "id": "script-category-sk-1",
+      "type": "script",
+      "brand": "SEKAI",
+      "title": "Dị vật lạ",
+      "tags": [],
+      "category": "2. Vấn đề",
+      "content": "Dạ Sekai chân thành xin lỗi vì sự cố không mong muốn lần này ạ.\nEm thực sự rất tiếc khi biết rằng sản phẩm mình nhận có dị vật, gây hoang mang và làm mình mất lòng tin khi sử dụng.\nNgay khi nhận được phản hồi, em đã chuyển thông tin về cửa hàng để tiến hành rà soát lại quy trình pha chế – đóng gói – kiểm soát đơn hàng để làm rõ và khắc phục triệt để, tuyệt đối không để trường hợp này tái diễn."
+    },
+    {
+      "id": "script-category-sk-2",
+      "type": "script",
+      "brand": "SEKAI",
+      "title": "Thái độ nhân viên",
+      "tags": [],
+      "category": "2. Vấn đề",
+      "content": "Sekai xin lỗi chân thành vì thái độ chưa chuẩn mực của nhân viên đã ảnh hưởng đến trải nghiệm của mình.\nBên em luôn đề cao sự tử tế và tôn trọng khách hàng, nên sẽ rà soát – nhắc nhở – đào tạo lại để tránh lặp lại tình huống tương tự.\nEm rất biết ơn vì mình đã đã góp ý để Sekai ngày càng tốt hơn ạ 💛"
+    },
+    {
+      "id": "script-category-sk-3",
+      "type": "script",
+      "brand": "SEKAI",
+      "title": "Tài xế phản ánh",
+      "tags": [],
+      "category": "2. Vấn đề",
+      "content": "Dạ em ghi nhận vấn đề của anh nhé. Phía cửa hàng em nhận được thông tin là tỉ lệ huỷ đơn từ sàn khá cao, nên để tránh làm xong phải huỷ món, giảm thiểu rủi ro thì cửa hàng sẽ chờ tài xế tới lấy rồi mới nhận đơn. Em biết đây cũng là điểm hạn chế của cửa hàng gây ra mất thời gian chờ đợi của cả 2 bên. \nEm sẽ báo lại phản ánh này của mình lên bộ phận cấp cao hơn để họ đánh giá lại tỉ lệ đơn huỷ cũng như rủi ro mà phía tài xế phải chịu, để thay đổi quy trình cho phù hợp hơn với cả bên đối tác tài xế ạ.\nEm cũng xin gửi lời xin lỗi đến riêng anh và bộ phận tài xế nói chung vì quy trình bên em đã làm ảnh hưởng đến công việc của mình, bên em sẽ cố gắng tìm cách để thay đổi cách vận hành hiện tại ạ."
+    },
+    {
+      "id": "script-category-sk-4",
+      "type": "script",
+      "brand": "SEKAI",
+      "title": "Sai yêu cầu của khách",
+      "tags": [],
+      "category": "2. Vấn đề",
+      "content": "Sekai gửi lời xin lỗi chân thành vì trải nghiệm chưa tốt và thông tin về việc món giao không đúng sản phẩm/size/topping.\nBên em đánh giá là sự cố trong khâu xử lý đơn và đang rà soát lại quy trình pha chế – đóng gói – kiểm soát đơn hàng để làm rõ và khắc phục triệt để, hạn chế việc tái diễn."
+    },
+    {
+      "id": "script-category-sk-5",
+      "type": "script",
+      "brand": "SEKAI",
+      "title": "Lỗi giao hàng",
+      "tags": [],
+      "category": "2. Vấn đề",
+      "content": "Rất tiếc vì sự cố giao hàng đã ảnh hưởng đến trải nghiệm của mình. Dịch vụ vận chuyển do đối tác thực hiện nên đôi khi vẫn có tình huống ngoài mong muốn. Sekai đang phối hợp cùng đơn vị giao hàng để cải thiện chất lượng phục vụ tốt hơn trong thời gian tới.\n\nThay mặt đối tác vận chuyển, Sekai xin gửi lời xin lỗi chân thành đến mình và cảm ơn đã thông báo để bên em kịp thời xử lý và nâng cấp dịch vụ ạ."
+    },
+    {
+      "id": "script-solution-sk-1",
+      "type": "script",
+      "brand": "SEKAI",
+      "title": "Ship/hoàn ly",
+      "tags": [],
+      "category": "3. Phương án",
+      "content": "Để đảm bảo quyền lợi và trải nghiệm của mình, Sekai xin được hỗ trợ 1 trong 2 phương án sau:\n> Gửi lại ly mới, hoặc hoàn tiền theo giá trị trên app\nLy đã gửi bên em không thu hồi ạ, mình xử lý giúp em nhé\nMình chọn phương án thuận tiện nhất để bên em hỗ trợ xử lý ngay nhé."
+    },
+    {
+      "id": "script-solution-sk-2",
+      "type": "script",
+      "brand": "SEKAI",
+      "title": "Ship/hoàn topping",
+      "tags": [],
+      "category": "3. Phương án",
+      "content": "Để đảm bảo quyền lợi và trải nghiệm của mình, Sekai xin được hỗ trợ 1 trong 2 phương án sau:\n> Gửi lại phần topping bị thiếu, hoặc hoàn tiền phần topping này theo giá trị trên app\nMình chọn phương án thuận tiện nhất để bên em hỗ trợ xử lý ngay nhé."
+    },
+    {
+      "id": "script-solution-sk-5",
+      "type": "script",
+      "brand": "SEKAI",
+      "title": "Hoàn tiền 1 phần",
+      "tags": [],
+      "category": "3. Phương án",
+      "content": "Để đảm bảo quyền lợi và trải nghiệm của mình, Sekai xin được hỗ trợ hoàn tiền 30% giá trị ly theo giá trị trên app, để mình đồng ý nhận và sử dụng ly này ạ.\nNếu mình đồng ý, mình vui lòng cung cấp giúp em số momo hoặc STK để bên em hoàn tiền cho mình nhé ạ."
+    },
+    {
+      "id": "script-solution-sk-3",
+      "type": "script",
+      "brand": "SEKAI",
+      "title": "Ship lại",
+      "tags": [],
+      "category": "3. Phương án",
+      "content": "Sekai xin phép lấy thông tin để hỗ trợ gửi lại món mới ạ. Mình cung cấp giúp các thông tin sau nha:\n> Tên người nhận\n> Số điện thoại\n> Địa chỉ\nĐơn sẽ được giao hoàn toàn miễn phí ạ 💛"
+    },
+    {
+      "id": "script-solution-sk-4",
+      "type": "script",
+      "brand": "SEKAI",
+      "title": "Hoàn tiền",
+      "tags": [],
+      "category": "3. Phương án",
+      "content": "Dạ mình vui lòng cung cấp giúp em số momo hoặc STK để bên em hoàn tiền cho mình nhé ạ."
+    },
+    {
+      "id": "script-ending-sk-1",
+      "type": "script",
+      "brand": "SEKAI",
+      "title": "Khách góp ý",
+      "tags": [],
+      "category": "4. Kết thúc",
+      "content": "Mỗi góp ý đều là cơ hội để Sekai hoàn thiện và phục vụ mình tốt hơn ở những lần tới.\nSekai luôn mong muốn mang đến không chỉ một ly trà ngon, mà còn là sự chăm chút trong từng trải nghiệm.\nSekai cảm ơn mình rất nhiều vì đã chia sẻ trải nghiệm lần này ạ 💛\n\nHiện bên em sẽ chuyển qua hỗ trợ KH tại kênh Zalo Official: https://zalo.me/4602370771952061243\nMình có thể bấm Quan tâm trước, sau này nếu cần hỗ trợ chị cứ nhắn qua tài khoản zalo mới giúp em nha."
+    },
+    {
+      "id": "script-ending-sk-2",
+      "type": "script",
+      "brand": "SEKAI",
+      "title": "Khách xử lý",
+      "tags": [],
+      "category": "4. Kết thúc",
+      "content": "Sekai rất biết ơn vì mình đã thông cảm cho bên em. Sekai cam kết sẽ rà soát toàn bộ quy trình và nâng cao chất lượng sản phẩm để phục vụ tốt hơn. Mong là Sekai sẽ có cơ hội mang đến trải nghiệm trọn vẹn hơn cho mình vào lần sau nha 💛\n\nHiện bên em sẽ chuyển qua hỗ trợ KH tại kênh Zalo Official: https://zalo.me/4602370771952061243\nMình có thể bấm Quan tâm trước, sau này nếu cần hỗ trợ mình cứ nhắn qua tài khoản zalo mới giúp em nha."
+    },
+    {
+      "id": "script-ending-sk-3",
+      "type": "script",
+      "brand": "SEKAI",
+      "title": "Khách khó",
+      "tags": [],
+      "category": "4. Kết thúc",
+      "content": "Sekai chân thành cảm ơn mình đã góp ý và vẫn chọn chia sẻ thay vì lặng lẽ rời đi — điều đó thật sự đáng quý với bên em.\nVới Sekai, mỗi phản hồi từ khách hàng không chỉ là góp ý, mà còn là cơ hội để bên em nhìn lại chính mình, học cách phục vụ tốt hơn và hiểu sâu hơn điều khách hàng mong đợi.\nBên em sẽ ghi nhận nghiêm túc và xem đây là bài học để điều chỉnh lại cách phục vụ, để những lần sau khi mình ghé Sekai, trải nghiệm sẽ đúng như sự kỳ vọng và niềm tin mình đã dành cho tụi em 💛"
+    },
+    {
+      "id": "script-order-1",
+      "type": "script",
+      "brand": "TUTIMI",
+      "title": "Order 1",
+      "tags": [],
+      "category": "6. Đặt hàng",
+      "content": "Mình dự kiến đặt bao nhiêu ly và thời gian nhận hàng là khi nào ạ? Mình cho em xin địa chỉ để em kiểm tra chi nhánh gần mình nhất nhé"
+    },
+    {
+      "id": "script-order-2",
+      "type": "script",
+      "brand": "TUTIMI",
+      "title": "Order 2",
+      "tags": [],
+      "category": "6. Đặt hàng",
+      "content": "Mình chọn giúp em tên món + số lượng nha. Hiện chỉ có các món trà sữa và sữa tươi bên em mới hỗ trợ giảm đường, các món còn lại có lượng đường cố định nên không giảm ngọt được nên em chọn mặc định cho mình nhé"
+    },
+    {
+      "id": "script-order-3",
+      "type": "script",
+      "brand": "TUTIMI",
+      "title": "Order 3",
+      "tags": [],
+      "category": "6. Đặt hàng",
+      "content": "Bên em cần mình thanh toán trước rồi mới tiến hành ra bill làm món, các đơn SLL bên em cần đặt trước tối thiểu 2 - 3 tiếng để CH chuẩn bị chu đáo chị nha. Đơn hàng >600k sẽ được hỗ trợ phí ship, nếu chưa đủ 600k thì mình thanh toán ship cho tài xế khi nhận hàng giúp em ạ."
+    },
+    {
+      "id": "script-order-4",
+      "type": "script",
+      "brand": "TUTIMI",
+      "title": "Order 4",
+      "tags": [],
+      "category": "6. Đặt hàng",
+      "content": "Dạ bên em nhận đơn tối thiểu từ 5 ly, đơn dưới 600k mình sẽ thanh toán phí ship cho tài xế khi nhận hàng ạ."
+    },
+    {
+      "id": "script-other-ttm-1",
+      "type": "script",
+      "brand": "TUTIMI",
+      "title": "VAT",
+      "tags": [],
+      "category": "5. Khác",
+      "content": "Dạ TuTiMi có hỗ trợ xuất hoá đơn đối với đơn hàng được đặt trong ngày ạ.\nNhờ mình cung cấp giúp em thông tin sau nha:\n> Hình ảnh 1 ly nước có tem trắng trên ly nước \n> Thông tin xuất hoá đơn bao gồm:\n+ Tên Công ty\n+ MST\n+ Địa chỉ công ty\n+ Email nhận hoá đơn\n+ SĐT\nNhận được các thông tin trên phía kế toán sẽ hỗ trợ xuất hoá đơn cho mình ạ."
+    },
+    {
+      "id": "script-other-ttm-2",
+      "type": "script",
+      "brand": "TUTIMI",
+      "title": "Tuyển dụng",
+      "tags": [],
+      "category": "5. Khác",
+      "content": "Chào bạn, Bạn xem nhu cầu tuyển dụng các chi nhánh tại link\nhttps://docs.google.com/document/d/1K7ZsP-A3imx9kLws1ZQYAsoyOHF9EJ8miBNUWApCwXQ/edit?tab=t.0\n📌 Sau đó gửi thông tin ứng tuyển qua form: https://forms.gle/7W3FRLdBg6oDdMc78\nTrong 3-5 ngày QLCH sẽ liên hệ nếu chi nhánh còn đang tuyển và thông tin bạn đăng ký phù hợp với yêu cầu tuyển dụng nhé"
+    },
+    {
+      "id": "script-other-ttm-3",
+      "type": "script",
+      "brand": "TUTIMI",
+      "title": "Thông tin liên hệ",
+      "tags": [],
+      "category": "5. Khác",
+      "content": "Hotline: 0778 676 009\nZalo OA: https://zalo.me/3761794265517786684\nZalo cá nhân brand: 0901 837 263\nDanh sách cửa hàng: https://tutimi.com.vn/stores"
+    },
+    {
+      "id": "script-other-sk-1",
+      "type": "script",
+      "brand": "SEKAI",
+      "title": "VAT",
+      "tags": [],
+      "category": "5. Khác",
+      "content": "Dạ Sekai có hỗ trợ xuất hoá đơn đối với đơn hàng được đặt trong ngày ạ.\nNhờ mình cung cấp giúp em thông tin sau nha:\n> Hình ảnh 1 ly nước có tem trắng trên ly nước \n> Thông tin xuất hoá đơn bao gồm:\n+ Tên Công ty\n+ MST\n+ Địa chỉ công ty\n+ Email nhận hoá đơn\n+ SĐT\nNhận được các thông tin trên phía kế toán sẽ hỗ trợ xuất hoá đơn cho mình ạ."
+    },
+    {
+      "id": "script-other-sk-2",
+      "type": "script",
+      "brand": "SEKAI",
+      "title": "Tuyển dụng",
+      "tags": [],
+      "category": "5. Khác",
+      "content": "🔥 Chào bạn, mình gửi bạn thông tin công việc và chi nhánh đang tuyển: https://docs.google.com/document/d/1bAH20lFiOB26CnhhmNmKasuEiDDjuX67JhNSaRLhx1g/edit?tab=t.0\n📌 Link đăng ký: https://forms.gle/M4UVjwhngMVCy2Tm8\nBạn có thể điền thông tin tại form, trong 3-5 ngày QLCH sẽ liên hệ nếu chi nhánh còn đang tuyển và thông tin bạn đăng ký phù hợp với yêu cầu tuyển dụng nhé"
+    },
+    {
+      "id": "script-other-sk-3",
+      "type": "script",
+      "brand": "SEKAI",
+      "title": "Thông tin liên hệ",
+      "tags": [],
+      "category": "5. Khác",
+      "content": "Hotline: 0938831674\nZalo OA: https://zalo.me/4602370771952061243\nZalo cá nhân brand: 0938831674\nDanh sách cửa hàng: https://sekai.vn/cua-hang"
+    },
+    {
+      "id": "script-email-1",
+      "type": "script",
+      "brand": "TUTIMI",
+      "title": "Mail cho chị",
+      "tags": [],
+      "category": "7. Email",
+      "content": "Dạ em chào chị, em liên hệ cho mình từ Trà sữa Tutimi. \nEm có nhận được phản hồi của mình về đơn hàng tại BeFood mã đơn 69616459 tại cửa hàng Đồng Đen về vấn đề CH giao thiếu Trà Đào (L) cho mình ạ. \nTrước tiên, Tutimi rất xin lỗi vì chị đã có trải nghiệm chưa tốt khi sử dụng dịch vụ của Tutimi vừa qua ạ. \nTrường hợp này để đảm bảo quyền lợi cho mình, em xin được hoàn tiền 35k vào tài khoản mình cung cấp là:\n\nRất cảm ơn chị đã cho Tutimi cơ hội được hỗ trợ mình ạ"
+    },
+    {
+      "id": "script-email-2",
+      "type": "script",
+      "brand": "TUTIMI",
+      "title": "Mail cho anh",
+      "tags": [],
+      "category": "7. Email",
+      "content": "Dạ em chào anh, em liên hệ cho mình từ Trà sữa Tutimi. \nEm có nhận được phản hồi của mình về đơn hàng tại BeFood mã đơn 69616459 tại cửa hàng Đồng Đen về vấn đề CH giao thiếu Trà Đào (L) cho mình ạ. \nTrước tiên, Tutimi rất xin lỗi vì anh đã có trải nghiệm chưa tốt khi sử dụng dịch vụ của Tutimi vừa qua ạ. \nTrường hợp này để đảm bảo quyền lợi cho mình, em xin được hoàn tiền 35k vào tài khoản mình cung cấp là:\n\nRất cảm ơn anh đã cho Tutimi cơ hội được hỗ trợ mình ạ"
+    },
+    {
+      "id": "script-email-3",
+      "type": "script",
+      "brand": "SEKAI",
+      "title": "Mail cho chị",
+      "tags": [],
+      "category": "7. Email",
+      "content": "Dạ em chào chị, em liên hệ cho mình từ Trà sữa Sekai. Em có nhận được phản hồi của mình về đơn hàng tại BeFood mã đơn 69616459 tại cửa hàng Sekai - Nguyễn Cửu Vân về vấn đề CH giao thiếu Trà Đào (L) cho mình ạ. \nTrước tiên, Sekai rất xin lỗi vì chị đã có trải nghiệm chưa tốt khi sử dụng dịch vụ của Sekai vừa qua ạ. Trường hợp này để đảm bảo quyền lợi cho mình, em xin được hoàn tiền 35k vào tài khoản mình cung cấp là:\n\nRất cảm ơn chị đã cho Sekai cơ hội được hỗ trợ mình ạ"
+    },
+    {
+      "id": "script-email-4",
+      "type": "script",
+      "brand": "SEKAI",
+      "title": "Mail cho anh",
+      "tags": [],
+      "category": "7. Email",
+      "content": "Dạ em chào anh, em liên hệ cho mình từ Trà sữa Sekai. \nEm có nhận được phản hồi của mình về đơn hàng tại BeFood mã đơn 69616459 tại cửa hàng Đồng Đen về vấn đề CH giao thiếu Trà Đào (L) cho mình ạ. \nTrước tiên, Sekai rất xin lỗi vì anh đã có trải nghiệm chưa tốt khi sử dụng dịch vụ của Sekai vừa qua ạ. \nTrường hợp này để đảm bảo quyền lợi cho mình, em xin được hoàn tiền 35k vào tài khoản mình cung cấp là:\n\nRất cảm ơn anh đã cho Sekai cơ hội được hỗ trợ mình ạ"
+    },
+    {
+      "id": "script-email-5",
+      "type": "script",
+      "brand": "TUTIMI",
+      "title": "Cấn trừ",
+      "tags": [],
+      "category": "7. Email",
+      "content": "[ XÁC NHẬN CẤN TRỪ ĐƠN HÀNG 65896632]\n\nKính gửi bộ phận Chăm sóc khách hàng BeFood,\nĐại diện bộ phận CSKH, tôi chấp nhận cấn trừ đơn hàng từ phía BeFood để hỗ trợ cho khách hàng. \n\nTrân trọng cảm ơn BeFood đã phối hợp để mang đến trải nghiệm tốt nhất cho khách hàng. Nếu có thêm thông tin cần trao đổi, vui lòng liên hệ với tôi qua email hoặc số điện thoại 0778 676 009.\nTrân trọng,"
+    },
+    {
+      "id": "script-email-6",
+      "type": "script",
+      "brand": "TUTIMI",
+      "title": "Hỗ trợ",
+      "tags": [],
+      "category": "7. Email",
+      "content": "[XÁC NHẬN ĐÃ HỖ TRỢ ĐƠN HÀNG 71337354]\nKính gửi bộ phận Chăm sóc khách hàng BeFood,\nSau khi nhận được thông tin từ BeFood, chúng tôi đã chủ động xử lý hoàn tiền cho khách hàng.\nSố tiền hoàn: 8.000đ\nNội dung xác nhận được đính kèm trong email.\nTrân trọng cảm ơn BeFood đã phối hợp để mang đến trải nghiệm tốt nhất cho khách hàng. Nếu có thêm thông tin cần trao đổi, vui lòng phản hồi lại email này hoặc số điện thoại 0778676009.\nTrân trọng"
+    },
+    {
+      "id": "script-greeting-dhi-1",
+      "type": "script",
+      "brand": "DHI",
+      "title": "Chào khách",
+      "tags": [],
+      "category": "1. Tiếp nhận",
+      "content": "Dhi xin chào! Mình cần hỗ trợ về vấn đề gì ạ?"
+    },
+    {
+      "id": "script-greeting-dhi-2",
+      "type": "script",
+      "brand": "DHI",
+      "title": "Xin lỗi lần đầu",
+      "tags": [],
+      "category": "1. Tiếp nhận",
+      "content": "Trước tiên Dhi xin gửi lời xin lỗi chân thành nhất vì mình đã có trải nghiệm chưa trọn vẹn khi sử dụng dịch vụ ạ.\nBên em sẽ kiểm tra lại thông tin đơn hàng của mình với phía cửa hàng để tìm ra nguyên nhân và rút kinh nghiệm tránh tái diễn ạ."
+    },
+    {
+      "id": "script-greeting-dhi-3",
+      "type": "script",
+      "brand": "DHI",
+      "title": "Xin bill",
+      "tags": [],
+      "category": "1. Tiếp nhận",
+      "content": "Dạ để có đủ thông tin hỗ trợ nhanh nhất, nhờ mình cung cấp giúp em:\n- Hình ảnh đặt hàng trên app (có mã đơn)\n- SĐT đặt hàng\n- Hình ảnh tem trắng dán trên ly có thông tin món đang gặp vấn đề\nEm sẽ kiểm tra và hỗ trợ xử lý ngay cho mình ạ!"
+    },
+    {
+      "id": "script-greeting-dhi-4",
+      "type": "script",
+      "brand": "DHI",
+      "title": "Check cửa hàng",
+      "tags": [],
+      "category": "1. Tiếp nhận",
+      "content": "Dạ Dhi đang kiểm tra với phía cửa hàng, em sẽ phản hồi lại ngay khi có thông tin để hỗ trợ xử lý cho mình ạ!"
+    },
+    {
+      "id": "script-category-dhi-1",
+      "type": "script",
+      "brand": "DHI",
+      "title": "Địa chỉ cửa hàng",
+      "tags": [],
+      "category": "2. Vấn đề",
+      "content": "Hiện tại DHI chỉ bán online qua các ứng dụng giao đồ ăn, mình xem món và đặt trên app giúp DHI nhé ạ!"
+    },
+    {
+      "id": "script-category-dhi-2",
+      "type": "script",
+      "brand": "DHI",
+      "title": "Đặt hàng",
+      "tags": [],
+      "category": "2. Vấn đề",
+      "content": "Hiện tại DHI đã có mặt trên các app đặt đồ ăn như: Grabfood, Befood,  Shopeefood... Mình truy cập vào ứng dụng và gõ tìm kiếm \"Trà sữa DHI\" sẽ được app gợi ý cửa hàng gần nhất ạ.\nMình chỉ cần chờ bác tài giao tới và thường thức thôi nè! \nNếu thấy hợp khẩu vị mình có thể tặng cho DHI 5 🌟 để Dhi có động lực hỗ trợ mình tốt hơn nhé ạ!"
+    },
+    {
+      "id": "script-category-dhi-3",
+      "type": "script",
+      "brand": "DHI",
+      "title": "Dị vật lạ",
+      "tags": [],
+      "category": "2. Vấn đề",
+      "content": "Dạ Dhi chân thành xin lỗi vì sự cố không mong muốn lần này ạ.\nEm thực sự rất tiếc khi biết rằng sản phẩm mình nhận có dị vật, gây hoang mang và làm mình mất lòng tin khi sử dụng.\nNgay khi nhận được phản hồi, em đã chuyển thông tin về cửa hàng để tiến hành rà soát lại quy trình pha chế – đóng gói – kiểm soát đơn hàng để làm rõ và khắc phục triệt để, tuyệt đối không để trường hợp này tái diễn."
+    },
+    {
+      "id": "script-category-dhi-4",
+      "type": "script",
+      "brand": "DHI",
+      "title": "Thái độ nhân viên",
+      "tags": [],
+      "category": "2. Vấn đề",
+      "content": "Dhi chân thành xin lỗi vì thái độ chưa chuẩn mực của nhân viên đã ảnh hưởng đến trải nghiệm của mình.\nBên em luôn đề cao sự tử tế và tôn trọng khách hàng, nên sẽ rà soát – nhắc nhở – đào tạo lại để tránh lặp lại tình huống tương tự.\nEm rất biết ơn vì mình đã đã góp ý để Dhi ngày càng tốt hơn ạ 💛"
+    },
+    {
+      "id": "script-category-dhi-5",
+      "type": "script",
+      "brand": "DHI",
+      "title": "Giao sai thương hiệu",
+      "tags": [],
+      "category": "2. Vấn đề",
+      "content": "Dhi rất xin lỗi vì sự cố này đã khiến mình lo lắng ạ.\nỞ khu vực chuẩn bị đồ uống, bên em có sử dụng bộ ly tiêu chuẩn để đóng gói.\nTrong lúc hoàn thiện đơn, nhân viên đã lấy nhầm ly/tem sang thương hiệu khác.\n\nMón chị nhận vẫn được pha đúng công thức – đúng vị – đúng topping như chị order, không bị thay đổi ạ. Mình yên tâm sử dụng chị nhé."
+    },
+    {
+      "id": "script-category-dhi-6",
+      "type": "script",
+      "brand": "DHI",
+      "title": "Tài xế phản ánh",
+      "tags": [],
+      "category": "2. Vấn đề",
+      "content": "Dạ em ghi nhận vấn đề của anh nhé. Phía cửa hàng em nhận được thông tin là tỉ lệ huỷ đơn từ sàn khá cao, nên để tránh làm xong phải huỷ món, giảm thiểu rủi ro thì cửa hàng sẽ chờ tài xế tới lấy rồi mới nhận đơn. Em biết đây cũng là điểm hạn chế của cửa hàng gây ra mất thời gian chờ đợi của cả 2 bên. \nEm sẽ báo lại phản ánh này của mình lên bộ phận cấp cao hơn để họ đánh giá lại tỉ lệ đơn huỷ cũng như rủi ro mà phía tài xế phải chịu, để thay đổi quy trình cho phù hợp hơn với cả bên đối tác tài xế ạ.\nEm cũng xin gửi lời xin lỗi đến riêng anh và bộ phận tài xế nói chung vì quy trình bên em đã làm ảnh hưởng đến công việc của mình, bên em sẽ cố gắng tìm cách để thay đổi cách vận hành hiện tại ạ."
+    },
+    {
+      "id": "script-category-dhi-7",
+      "type": "script",
+      "brand": "DHI",
+      "title": "Sai yêu cầu của khách",
+      "tags": [],
+      "category": "2. Vấn đề",
+      "content": "Dhi gửi lời xin lỗi chân thành vì trải nghiệm chưa tốt và thông tin về việc món giao không đúng sản phẩm/size/topping.\nBên em đánh giá là sự cố trong khâu xử lý đơn và đang rà soát lại quy trình pha chế – đóng gói – kiểm soát đơn hàng để làm rõ và khắc phục triệt để, hạn chế việc tái diễn."
+    },
+    {
+      "id": "script-solution-dhi-1",
+      "type": "script",
+      "brand": "DHI",
+      "title": "Ship/hoàn ly",
+      "tags": [],
+      "category": "3. Phương án",
+      "content": "Để đảm bảo quyền lợi và trải nghiệm của mình, Dhi xin được hỗ trợ 1 trong 2 phương án sau:\n> Gửi lại ly mới, hoặc hoàn tiền theo giá trị trên app\nLy đã gửi bên em không thu hồi ạ, mình xử lý giúp em nhé\nMình chọn phương án thuận tiện nhất để bên em hỗ trợ xử lý ngay nhé."
+    },
+    {
+      "id": "script-solution-dhi-2",
+      "type": "script",
+      "brand": "DHI",
+      "title": "Ship/hoàn topping",
+      "tags": [],
+      "category": "3. Phương án",
+      "content": "Để đảm bảo quyền lợi và trải nghiệm của mình, Dhi xin được hỗ trợ 1 trong 2 phương án sau:\n> Gửi lại phần topping bị thiếu, hoặc hoàn tiền phần topping này theo giá trị trên app\nMình chọn phương án thuận tiện nhất để bên em hỗ trợ xử lý ngay nhé."
+    },
+    {
+      "id": "script-solution-dhi-5",
+      "type": "script",
+      "brand": "DHI",
+      "title": "Hoàn tiền 1 phần",
+      "tags": [],
+      "category": "3. Phương án",
+      "content": "Để đảm bảo quyền lợi và trải nghiệm của mình, Dhi xin được hỗ trợ hoàn tiền 30% giá trị ly theo giá trị trên app, để mình đồng ý nhận và sử dụng ly này ạ.\nNếu mình đồng ý, mình vui lòng cung cấp giúp em số momo hoặc STK để bên em hoàn tiền cho mình nhé ạ."
+    },
+    {
+      "id": "script-solution-dhi-3",
+      "type": "script",
+      "brand": "DHI",
+      "title": "Ship lại",
+      "tags": [],
+      "category": "3. Phương án",
+      "content": "Dhi xin phép lấy thông tin để hỗ trợ gửi lại món mới ạ. Mình cung cấp giúp các thông tin sau nha:\n> Tên người nhận\n> Số điện thoại\n> Địa chỉ\nĐơn sẽ được giao hoàn toàn miễn phí ạ 💛"
+    },
+    {
+      "id": "script-solution-dhi-4",
+      "type": "script",
+      "brand": "DHI",
+      "title": "Hoàn tiền",
+      "tags": [],
+      "category": "3. Phương án",
+      "content": "Dạ mình vui lòng cung cấp giúp em số momo hoặc STK để bên em hoàn tiền cho mình nhé ạ."
+    },
+    {
+      "id": "script-ending-dhi-1",
+      "type": "script",
+      "brand": "DHI",
+      "title": "Khách góp ý",
+      "tags": [],
+      "category": "4. Kết thúc",
+      "content": "Mỗi góp ý đều là cơ hội để Dhi hoàn thiện và phục vụ mình tốt hơn ở những lần tới.\nDhi luôn mong muốn mang đến không chỉ một ly trà ngon, mà còn là sự chăm chút trong từng trải nghiệm.\nEm cảm ơn mình rất nhiều vì đã chia sẻ trải nghiệm ạ 💛\n\nHiện tại bên em sẽ chuyển qua hỗ trợ KH tại kênh Zalo Official: https://zalo.me/2910707597029143684 \nMình có thể bấm Quan tâm trước, sau này nếu cần hỗ trợ mình cứ nhắn qua tài khoản zalo mới giúp em nha."
+    },
+    {
+      "id": "script-ending-dhi-2",
+      "type": "script",
+      "brand": "DHI",
+      "title": "Khách xử lý",
+      "tags": [],
+      "category": "4. Kết thúc",
+      "content": "Dhi rất biết ơn vì chị đã thông cảm cho bên em. Dhi cam kết sẽ rà soát toàn bộ quy trình và nâng cao chất lượng sản phẩm để phục vụ tốt hơn. Mong là Dhi sẽ có cơ hội mang đến trải nghiệm trọn vẹn hơn cho chị vào lần sau ạ 💛\n\nHiện tại bên em sẽ chuyển qua hỗ trợ KH tại kênh Zalo Official: https://zalo.me/2910707597029143684\nMình có thể bấm Quan tâm trước, sau này nếu cần hỗ trợ mình cứ nhắn qua tài khoản zalo mới giúp em nha."
+    },
+    {
+      "id": "script-ending-dhi-3",
+      "type": "script",
+      "brand": "DHI",
+      "title": "Khách khó",
+      "tags": [],
+      "category": "4. Kết thúc",
+      "content": "Dhi chân thành cảm ơn mình đã góp ý và vẫn chọn chia sẻ thay vì lặng lẽ rời đi — điều đó thật sự đáng quý với bên em.\nVới Dhi, mỗi phản hồi từ khách hàng không chỉ là góp ý, mà còn là cơ hội để bên em nhìn lại chính mình, học cách phục vụ tốt hơn và hiểu sâu hơn điều khách hàng mong đợi.\nBên em sẽ ghi nhận nghiêm túc và xem đây là bài học để điều chỉnh lại cách phục vụ, để những lần sau khi mình ghé Dhi, trải nghiệm sẽ đúng như sự kỳ vọng và niềm tin mình đã dành cho tụi em ạ"
+    },
+    {
+      "id": "script-other-dhi-1",
+      "type": "script",
+      "brand": "DHI",
+      "title": "VAT",
+      "tags": [],
+      "category": "5. Khác",
+      "content": "Dạ Dhi có hỗ trợ xuất hoá đơn đối với đơn hàng được đặt trong ngày ạ.\nNhờ mình cung cấp giúp em thông tin sau nha:\n> Hình ảnh 1 ly nước có tem trắng trên ly nước \n> Thông tin xuất hoá đơn bao gồm:\n+ Tên Công ty\n+ MST\n+ Địa chỉ công ty\n+ Email nhận hoá đơn\n+ SĐT\nNhận được các thông tin trên phía kế toán sẽ hỗ trợ xuất hoá đơn cho mình ạ."
+    },
+    {
+      "id": "script-email-7",
+      "type": "script",
+      "brand": "DHI",
+      "title": "Email cho chị",
+      "tags": [],
+      "category": "7. Email",
+      "content": "Dạ em chào chị, em liên hệ cho mình từ Trà sữa Dhi. \nEm có nhận được phản hồi của mình về đơn hàng tại BeFood mã đơn 69616459 tại cửa hàng Đồng Đen về vấn đề CH giao thiếu Trà Đào (L) cho mình ạ. \nTrước tiên, Dhi rất xin lỗi vì chị đã có trải nghiệm chưa tốt khi sử dụng dịch vụ của Dhi vừa qua ạ. \nTrường hợp này để đảm bảo quyền lợi cho mình, em xin được hoàn tiền 35k vào tài khoản mình cung cấp là:\n\nRất cảm ơn chị đã cho Dhi cơ hội được hỗ trợ mình ạ"
+    },
+    {
+      "id": "script-email-8",
+      "type": "script",
+      "brand": "DHI",
+      "title": "Email cho anh",
+      "tags": [],
+      "category": "7. Email",
+      "content": "Dạ em chào anh, em liên hệ cho mình từ Trà sữa Dhi. \nEm có nhận được phản hồi của mình về đơn hàng tại BeFood mã đơn 69616459 tại cửa hàng Đồng Đen về vấn đề CH giao thiếu Trà Đào (L) cho mình ạ. \nTrước tiên, Dhi rất xin lỗi vì anh đã có trải nghiệm chưa tốt khi sử dụng dịch vụ của Dhi vừa qua ạ. \nTrường hợp này để đảm bảo quyền lợi cho mình, em xin được hoàn tiền 35k vào tài khoản mình cung cấp là:\n\nRất cảm ơn anh đã cho Dhi cơ hội được hỗ trợ mình ạ"
+    },
+    {
+      "id": "sk-1",
+      "type": "store",
+      "brand": "SEKAI",
+      "title": "Sekai 782 Hương Lộ 2",
+      "tags": [],
+      "managerName": "Đặng Nguyễn Yến Nhi",
+      "managerPhone": "0565232814",
+      "storePhone1": "0903860948",
+      "address": "782 Hương Lộ 2, Phường Bình Trị Đông A, Quận Bình Tân, TP Hồ Chí Minh"
+    },
+    {
+      "id": "sk-2",
+      "type": "store",
+      "brand": "SEKAI",
+      "title": "Sekai 354 An Dương Vương",
+      "tags": [],
+      "managerName": "Đặng Nguyễn Yến Nhi",
+      "managerPhone": "0565232814",
+      "storePhone1": "0906832948",
+      "address": "354 An Dương Vương, Phường 10, Quận 6"
+    },
+    {
+      "id": "sk-3",
+      "type": "store",
+      "brand": "SEKAI",
+      "title": "Sekai 66 Ni Sư Huỳnh Liên",
+      "tags": [],
+      "managerName": "Cẩm Tú",
+      "managerPhone": "0342723426",
+      "storePhone1": "0582766197",
+      "address": "66 Ni Sư Huỳnh Liên, Phường 10, quận Tân Bình, TP HCM"
+    },
+    {
+      "id": "sk-4",
+      "type": "store",
+      "brand": "SEKAI",
+      "title": "Sekai 73 Kênh Nước Đen",
+      "tags": [],
+      "managerName": "Cẩm Tú",
+      "managerPhone": "0342723426",
+      "storePhone1": "0909254108",
+      "address": "73 Kênh Nước Đen, P. Bình Hưng Hoà A, Q. Bình Tân, TP.HCM"
+    },
+    {
+      "id": "sk-5",
+      "type": "store",
+      "brand": "SEKAI",
+      "title": "Sekai 29 Nguyễn Chánh Sắt",
+      "tags": [],
+      "managerName": "Nguyễn Điền Cát Trinh",
+      "managerPhone": "377920938",
+      "storePhone1": "090 9147058",
+      "address": "29 Nguyễn Chánh Sắt, Phường 13, Quận Tân Bình, TP HCM"
+    },
+    {
+      "id": "sk-6",
+      "type": "store",
+      "brand": "SEKAI",
+      "title": "Sekai 34 Tô Vĩnh Diện",
+      "tags": [],
+      "managerName": "Huỳnh Ngọc Bảo Trân",
+      "managerPhone": "0963858722",
+      "storePhone1": "090 1161428",
+      "address": "34 Tô Vĩnh Diện, Phường Linh Chiểu, Tp Thủ Đức, TP Hồ Chí Minh"
+    },
+    {
+      "id": "sk-7",
+      "type": "store",
+      "brand": "SEKAI",
+      "title": "Sekai 81 Bình Lợi",
+      "tags": [],
+      "managerName": "Huỳnh Thị Mai Loan",
+      "managerPhone": "708916541",
+      "storePhone1": "058 9855703",
+      "address": "81 Bình Lợi, Phường 13, Quận Bình Thạnh, TP Hồ Chí Minh"
+    },
+    {
+      "id": "sk-8",
+      "type": "store",
+      "brand": "SEKAI",
+      "title": "Sekai Phan Văn Hớn",
+      "tags": [],
+      "managerName": "Mai Khánh Linh",
+      "managerPhone": "785779488",
+      "storePhone1": "090 6817248",
+      "address": "18/3 Phan Văn Hớn, Xã Bà Điểm, Huyện Hóc Môn, TP HCM"
+    },
+    {
+      "id": "sk-9",
+      "type": "store",
+      "brand": "SEKAI",
+      "title": "Sekai Nguyễn Duy Trinh",
+      "tags": [],
+      "managerName": "Dương Thị Minh Thùy",
+      "managerPhone": "703645962",
+      "storePhone1": "058 2760842",
+      "address": "197 Nguyễn Duy Trinh, Phường Bình Trưng Tây, TP Thủ Đức"
+    },
+    {
+      "id": "sk-10",
+      "type": "store",
+      "brand": "SEKAI",
+      "title": "Sekai 179 Phan Đình Phùng",
+      "tags": [],
+      "managerName": "Hà Thị Tú Quy",
+      "managerPhone": "396809945",
+      "storePhone1": "070 8822378",
+      "address": "179 Phan Đình Phùng, P17, Phú Nhuận, TP.HCM"
+    },
+    {
+      "id": "sk-11",
+      "type": "store",
+      "brand": "SEKAI",
+      "title": "Sekai Bình Quới",
+      "tags": [],
+      "managerName": "Nguyễn Phan Nhã Quyên",
+      "managerPhone": "0707903937",
+      "storePhone1": "090 9307948",
+      "address": "279 Bình Quới, Phường 28, Quận Bình Thạnh, TP HCM"
+    },
+    {
+      "id": "sk-12",
+      "type": "store",
+      "brand": "SEKAI",
+      "title": "Sekai 344 Bà Hạt",
+      "tags": [],
+      "managerName": "Phạm Thị Thuý Dương",
+      "managerPhone": "0934794164",
+      "storePhone1": "090 1842165",
+      "address": "344 Bà Hạt, Phường 9, Quận 10"
+    },
+    {
+      "id": "sk-13",
+      "type": "store",
+      "brand": "SEKAI",
+      "title": "Sekai 233 Lê Đức Thọ",
+      "tags": [],
+      "managerName": "Nguyễn Kim Hằng",
+      "managerPhone": "939964250",
+      "storePhone1": "090 1863248",
+      "address": "233 Lê Đức Thọ, Phường 17, quận Gò Vấp, TP HCM"
+    },
+    {
+      "id": "sk-14",
+      "type": "store",
+      "brand": "SEKAI",
+      "title": "Sekai 64 Đông Bắc",
+      "tags": [],
+      "managerName": "Vũ Thị Mỹ Duyên",
+      "managerPhone": "0395171510",
+      "storePhone1": "0901971880",
+      "address": "64 Đông Bắc, P. Tân Chánh Hiệp, Quận 12, TP Hồ Chí Minh"
+    },
+    {
+      "id": "sk-15",
+      "type": "store",
+      "brand": "SEKAI",
+      "title": "Sekai 259B Phạm Văn Chiêu",
+      "tags": [],
+      "managerName": "Vũ Thị Mỹ Duyên",
+      "managerPhone": "0395171510",
+      "storePhone1": "0901951636",
+      "address": "259B Phạm Văn Chiêu, Phường 14, Quận Gò Vấp, TP Hồ Chí Minh"
+    },
+    {
+      "id": "ttmi-1",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "39/50 Đặng Thuỳ Trâm",
+      "tags": [],
+      "managerName": "Phan Vũ Hải Duy",
+      "managerPhone": "975958795",
+      "storePhone1": "056 3247340",
+      "storePhone2": "056 3247332",
+      "address": "39/50 Đặng Thùy Trâm, P.13, Q. Bình Thạnh."
+    },
+    {
+      "id": "ttmi-2",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "329 Tỉnh Lộ 10",
+      "tags": [],
+      "managerName": "Đặng Nguyễn Yến Nhi",
+      "managerPhone": "0565232814",
+      "storePhone1": "0589855674",
+      "storePhone2": "0589855814",
+      "address": "329 Tỉnh Lộ 10, P. An Lạc, Q. Bình Tân."
+    },
+    {
+      "id": "ttmi-3",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "486A Hồ Học Lãm",
+      "tags": [],
+      "managerName": "Đặng Nguyễn Yến Nhi",
+      "managerPhone": "0565232814",
+      "storePhone1": "0909462558",
+      "storePhone2": "0589855710",
+      "address": "486A Hồ Học Lãm, P. An Lạc, Quận Bình Tân"
+    },
+    {
+      "id": "ttmi-4",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "572 Lê Văn Quới",
+      "tags": [],
+      "managerName": "Đặng Nguyễn Yến Nhi",
+      "managerPhone": "565232814",
+      "storePhone1": "0395903141",
+      "storePhone2": "0562628092",
+      "address": "572 Lê Văn Quới, P.Bình Hưng Hòa A, Q. Bình Tân."
+    },
+    {
+      "id": "ttmi-5",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "34C Tân Quý",
+      "tags": [],
+      "managerName": "Vũ Thị Mỹ Duyên",
+      "managerPhone": "395171510",
+      "storePhone1": "0395850994",
+      "storePhone2": "0562628110",
+      "address": "34C Tân Quý, P.Tân Quý, Q.Tân Phú."
+    },
+    {
+      "id": "ttmi-6",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "39 Đồng Đen",
+      "tags": [],
+      "managerName": "Vũ Thị Mỹ Duyên",
+      "managerPhone": "395171510",
+      "storePhone1": "0707528559",
+      "storePhone2": "0584984027",
+      "address": "39 Đồng Đen, P.12, Q.Tân Bình."
+    },
+    {
+      "id": "ttmi-7",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "712 Lạc Long Quân",
+      "tags": [],
+      "managerName": "Nguyễn Điền Cát Trinh",
+      "managerPhone": "377920938",
+      "storePhone1": "076 2980137",
+      "address": "712 Lạc Long Quân, P.9, Q.Tân Bình."
+    },
+    {
+      "id": "ttmi-8",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "97 Vạn Kiếp",
+      "tags": [],
+      "managerName": "Huỳnh Thị Mai Loan",
+      "managerPhone": "708916541",
+      "storePhone1": "0909987418",
+      "storePhone2": "0584984028",
+      "address": "97 Vạn Kiếp, P.3, Q.Bình Thạnh."
+    },
+    {
+      "id": "ttmi-9",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "38A Đường số 17",
+      "tags": [],
+      "managerName": "Huỳnh Ngọc Bảo Trân",
+      "managerPhone": "963858722",
+      "storePhone1": "0795561505",
+      "storePhone2": "0795561502",
+      "address": "38A Đường Số 17, P. Linh Chiểu, TP. Thủ Đức"
+    },
+    {
+      "id": "ttmi-10",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "45 Man Thiện",
+      "tags": [],
+      "managerName": "Huỳnh Ngọc Bảo Trân",
+      "managerPhone": "963858722",
+      "storePhone1": "0943853204",
+      "storePhone2": "0773821294",
+      "address": "45 Man Thiện, P. Hiệp Phú, TP. Thủ Đức"
+    },
+    {
+      "id": "ttmi-11",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "77A - 77B Hiệp Bình",
+      "tags": [],
+      "managerName": "Huỳnh Thị Mai Loan",
+      "managerPhone": "0708916541",
+      "storePhone1": "090 1840325",
+      "storePhone2": "090 9986594",
+      "address": "77A - 77B Hiệp Bình, P. Hiệp Bình Phước, TP. Thủ Đức."
+    },
+    {
+      "id": "ttmi-12",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "275 Đỗ Xuân Hợp",
+      "tags": [],
+      "managerName": "Huỳnh Ngọc Bảo Trân",
+      "managerPhone": "963858722",
+      "storePhone1": "0587699857",
+      "storePhone2": "0587048618",
+      "address": "275 Đỗ Xuân Hợp, P. Phước Long B, TP. Thủ Đức"
+    },
+    {
+      "id": "ttmi-13",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "59 Đường số 3",
+      "tags": [],
+      "managerName": "Huỳnh Thị Mai Loan",
+      "managerPhone": "708916541",
+      "storePhone1": "090 9923417",
+      "storePhone2": "033 3176264",
+      "address": "59 Đường Số 3, P. An Khánh, TP. Thủ Đức"
+    },
+    {
+      "id": "ttmi-14",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "71 Ngô Tất Tố",
+      "tags": [],
+      "managerName": "Huỳnh Thị Mai Loan",
+      "managerPhone": "708916541",
+      "storePhone1": "090 9472958",
+      "storePhone2": "0702165955",
+      "address": "71 Ngô Tất Tố, P.21, Q.Bình Thạnh."
+    },
+    {
+      "id": "ttmi-15",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "1/3 Quang Trung",
+      "tags": [],
+      "managerName": "Mai Khánh Linh",
+      "managerPhone": "785779488",
+      "storePhone1": "0563245916",
+      "storePhone2": "0562732641",
+      "address": "1/3 Quang Trung, TT Hóc Môn, Huyện Hóc Môn."
+    },
+    {
+      "id": "ttmi-16",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "45 Đặng Chất",
+      "tags": [],
+      "managerName": "Phạm Thị Thuý Dương",
+      "managerPhone": "934794164",
+      "storePhone1": "0589948870",
+      "storePhone2": "0924895328",
+      "address": "45 Đặng Chất, P.3, Q.8"
+    },
+    {
+      "id": "ttmi-17",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "65 Trường Sơn",
+      "tags": [],
+      "managerName": "Nguyễn Thị Yến Nhi",
+      "managerPhone": "921541250",
+      "storePhone1": "0909144618",
+      "address": "65 Trường Sơn, Phường 2, Tân Bình"
+    },
+    {
+      "id": "ttmi-18",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "376D Cách Mạng Tháng 8",
+      "tags": [],
+      "managerName": "Nguyễn Thị Yến Nhi",
+      "managerPhone": "921541250",
+      "storePhone1": "0904507556",
+      "storePhone2": "0589855660",
+      "address": "376D Cách Mạng Tháng Tám, P.10, Q.3"
+    },
+    {
+      "id": "ttmi-19",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "168A Nguyễn Duy Trinh",
+      "tags": [],
+      "managerName": "Dương Thị Minh Thùy",
+      "managerPhone": "703645962",
+      "storePhone1": "0563245841",
+      "storePhone2": "0589855761",
+      "address": "168A Nguyễn Duy Trinh, P. Bình Trưng Tây, TP. Thủ Đức"
+    },
+    {
+      "id": "ttmi-20",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "376 Nguyễn Kiệm",
+      "tags": [],
+      "managerName": "Hà Thị Tú Quy",
+      "managerPhone": "396809945",
+      "storePhone1": "0909815428",
+      "storePhone2": "0773796995",
+      "address": "376 Nguyễn Kiệm, P.3, Q.Phú Nhuận."
+    },
+    {
+      "id": "ttmi-21",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "129A Bình Quới",
+      "tags": [],
+      "managerName": "Nguyễn Phan Nhã Quyên",
+      "managerPhone": "707903937",
+      "storePhone1": "090 9462918",
+      "address": "129A Bình Quới, P.27, Q.Bình Thạnh."
+    },
+    {
+      "id": "ttmi-22",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "26 Đường số 17, Quận 7, Tân Kiểng",
+      "tags": [],
+      "managerName": "Nguyễn Thị Diễm Hương",
+      "managerPhone": "364490195",
+      "storePhone1": "058 2764927",
+      "storePhone2": "058 2979262",
+      "address": "26 Đường Số 17, P. Tân Kiểng, Q.7"
+    },
+    {
+      "id": "ttmi-23",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "55 Bùi Văn Ba",
+      "tags": [],
+      "managerName": "Nguyễn Thị Diễm Hương",
+      "managerPhone": "364490195",
+      "storePhone1": "076 4282047",
+      "storePhone2": "077 2783047",
+      "address": "55 Bùi Văn Ba, Phường Tân Thuận, Quận 7"
+    },
+    {
+      "id": "ttmi-24",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "98 Vĩnh Hội",
+      "tags": [],
+      "managerName": "Nguyễn Thị Diễm Hương",
+      "managerPhone": "364490195",
+      "storePhone1": "090 9475518",
+      "storePhone2": "090 9471528",
+      "address": "98 Vĩnh Hội, Phường 4, Quận 4"
+    },
+    {
+      "id": "ttmi-25",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "372 Nguyễn Tri Phương",
+      "tags": [],
+      "managerName": "Phạm Thị Thuý Dương",
+      "managerPhone": "934794164",
+      "storePhone1": "093 3304675",
+      "storePhone2": "093 3387161",
+      "address": "372 Nguyễn Tri Phương, P.4, Q.10"
+    },
+    {
+      "id": "ttmi-26",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "60H Lê Thị Riêng",
+      "tags": [],
+      "managerName": "Nguyễn Thị Yến Nhi",
+      "managerPhone": "921541250",
+      "storePhone1": "0906816248",
+      "storePhone2": "0901 837 854",
+      "address": "60H Lê Thị Riêng, P. Bến Thành, Q.1"
+    },
+    {
+      "id": "ttmi-27",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "Quốc Lộ 50",
+      "tags": [],
+      "managerName": "Phạm Thị Thuý Dương",
+      "managerPhone": "934794164",
+      "storePhone1": "093 8812500",
+      "storePhone2": "093 2718500",
+      "address": "637 Quốc lộ 50, xã Bình Hưng, TP Hồ Chí Minh"
+    },
+    {
+      "id": "ttmi-28",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "202 Đường Số 8",
+      "tags": [],
+      "managerName": "Vũ Thị Mỹ Duyên",
+      "managerPhone": "395171510",
+      "storePhone1": "0909814958",
+      "address": "202 Đường Số 8, P.11, Q.Gò Vấp."
+    },
+    {
+      "id": "ttmi-29",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "711 Phan Văn Trị",
+      "tags": [],
+      "managerName": "Nguyễn Phan Nhã Quyên",
+      "managerPhone": "707903937",
+      "storePhone1": "090 9476108",
+      "address": "711 Phan Văn Trị, P.7, Q.Gò Vấp."
+    },
+    {
+      "id": "ttmi-30",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "71A Nguyễn Văn Quá",
+      "tags": [],
+      "managerName": "Vũ Thị Mỹ Duyên",
+      "managerPhone": "395171510",
+      "storePhone1": "0562628107",
+      "storePhone2": "0584793279",
+      "address": "71A Nguyễn Văn Quá, P.Tân Hưng Thuận, Q.12."
+    },
+    {
+      "id": "ttmi-31",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "34 Nguyễn Ảnh Thủ",
+      "tags": [],
+      "managerName": "Mai Khánh Linh",
+      "managerPhone": "785779488",
+      "storePhone1": "0584984029",
+      "storePhone2": "0584984025",
+      "address": "34 Nguyễn Ảnh Thủ P. Hiệp Thành, Q.12."
+    },
+    {
+      "id": "ttmi-32",
+      "type": "store",
+      "brand": "TUTIMI",
+      "title": "966 Nguyễn Văn Quá",
+      "tags": [],
+      "managerName": "Vũ Thị Mỹ Duyên",
+      "managerPhone": "395171510",
+      "storePhone1": "0584984031",
+      "storePhone2": "0562628112",
+      "address": "966 Nguyễn Văn Quá, P.Đông Hưng Thuận, Q.12."
+    },
+    {
+      "id": "menu-ttm",
+      "type": "menu",
+      "brand": "TUTIMI",
+      "title": "Menu Tutimi",
+      "tags": [],
+      "imageUrl": "/api/img/img-1783099927392-bvchr7.jpg"
+    },
+    {
+      "id": "menu-ttm-dtt",
+      "type": "menu",
+      "brand": "TUTIMI",
+      "title": "Menu Tutimi ĐTT",
+      "tags": [],
+      "imageUrl": "/api/img/img-1783099929888-usw1nu.jpg"
+    },
+    {
+      "id": "menu-sk",
+      "type": "menu",
+      "brand": "SEKAI",
+      "title": "Menu Sekai",
+      "tags": [],
+      "imageUrl": "/api/img/img-1783136083342-stm6if.jpg"
+    },
+    {
+      "id": "mst-tutimi",
+      "type": "menu",
+      "brand": "TUTIMI",
+      "title": "MST TTMI",
+      "tags": [],
+      "content": "147147147\nCÔNG TY CỔ PHẦN TTMI\nTechcombank",
+      "imageUrl": "/api/img/img-1783136084073-ukyeb3.jpg"
+    },
+    {
+      "id": "mst-sekai",
+      "type": "menu",
+      "brand": "SEKAI",
+      "title": "MST SK",
+      "tags": [],
+      "content": "Techcombank\n99376868\nCÔNG TY CỔ PHẦN THƯƠNG MẠI ĐẦU TƯ SK",
+      "imageUrl": "/api/img/img-1783136084834-iqy8ia.jpg"
+    },
+    {
+      "id": "ctkm-sekai",
+      "type": "promotion",
+      "brand": "SEKAI",
+      "title": "Chương trình chiết khấu Sekai",
+      "tags": [],
+      "imageUrl": "/api/img/img-1783136085547-6y8790.jpg"
+    },
+    {
+      "id": "ctkm-tutimi",
+      "type": "promotion",
+      "brand": "TUTIMI",
+      "title": "Chương trình chiết khấu Tutimi",
+      "tags": [],
+      "imageUrl": "/api/img/img-1783136086181-b03wsq.jpg"
+    },
+    {
+      "id": "size-ly-sekai",
+      "type": "menu",
+      "brand": "SEKAI",
+      "title": "Size ly Sekai",
+      "tags": [],
+      "imageUrl": "/api/img/img-1783136086828-d1w1vo.jpg"
+    },
+    {
+      "id": "size-ly-tutimi",
+      "type": "menu",
+      "brand": "TUTIMI",
+      "title": "Size ly Tutimi",
+      "tags": [],
+      "imageUrl": "/api/img/img-1783136087431-jy25qe.jpg"
+    },
+    {
+      "id": "sekai-km-2705",
+      "type": "promotion",
+      "brand": "SEKAI",
+      "title": "Giảm 20% khung giờ vàng 13h - 17h cho TS full topping",
+      "tags": [],
+      "startDate": "27/5/2026",
+      "endDate": "30/6/2026",
+      "imageUrl": "/api/img/img-1783136087977-21s0tg.jpg",
+      "channels": [
+        "In-store"
+      ]
+    },
+    {
+      "id": "tutimi-upsize",
+      "type": "promotion",
+      "brand": "TUTIMI",
+      "title": "Upsize miễn phí từ L lên XL cho TS full topping",
+      "tags": [],
+      "imageUrl": "/api/img/img-1783136088563-uaieao.jpg",
+      "channels": [
+        "In-store"
+      ]
+    },
+    {
+      "id": "tutimi-sizem",
+      "type": "menu",
+      "brand": "TUTIMI",
+      "title": "Menu món tặng size M - size 530ml",
+      "tags": [],
+      "imageUrl": "/api/img/img-1783136089294-lhk1s4.jpg"
+    },
+    {
+      "id": "ttm-phin-nau-20k",
+      "type": "promotion",
+      "brand": "TUTIMI",
+      "title": "Phin nâu 20k",
+      "tags": [],
+      "content": "Chỉ áp dụng tại 1 số cửa hàng",
+      "imageUrl": "/api/img/img-1783136090012-hx3qek.jpg",
+      "channels": [
+        "In-store"
+      ]
+    },
+    {
+      "id": "giam-gia-30-shipper",
+      "type": "promotion",
+      "brand": "TUTIMI",
+      "title": "Giảm giá 30% cho tài xế",
+      "tags": [],
+      "content": "- Đối tượng: áp dụng cho toàn bộ tài xế, ko phân biệt app (be, grab, xanh, shopee, lalamove, ahamove, tada..)\n- Điều kiện áp dụng: mặc đồng phục hoặc có app giao hàng\n- Chương trình áp dụng: giảm 30% cho 1 ly/1 bill. nếu tài xế mua nhiều hơn thì tách bill"
+    },
+    {
+      "id": "sk-voucher-30",
+      "type": "promotion",
+      "brand": "SEKAI",
+      "title": "Nhận Voucher giảm 30%",
+      "tags": [],
+      "content": "- Khách mua qua app hay tại cửa hàng cũng sẽ được tặng voucher => voucher CHỈ ĐỔI ĐƯỢC tại cửa hàng\n- giảm 30% / bill ko giới hạn số tiền giảm\n- Voucher được sử dụng nhiều lần, CH nhận voucher chụp hình xong sẽ trả lại khách\n- Không áp dụng đồng thời với các CT khác\n- Chỉ áp dụng cho 1 số cửa hàng\n- Khách nhận voucher từ CH nào thì chỉ dùng được voucher ở CH đó\n- Trong mục Điều kiện áp dụng sẽ có tên chi nhánh áp dụng",
+      "startDate": "26/4/2026",
+      "endDate": "31/7/2026",
+      "imageUrl": "/api/img/img-1783099931628-kegblf.jpg",
+      "channels": [
+        "In-store"
+      ]
+    },
+    {
+      "id": "dong-gia-29k",
+      "type": "promotion",
+      "brand": "TUTIMI",
+      "title": "Đồng giá 29k cho 4 món kem matcha",
+      "tags": [],
+      "content": "Coco Matcha\nLục Trà Kem Matcha\nTrà Sữa Kem Matcha\nSữa Tươi Kem Matcha",
+      "channels": [
+        "In-store"
+      ]
+    }
+  ]
+}
