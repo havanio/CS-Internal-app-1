@@ -1339,25 +1339,39 @@
       "type": "promotion",
       "brand": "TUTIMI",
       "title": "Đồng giá 29k cho 4 món kem matcha",
-      "tags": [],
+      "category": "",
       "content": "Coco Matcha\nLục Trà Kem Matcha\nTrà Sữa Kem Matcha\nSữa Tươi Kem Matcha",
+      "tags": [],
       "channels": [
         "In-store"
-      ]
+      ],
+      "imageUrl": "seed:img-1783139894783-qn0vw1.jpeg",
+      "imageLabel": "",
+      "phone": "",
+      "managerName": "",
+      "managerPhone": "",
+      "storePhone1": "",
+      "storePhone2": "",
+      "address": "",
+      "hours": "",
+      "notes": "",
+      "startDate": "2026-07-03",
+      "endDate": "",
+      "updatedAt": "2026-07-04T04:38:22.535Z"
     },
     {
-      "id": "chao-cuoc-doi",
+      "id": "test-noi-dung",
       "type": "menu",
       "brand": "TUTIMI",
-      "title": "Chào cuộc đời",
-      "category": "",
+      "title": "Test nội dung",
+      "category": "MENU",
       "content": "",
       "tags": [],
       "channels": [],
-      "imageUrl": "seed:img-1783136651223-loyl7o.png",
-      "imageLabel": "",
-      "phone": "0987654321",
-      "managerName": "Q'kk",
+      "imageUrl": "seed:img-1783139460554-9e35ec.jpg",
+      "imageLabel": "Menu Tutimi - Upload lần 2",
+      "phone": "",
+      "managerName": "",
       "managerPhone": "",
       "storePhone1": "",
       "storePhone2": "",
@@ -1366,7 +1380,7 @@
       "notes": "",
       "startDate": "",
       "endDate": "",
-      "updatedAt": "2026-07-04T03:44:29.354Z"
+      "updatedAt": "2026-07-04T04:32:32.051Z"
     }
   ]
 }
