@@ -20,7 +20,11 @@ const OUT_PATH = resolve(
 
 // ---- helpers (ported from script.js) ---------------------------------------
 function normalize(value) {
-  return String(value || "").toLowerCase();
+  return String(value || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/đ/g, "d");
 }
 
 function slugify(value) {

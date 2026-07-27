@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,7 +15,7 @@
           <p id="dataSource" class="data-source">Đang tải dữ liệu...</p>
         </div>
         <div class="topbar-actions">
-          <button id="clearButton" class="icon-button subtle" type="button" title="Clear filters">Reset</button>
+          <button id="clearButton" class="icon-button subtle" type="button" title="Đặt lại bộ lọc">Đặt lại</button>
         </div>
       </header>
 
@@ -25,17 +25,17 @@
         <section class="filter-board" aria-label="Filters">
           <section class="filter-section">
             <div class="section-title">Brand</div>
-            <div id="brandFilters" class="filter-row" role="group" aria-label="Brand filter"></div>
+            <div id="brandFilters" class="filter-row" role="group" aria-label="Bộ lọc brand"></div>
           </section>
 
           <section class="filter-section">
-            <div class="section-title">Content</div>
-            <div id="typeFilters" class="filter-row" role="group" aria-label="Content type filter"></div>
+            <div class="section-title">Loại nội dung</div>
+            <div id="typeFilters" class="filter-row" role="group" aria-label="Bộ lọc loại nội dung"></div>
           </section>
 
           <section class="filter-section">
-            <div class="section-title">Category</div>
-            <div id="categoryFilters" class="category-row" role="group" aria-label="Category filter"></div>
+            <div class="section-title">Danh mục</div>
+            <div id="categoryFilters" class="category-row" role="group" aria-label="Bộ lọc danh mục"></div>
           </section>
         </section>
 
@@ -43,25 +43,25 @@
           <div class="content-header">
             <div>
               <p id="resultSummary" class="muted"></p>
-              <h2 id="currentView">All Support Content</h2>
+              <h2 id="currentView">Tất cả nội dung hỗ trợ</h2>
             </div>
-            <select id="statusFilter" aria-label="Promotion status filter">
-              <option value="all">All statuses</option>
-              <option value="active">Active promos</option>
-              <option value="upcoming">Upcoming promos</option>
-              <option value="expired">Expired promos</option>
+            <select id="statusFilter" aria-label="Bộ lọc trạng thái CTKM">
+              <option value="all">Tất cả trạng thái</option>
+              <option value="active">Đang áp dụng</option>
+              <option value="upcoming">Sắp áp dụng</option>
+              <option value="expired">Đã hết hạn</option>
             </select>
           </div>
 
           <section id="storeSearchSection" class="store-search" hidden>
-            <label class="field-label" for="searchInput">Search Stores</label>
-            <input id="searchInput" type="search" placeholder="Search store name, address, phone, manager" autocomplete="off" />
+            <label class="field-label" for="searchInput">Tìm cửa hàng</label>
+            <input id="searchInput" type="search" placeholder="Tìm theo tên cửa hàng, địa chỉ, số điện thoại, quản lý" autocomplete="off" />
           </section>
 
           <div id="results" class="results-grid" aria-live="polite"></div>
           <div id="emptyState" class="empty-state" hidden>
-            <h3>No matching content</h3>
-            <p>Try a different brand, content type, category, or store search keyword.</p>
+            <h3>Không có nội dung phù hợp</h3>
+            <p>Thử đổi brand, loại nội dung, danh mục hoặc từ khoá tìm kiếm.</p>
           </div>
         </section>
       </main>

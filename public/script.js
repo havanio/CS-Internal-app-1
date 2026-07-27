@@ -175,7 +175,11 @@ function getCategories() {
 }
 
 function normalize(value) {
-  return String(value || "").toLowerCase();
+  return String(value || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/đ/g, "d");
 }
 
 function escapeHtml(value) {
@@ -337,8 +341,11 @@ function parseSheetDate(value, endOfDay = false) {
 
   const normalizedValue = String(value).trim();
   const isoMatch = normalizedValue.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  const dmyMatch = normalizedValue.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
   const date = isoMatch
     ? new Date(Number(isoMatch[1]), Number(isoMatch[2]) - 1, Number(isoMatch[3]))
+    : dmyMatch
+      ? new Date(Number(dmyMatch[3]), Number(dmyMatch[2]) - 1, Number(dmyMatch[1]))
     : new Date(normalizedValue);
 
   if (Number.isNaN(date.getTime())) return null;
@@ -360,6 +367,13 @@ function formatCacheTimestamp(value) {
     dateStyle: "short",
     timeStyle: "short"
   }).format(date);
+}
+
+function formatDateYMD(value) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return String(value || "");
+
+  return date.toISOString().slice(0, 10);
 }
 
 function saveSheetCache(items) {
@@ -390,7 +404,7 @@ async function loadSheetData() {
     if (!response.ok) throw new Error(`API returned ${response.status}`);
 
     const data = await response.json();
-    const items = Array.isArray(data.items) ? data.items : [];
+    const items = Array.isArray(data.items) ? data.items.filter((item) => !item.archivedAt) : [];
     if (!items.length) throw new Error("No content items returned");
 
     state.items = items;
@@ -425,6 +439,38 @@ function getPromotionStatus(item) {
   if (start && today < start) return "upcoming";
   if (end && today > end) return "expired";
   return "active";
+}
+
+function getPromotionStatusLabel(status) {
+  return {
+    active: "Đang áp dụng",
+    upcoming: "Sắp áp dụng",
+    expired: "Đã hết hạn"
+  }[status] || "";
+}
+
+function getPromotionValidity(item) {
+  if (item.type !== "promotion") return null;
+  if (item.startDate && item.endDate) {
+    return { label: "Áp dụng", value: `${item.startDate} đến ${item.endDate}` };
+  }
+  if (item.startDate) {
+    return { label: "Áp dụng từ", value: item.startDate };
+  }
+  if (item.endDate) {
+    return { label: "Đến hết", value: item.endDate };
+  }
+  return null;
+}
+
+function sortItemsForDisplay(items) {
+  if (state.type !== "promotion") return items;
+  const rank = { active: 0, upcoming: 1, expired: 2 };
+  return [...items].sort((a, b) => {
+    const byStatus = rank[getPromotionStatus(a)] - rank[getPromotionStatus(b)];
+    if (byStatus !== 0) return byStatus;
+    return 0;
+  });
 }
 
 function itemMatchesQuery(item) {
@@ -527,7 +573,7 @@ function renderFilters() {
           `
         )
         .join("")
-    : `<p class="checkbox-empty">No categories for this view.</p>`;
+    : `<p class="checkbox-empty">Không có danh mục cho chế độ xem này.</p>`;
 }
 
 function renderStats(items) {
@@ -539,10 +585,10 @@ function renderStats(items) {
   const stores = allItems.filter((item) => item.type === "store");
 
   elements.stats.innerHTML = [
-    ["Results", items.length],
-    ["Scripts", scripts.length],
-    ["Stores", stores.length],
-    ["Active Promos", activePromos.length]
+    ["Kết quả", items.length],
+    ["Script", scripts.length],
+    ["Cửa hàng", stores.length],
+    ["CTKM đang áp dụng", activePromos.length]
   ]
     .map(
       ([label, value]) => `
@@ -562,25 +608,31 @@ function getCopyText(item) {
     const storePhones = getStorePhones(item);
     const legacyPhone = getLegacyStorePhone(item);
     const phoneLines = [
-      managerName ? `Manager: ${managerName}` : "",
-      managerPhone ? `Manager phone: ${managerPhone}` : "",
-      storePhones.length ? `Store phone: ${storePhones.join(" / ")}` : "",
-      legacyPhone ? `Phone: ${legacyPhone}` : ""
+      managerName ? `Quản lý: ${managerName}` : "",
+      managerPhone ? `SĐT quản lý: ${managerPhone}` : "",
+      storePhones.length ? `SĐT cửa hàng: ${storePhones.join(" / ")}` : "",
+      legacyPhone ? `Điện thoại: ${legacyPhone}` : ""
     ].filter(Boolean);
 
     return [
       item.title,
       ...phoneLines,
-      item.address ? `Address: ${item.address}` : "",
-      item.hours ? `Hours: ${item.hours}` : "",
-      item.notes ? `Notes: ${item.notes}` : ""
+      item.address ? `Địa chỉ: ${item.address}` : "",
+      item.hours ? `Giờ mở cửa: ${item.hours}` : "",
+      item.notes ? `Ghi chú: ${item.notes}` : ""
     ]
       .filter(Boolean)
       .join("\n");
   }
 
   if (item.type === "promotion") {
-    return `${item.title}\n${item.content}\nValid: ${item.startDate} to ${item.endDate}\nChannels: ${(item.channels || []).join(", ")}`;
+    const validity = getPromotionValidity(item);
+    return [
+      item.title,
+      item.content,
+      validity ? `${validity.label}: ${validity.value}` : "",
+      `Kênh áp dụng: ${(item.channels || []).join(", ")}`
+    ].filter(Boolean).join("\n");
   }
 
   return item.content || item.notes || item.title;
@@ -677,16 +729,17 @@ function renderMeta(item) {
   const storePhones = getStorePhones(item);
   const legacyPhone = getLegacyStorePhone(item);
 
-  if (item.category) rows.push(["Category", item.category]);
-  if (managerName) rows.push(["Manager", managerName]);
-  if (item.managerPhone) rows.push(["Manager Phone", item.managerPhone]);
-  if (storePhones.length) rows.push(["Store Phone", storePhones.join(" / ")]);
-  if (legacyPhone) rows.push(["Phone", legacyPhone]);
-  if (item.address) rows.push(["Address", item.address]);
-  if (item.hours) rows.push(["Hours", item.hours]);
-  if (item.startDate && item.endDate) rows.push(["Valid", `${item.startDate} to ${item.endDate}`]);
-  if (item.channels) rows.push(["Channels", item.channels.join(", ")]);
-  if (item.updatedAt) rows.push(["Updated", item.updatedAt]);
+  if (item.category) rows.push(["Danh mục", item.category]);
+  if (managerName) rows.push(["Quản lý", managerName]);
+  if (item.managerPhone) rows.push(["SĐT quản lý", item.managerPhone]);
+  if (storePhones.length) rows.push(["SĐT cửa hàng", storePhones.join(" / ")]);
+  if (legacyPhone) rows.push(["Điện thoại", legacyPhone]);
+  if (item.address) rows.push(["Địa chỉ", item.address]);
+  if (item.hours) rows.push(["Giờ mở cửa", item.hours]);
+  const validity = getPromotionValidity(item);
+  if (validity) rows.push([validity.label, validity.value]);
+  if (item.channels) rows.push(["Kênh áp dụng", item.channels.join(", ")]);
+  if (item.updatedAt && item.type !== "promotion") rows.push(["Cập nhật", formatDateYMD(item.updatedAt)]);
 
   if (!rows.length) return "";
 
@@ -701,7 +754,7 @@ function renderCard(item) {
   const promoStatus = getPromotionStatus(item);
   const tags = (item.tags || []).slice(0, 4);
   const imageUrl = getDisplayImageUrl(item.imageUrl);
-  const copyLabel = imageUrl ? "Copy Image" : item.type === "store" ? "Copy Info" : "Copy";
+  const copyLabel = imageUrl ? "Sao chép ảnh" : item.type === "store" ? "Sao chép thông tin" : "Sao chép";
   const typeClass = escapeHtml(slugify(item.type));
   const brandClass = escapeHtml(getBrandClass(item.brand));
   const typeLabel = escapeHtml(typeLabels[item.type] || item.type);
@@ -709,6 +762,26 @@ function renderCard(item) {
   const managerPhone = getManagerPhone(item);
   const storePhones = getStorePhones(item);
   const legacyPhone = getLegacyStorePhone(item);
+  const secondaryActions = [];
+
+  if (imageUrl) {
+    secondaryActions.push(`<button class="secondary" type="button" data-copy="${escapeHtml(item.id)}">Sao chép nội dung</button>`);
+    secondaryActions.push(`<button class="secondary" type="button" data-copy-image-link="${escapeHtml(item.id)}">Sao chép link</button>`);
+    secondaryActions.push(`<button class="secondary" type="button" data-open-image="${escapeHtml(item.id)}">Mở ảnh</button>`);
+    secondaryActions.push(`<a class="button secondary" href="${escapeHtml(imageUrl)}" download>Tải xuống</a>`);
+  }
+  if (item.type === "note") {
+    secondaryActions.push(`<button class="secondary" type="button" data-delete-note="${escapeHtml(item.id)}">Xoá</button>`);
+  }
+  if (managerPhone) {
+    secondaryActions.push(`<button class="secondary" type="button" data-copy-manager-phone="${escapeHtml(item.id)}">Sao chép SĐT quản lý</button>`);
+  }
+  if (storePhones.length) {
+    secondaryActions.push(`<button class="secondary" type="button" data-copy-store-phone="${escapeHtml(item.id)}">Sao chép SĐT cửa hàng</button>`);
+  }
+  if (legacyPhone) {
+    secondaryActions.push(`<button class="secondary" type="button" data-copy-phone="${escapeHtml(item.id)}">Sao chép điện thoại</button>`);
+  }
 
   return `
     <article class="content-card ${brandClass}">
@@ -716,7 +789,7 @@ function renderCard(item) {
         <div class="badge-row">
           <span class="badge ${typeClass}">${typeLabel}</span>
           <span class="badge brand-badge ${brandClass}">${escapeHtml(item.brand)}</span>
-          ${promoStatus ? `<span class="badge ${promoStatus}">${escapeHtml(promoStatus)}</span>` : ""}
+          ${promoStatus ? `<span class="badge ${promoStatus}">${escapeHtml(getPromotionStatusLabel(promoStatus))}</span>` : ""}
         </div>
       </div>
 
@@ -736,14 +809,16 @@ function renderCard(item) {
 
       <div class="card-actions">
         <button type="button" ${imageUrl ? `data-copy-image="${escapeHtml(item.id)}"` : `data-copy="${escapeHtml(item.id)}"`}>${copyLabel}</button>
-        ${imageUrl ? `<button class="secondary" type="button" data-copy="${escapeHtml(item.id)}">Copy Info</button>` : ""}
-        ${imageUrl ? `<button class="secondary" type="button" data-copy-image-link="${escapeHtml(item.id)}">Copy Link</button>` : ""}
-        ${imageUrl ? `<button class="secondary" type="button" data-open-image="${escapeHtml(item.id)}">Open Image</button>` : ""}
-        ${imageUrl ? `<a class="button secondary" href="${escapeHtml(imageUrl)}" download>Download</a>` : ""}
-        ${item.type === "note" ? `<button class="secondary" type="button" data-delete-note="${escapeHtml(item.id)}">Delete</button>` : ""}
-        ${managerPhone ? `<button class="secondary" type="button" data-copy-manager-phone="${escapeHtml(item.id)}">Copy Manager</button>` : ""}
-        ${storePhones.length ? `<button class="secondary" type="button" data-copy-store-phone="${escapeHtml(item.id)}">Copy Store Phone</button>` : ""}
-        ${legacyPhone ? `<button class="secondary" type="button" data-copy-phone="${escapeHtml(item.id)}">Copy Phone</button>` : ""}
+        ${
+          secondaryActions.length
+            ? `<details class="card-actions-more">
+                <summary>Tác vụ khác</summary>
+                <div class="card-actions-menu">
+                  ${secondaryActions.join("")}
+                </div>
+              </details>`
+            : ""
+        }
       </div>
     </article>
   `;
@@ -751,7 +826,7 @@ function renderCard(item) {
 
 function groupItemsByCategory(items) {
   return items.reduce((groups, item) => {
-    const category = item.category || "Uncategorized";
+    const category = item.category || "Chưa phân loại";
     if (!groups.has(category)) groups.set(category, []);
     groups.get(category).push(item);
     return groups;
@@ -781,7 +856,7 @@ function renderScriptTable(items) {
                           <p>${escapeHtml(script.content || script.notes || "")}</p>
                         </div>
                         <div class="script-action" role="cell">
-                          <button type="button" data-copy="${escapeHtml(script.id)}">Copy</button>
+                          <button type="button" data-copy="${escapeHtml(script.id)}">Sao chép</button>
                         </div>
                       </article>
                     `
@@ -797,7 +872,7 @@ function renderScriptTable(items) {
 }
 
 function renderResults() {
-  const items = getFilteredItems();
+  const items = sortItemsForDisplay(getFilteredItems());
   const useScriptTable = state.type === "script" || (items.length > 0 && items.every((item) => item.type === "script"));
   const brandClass = getBrandClass(state.brand);
 
@@ -809,7 +884,7 @@ function renderResults() {
   elements.results.classList.toggle("is-script-table", useScriptTable);
   elements.results.innerHTML = useScriptTable ? renderScriptTable(items) : items.map(renderCard).join("");
   elements.empty.hidden = items.length > 0;
-  elements.summary.textContent = `${items.length} result${items.length === 1 ? "" : "s"} found`;
+  elements.summary.textContent = `${items.length} mục phù hợp`;
   elements.currentView.textContent = typeLabels[state.type];
   renderStats(items);
   updateImageWarnings();
@@ -830,7 +905,7 @@ async function copyToClipboard(text, message) {
     await navigator.clipboard.writeText(text);
     showToast(message);
   } catch {
-    showToast("Copy failed. Select the text manually.");
+    showToast("Sao chép thất bại. Vui lòng chọn nội dung thủ công.");
   }
 }
 
@@ -927,7 +1002,7 @@ async function copyImageToClipboard(url, title, imageElement) {
       // the user gesture (required by Safari) while the image loads.
       const item = new ClipboardItem({ "image/png": imageToPngBlob(url) });
       await navigator.clipboard.write([item]);
-      showToast("Image copied");
+      showToast("Đã sao chép ảnh");
       return;
     } catch (error) {
       console.warn("Image copy via Clipboard API failed", error);
@@ -940,7 +1015,7 @@ async function copyImageToClipboard(url, title, imageElement) {
   // if this also fails we ask the user to copy the image manually.
   const htmlCopied =
     imageElement?.complete && imageElement.naturalWidth ? copyImageAsHtml(imageElement, title) : false;
-  showToast(htmlCopied ? "Image copied" : "Image copy failed. Open the image and copy it manually.");
+  showToast(htmlCopied ? "Đã sao chép ảnh" : "Sao chép ảnh thất bại. Hãy mở ảnh và sao chép thủ công.");
 }
 
 function saveNotes() {
@@ -1001,6 +1076,18 @@ function bindEvents() {
   });
 
   elements.results.addEventListener("click", (event) => {
+    const actionSummary = event.target.closest(".card-actions-more summary");
+    if (actionSummary) {
+      const actionMenu = actionSummary.parentElement;
+      window.setTimeout(() => {
+        if (!actionMenu?.open) return;
+        elements.results.querySelectorAll(".card-actions-more[open]").forEach((menu) => {
+          if (menu !== actionMenu) menu.removeAttribute("open");
+        });
+      }, 0);
+      return;
+    }
+
     const copyButton = event.target.closest("[data-copy]");
     const copyRow = event.target.closest("[data-copy-row]");
     const copyImageButton = event.target.closest("[data-copy-image]");
@@ -1027,13 +1114,13 @@ function bindEvents() {
     if (deleteButton) {
       state.notes = state.notes.filter((note) => note.id !== item.id);
       saveNotes();
-      showToast("Local note deleted");
+      showToast("Đã xoá ghi chú");
       renderResults();
       return;
     }
 
     if (copyImageLinkButton) {
-      copyToClipboard(getAbsoluteImageUrl(item.imageUrl), "Image link copied");
+      copyToClipboard(getAbsoluteImageUrl(item.imageUrl), "Đã sao chép link ảnh");
       return;
     }
 
@@ -1049,21 +1136,21 @@ function bindEvents() {
     }
 
     if (phoneButton) {
-      copyToClipboard(item.phone, "Phone number copied");
+      copyToClipboard(item.phone, "Đã sao chép số điện thoại");
       return;
     }
 
     if (managerPhoneButton) {
-      copyToClipboard(getManagerPhone(item), "Manager phone copied");
+      copyToClipboard(getManagerPhone(item), "Đã sao chép SĐT quản lý");
       return;
     }
 
     if (storePhoneButton) {
-      copyToClipboard(getStorePhones(item).join("\n"), "Store phone copied");
+      copyToClipboard(getStorePhones(item).join("\n"), "Đã sao chép SĐT cửa hàng");
       return;
     }
 
-    copyToClipboard(getCopyText(item), "Content copied");
+    copyToClipboard(getCopyText(item), "Đã sao chép nội dung");
   });
 
   elements.noteForm?.addEventListener("submit", (event) => {
@@ -1090,7 +1177,12 @@ function bindEvents() {
 
   elements.exportButton?.addEventListener("click", () => {
     const payload = JSON.stringify(state.notes, null, 2);
-    copyToClipboard(payload, "Local notes exported to clipboard");
+    copyToClipboard(payload, "Đã sao chép ghi chú");
+  });
+
+  document.addEventListener("click", (event) => {
+    if (event.target.closest(".card-actions-more")) return;
+    document.querySelectorAll(".card-actions-more[open]").forEach((menu) => menu.removeAttribute("open"));
   });
 }
 

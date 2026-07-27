@@ -2,7 +2,8 @@
   "name": "cs-internal-app",
   "private": true,
   "scripts": {
-    "local": "npx serve public -l 7003",
+    "local": "python3 -m http.server 7003 -d public",
+    "admin": "netlify dev",
     "dev": "netlify dev",
     "build:seed": "node scripts/build-seed.mjs",
     "seed:export": "node scripts/seed-export.mjs",
