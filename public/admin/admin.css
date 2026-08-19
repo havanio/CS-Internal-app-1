@@ -522,6 +522,56 @@
   font-size: 0.78rem;
 }
 
+.hours-picker {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: end;
+}
+
+.hours-time {
+  display: grid;
+  min-width: 0;
+  gap: 6px;
+}
+
+.hours-time span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.hours-selects {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.hours-selects select {
+  min-width: 0;
+}
+
+.hours-separator {
+  display: grid;
+  place-items: center;
+  min-height: 44px;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.hours-all-day {
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface-2);
+}
+
+.hours-picker.is-all-day .hours-time,
+.hours-picker.is-all-day .hours-separator {
+  opacity: 0.5;
+}
+
 .editor-intro {
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -720,6 +770,15 @@
 
   .group-grid {
     grid-template-columns: 1fr;
+  }
+
+  .hours-picker {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .hours-separator {
+    min-height: auto;
   }
 
   .editor-panel {

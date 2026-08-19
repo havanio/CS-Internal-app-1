@@ -120,6 +120,102 @@
     return out || "item";
   }
 
+  function parseHoursValue(value) {
+    var raw = (value || "").toString().trim();
+    if (!raw) return { allDay: false, open: "", close: "", raw: "" };
+    if (/^(24\/7|24h|cả ngày|ca ngay)$/i.test(raw)) {
+      return { allDay: true, open: "", close: "", raw: "24/7" };
+    }
+    var match = raw.match(/(\d{1,2})[:h](\d{2})\s*(?:-|–|—|đến|toi|to)\s*(\d{1,2})[:h](\d{2})/i);
+    if (!match) return { allDay: false, open: "", close: "", raw: raw };
+    return {
+      allDay: false,
+      open: match[1].padStart(2, "0") + ":" + match[2],
+      close: match[3].padStart(2, "0") + ":" + match[4],
+      raw: raw
+    };
+  }
+
+  function buildSelectOptions(values, placeholder) {
+    return '<option value="">' + placeholder + '</option>' + values.map(function (value) {
+      return '<option value="' + value + '">' + value + '</option>';
+    }).join("");
+  }
+
+  function initHoursSelectOptions() {
+    var hours = [];
+    for (var h = 1; h <= 23; h++) hours.push(String(h).padStart(2, "0"));
+    var closeHours = hours.concat(["24"]);
+    var hourOptions = buildSelectOptions(hours, "HH");
+    var closeHourOptions = buildSelectOptions(closeHours, "HH");
+    var minuteOptions = buildSelectOptions(["00", "30"], "MM");
+    $("#f_hoursOpenHour").innerHTML = hourOptions;
+    $("#f_hoursCloseHour").innerHTML = closeHourOptions;
+    $("#f_hoursOpenMinute").innerHTML = minuteOptions;
+    $("#f_hoursCloseMinute").innerHTML = minuteOptions;
+  }
+
+  function setTimeSelects(prefix, value) {
+    var parts = (value || "").split(":");
+    $("#" + prefix + "Hour").value = parts[0] || "";
+    $("#" + prefix + "Minute").value = parts[1] || "";
+  }
+
+  function getTimeSelectValue(prefix) {
+    var hour = $("#" + prefix + "Hour").value;
+    var minute = $("#" + prefix + "Minute").value;
+    return hour && minute ? hour + ":" + minute : "";
+  }
+
+  function setHoursControls(value) {
+    var parsed = parseHoursValue(value);
+    var hoursInput = $("#f_hours");
+    hoursInput.value = parsed.raw;
+    hoursInput.dataset.preserveRaw = "";
+    setTimeSelects("f_hoursOpen", parsed.open);
+    setTimeSelects("f_hoursClose", parsed.close);
+    if (parsed.raw && !parsed.allDay && (!parsed.open || !parsed.close || getTimeSelectValue("f_hoursOpen") !== parsed.open || getTimeSelectValue("f_hoursClose") !== parsed.close)) {
+      hoursInput.dataset.preserveRaw = "1";
+    }
+    $("#f_hoursAllDay").checked = parsed.allDay;
+    updateHoursValue();
+  }
+
+  function updateHoursValue() {
+    var allDay = $("#f_hoursAllDay").checked;
+    var openHour = $("#f_hoursOpenHour");
+    var openMinute = $("#f_hoursOpenMinute");
+    var closeHour = $("#f_hoursCloseHour");
+    var closeMinute = $("#f_hoursCloseMinute");
+    var openValue = getTimeSelectValue("f_hoursOpen");
+    var closeValue = getTimeSelectValue("f_hoursClose");
+    var picker = $(".hours-picker");
+    openHour.disabled = allDay;
+    openMinute.disabled = allDay;
+    closeHour.disabled = allDay;
+    if (closeHour.value === "24") closeMinute.value = "00";
+    closeMinute.disabled = allDay || closeHour.value === "24";
+    if (picker) picker.classList.toggle("is-all-day", allDay);
+    if (allDay) {
+      $("#f_hours").value = "24/7";
+      return;
+    }
+    if (openValue && closeValue) {
+      $("#f_hours").value = openValue + " - " + closeValue;
+    } else if (!openHour.value && !openMinute.value && !closeHour.value && !closeMinute.value) {
+      if ($("#f_hours").dataset.preserveRaw === "1") return;
+      $("#f_hours").value = "";
+    } else {
+      if ($("#f_hours").dataset.preserveRaw === "1") return;
+      $("#f_hours").value = "";
+    }
+  }
+
+  function onHoursControlChange() {
+    $("#f_hours").dataset.preserveRaw = "";
+    updateHoursValue();
+  }
+
   function fmtDateTime(x) {
     if (!x) return "—";
     try {
@@ -631,7 +727,7 @@
     $("#f_storePhone1").value = it.storePhone1 || "";
     $("#f_storePhone2").value = it.storePhone2 || "";
     $("#f_address").value = it.address || "";
-    $("#f_hours").value = it.hours || "";
+    setHoursControls(it.hours || "");
     $("#f_notes").value = it.notes || "";
     $("#f_startDate").value = normalizeDateValue(it.startDate);
     $("#f_endDate").value = normalizeDateValue(it.endDate);
@@ -641,6 +737,7 @@
 
   function readForm() {
     var type = $("#f_type").value;
+    updateHoursValue();
     return {
       id: $("#f_id").value.trim(),
       type: type,
@@ -962,6 +1059,11 @@
     $("#f_type").addEventListener("change", updateTypeUI);
     $("#f_content").addEventListener("input", function () { syncContentMirrors("#f_content"); });
     $("#f_promoContent").addEventListener("input", function () { syncContentMirrors("#f_promoContent"); });
+    $("#f_hoursOpenHour").addEventListener("change", onHoursControlChange);
+    $("#f_hoursOpenMinute").addEventListener("change", onHoursControlChange);
+    $("#f_hoursCloseHour").addEventListener("change", onHoursControlChange);
+    $("#f_hoursCloseMinute").addEventListener("change", onHoursControlChange);
+    $("#f_hoursAllDay").addEventListener("change", onHoursControlChange);
 
     // image controls
     var dz = $("#dropzone");
@@ -1012,6 +1114,7 @@
 
   /* ---- boot ---------------------------------------------------------- */
   function init() {
+    initHoursSelectOptions();
     bind();
     if (getPw()) {
       showApp();

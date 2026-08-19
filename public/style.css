@@ -550,6 +550,23 @@ textarea:focus {
   color: var(--ink);
 }
 
+.meta-list em {
+  color: inherit;
+  font-style: normal;
+}
+
+.meta-list .meta-hours em {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  border: 1px solid #b9d8c7;
+  border-radius: 7px;
+  background: #e7f5ee;
+  color: var(--green-dark);
+  padding: 2px 10px;
+  font-weight: 850;
+}
+
 .menu-preview {
   overflow: hidden;
   border: 1px solid var(--line);

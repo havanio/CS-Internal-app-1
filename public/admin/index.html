@@ -288,8 +288,29 @@
                 <input id="f_address" type="text" />
               </div>
               <div class="field col-span">
-                <label class="field-label" for="f_hours">Giờ mở cửa</label>
-                <input id="f_hours" type="text" placeholder="VD: 08:00 – 22:00" />
+                <label class="field-label" id="f_hoursLabel" for="f_hoursOpenHour">Giờ mở cửa</label>
+                <input id="f_hours" type="hidden" />
+                <div class="hours-picker" role="group" aria-labelledby="f_hoursLabel">
+                  <label class="hours-time">
+                    <span>Mở cửa</span>
+                    <span class="hours-selects">
+                      <select id="f_hoursOpenHour" aria-label="Giờ mở cửa"></select>
+                      <select id="f_hoursOpenMinute" aria-label="Phút mở cửa"></select>
+                    </span>
+                  </label>
+                  <span class="hours-separator" aria-hidden="true">-</span>
+                  <label class="hours-time">
+                    <span>Đóng cửa</span>
+                    <span class="hours-selects">
+                      <select id="f_hoursCloseHour" aria-label="Giờ đóng cửa"></select>
+                      <select id="f_hoursCloseMinute" aria-label="Phút đóng cửa"></select>
+                    </span>
+                  </label>
+                  <label class="toggle-check hours-all-day">
+                    <input id="f_hoursAllDay" type="checkbox" />
+                    <span>Cả ngày</span>
+                  </label>
+                </div>
               </div>
               <div class="field col-span">
                 <label class="field-label" for="f_notes">Ghi chú</label>

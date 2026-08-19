@@ -735,17 +735,17 @@ function renderMeta(item) {
   if (storePhones.length) rows.push(["SĐT cửa hàng", storePhones.join(" / ")]);
   if (legacyPhone) rows.push(["Điện thoại", legacyPhone]);
   if (item.address) rows.push(["Địa chỉ", item.address]);
-  if (item.hours) rows.push(["Giờ mở cửa", item.hours]);
+  if (item.hours) rows.push(["Giờ mở cửa", item.hours, "hours"]);
   const validity = getPromotionValidity(item);
   if (validity) rows.push([validity.label, validity.value]);
-  if (item.channels) rows.push(["Kênh áp dụng", item.channels.join(", ")]);
-  if (item.updatedAt && item.type !== "promotion") rows.push(["Cập nhật", formatDateYMD(item.updatedAt)]);
+  if (item.channels && item.type !== "store") rows.push(["Kênh áp dụng", item.channels.join(", ")]);
+  if (item.updatedAt && item.type !== "promotion" && item.type !== "store") rows.push(["Cập nhật", formatDateYMD(item.updatedAt)]);
 
   if (!rows.length) return "";
 
   return `
     <div class="meta-list">
-      ${rows.map(([label, value]) => `<span><strong>${label}:</strong> ${escapeHtml(value)}</span>`).join("")}
+      ${rows.map(([label, value, tone]) => `<span${tone ? ` class="meta-${tone}"` : ""}><strong>${label}:</strong> <em>${escapeHtml(value)}</em></span>`).join("")}
     </div>
   `;
 }
@@ -754,7 +754,7 @@ function renderCard(item) {
   const promoStatus = getPromotionStatus(item);
   const tags = (item.tags || []).slice(0, 4);
   const imageUrl = getDisplayImageUrl(item.imageUrl);
-  const copyLabel = imageUrl ? "Sao chép ảnh" : item.type === "store" ? "Sao chép thông tin" : "Sao chép";
+  const copyLabel = imageUrl ? "Sao chép ảnh" : item.type === "store" ? "Sao chép địa chỉ" : "Sao chép";
   const typeClass = escapeHtml(slugify(item.type));
   const brandClass = escapeHtml(getBrandClass(item.brand));
   const typeLabel = escapeHtml(typeLabels[item.type] || item.type);
@@ -1147,6 +1147,11 @@ function bindEvents() {
 
     if (storePhoneButton) {
       copyToClipboard(getStorePhones(item).join("\n"), "Đã sao chép SĐT cửa hàng");
+      return;
+    }
+
+    if (copyButton && item.type === "store") {
+      copyToClipboard(item.address || "", "Đã sao chép địa chỉ");
       return;
     }
 
