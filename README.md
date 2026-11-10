@@ -1,5 +1,11 @@
 # TTMI · SK — CS Internal App
 
+## Bản thử hậu mãi trên máy
+
+Chạy `npm run preview:local`, mở [bản tra cứu thử](http://127.0.0.1:8765/?brand=TUTIMI&type=policy&drafts=1).
+Dữ liệu được lưu riêng trên máy, không sửa website hiện hành. Quản trị thử tại `/admin/`, mật khẩu thử `local`.
+Xem [hướng dẫn chính sách hậu mãi](docs/CHINH-SACH-HAU-MAI.md).
+
 Static customer-service reference app **+ a mini admin CMS**, running entirely on
 Netlify (Functions + Blobs). No Google Sheet, no external data at runtime.
 

@@ -41,6 +41,7 @@
       </header>
 
       <!-- Load error / retry banner -->
+      <div id="localPreviewBanner" class="notice notice-warning" hidden>BẢN THỬ TRÊN MÁY · Mọi thay đổi chỉ lưu vào dữ liệu thử trên máy.</div>
       <div id="loadError" class="notice notice-warning" role="alert" hidden>
         <div class="loaderr-row">
           <span id="loadErrorMsg">Không tải được dữ liệu.</span>
@@ -57,6 +58,7 @@
               <select id="filterType">
                 <option value="">Tất cả loại</option>
                 <option value="script">KỊCH BẢN CHAT</option>
+                <option value="policy">CHÍNH SÁCH HẬU MÃI</option>
                 <option value="promotion">CTKM</option>
                 <option value="store">CỬA HÀNG</option>
                 <option value="menu">MENU</option>
@@ -75,6 +77,7 @@
             </div>
             <div class="filter-section toolbar-add">
               <button id="addBtn" class="icon-button" type="button">＋ Thêm mới</button>
+              <button id="addPolicyBtn" class="icon-button subtle" type="button">＋ Thêm chính sách</button>
             </div>
           </div>
         </section>
@@ -141,6 +144,7 @@
                 <label class="field-label" for="f_type">Loại <span class="req">*</span></label>
                 <select id="f_type" required>
                   <option value="script">KỊCH BẢN CHAT</option>
+                  <option value="policy">CHÍNH SÁCH HẬU MÃI</option>
                   <option value="promotion">CTKM</option>
                   <option value="store">CỬA HÀNG</option>
                   <option value="menu">MENU</option>
@@ -166,6 +170,24 @@
                 <input id="f_category" type="text" placeholder="VD: 1. Tiếp nhận" />
               </div>
             </div>
+          </section>
+
+          <section id="policyEditor" class="editor-group" aria-label="Chính sách và mẫu chat" hidden>
+            <p class="section-title">Chính sách hậu mãi</p>
+            <p class="field-hint">Nội dung nội bộ và câu chat được lưu riêng. Bản mới mặc định là dự thảo.</p>
+            <div class="group-grid">
+              <div class="field"><label class="field-label" for="p_status">Trạng thái</label><select id="p_status"><option value="draft">Dự thảo</option><option value="active">Đang áp dụng / Theo ngày hiệu lực</option></select></div>
+              <div class="field"><label class="field-label" for="p_version">Phiên bản</label><input id="p_version" placeholder="VD: 1.0" /></div>
+              <div class="field col-span"><label class="field-label" for="p_effectiveDate">Ngày hiệu lực</label><input id="p_effectiveDate" type="date" /><p class="field-hint">Chỉ hiển thị mặc định khi được áp dụng và đã đến ngày hiệu lực.</p></div>
+              <div class="field col-span"><label class="field-label" for="p_resolution">Ưu tiên xử lý</label><textarea id="p_resolution" rows="3"></textarea></div>
+              <div class="field col-span"><label class="field-label" for="p_refund">Phương án hoàn tiền</label><textarea id="p_refund" rows="3"></textarea></div>
+              <div class="field col-span"><label class="field-label" for="p_extra">Hỗ trợ thêm và điều kiện</label><textarea id="p_extra" rows="3"></textarea></div>
+              <div class="field col-span"><label class="field-label" for="p_verify">Thông tin cần kiểm tra</label><textarea id="p_verify" rows="3"></textarea></div>
+              <div class="field col-span"><label class="field-label" for="p_escalation">Chuyển quản lý / QC</label><textarea id="p_escalation" rows="3"></textarea></div>
+            </div>
+            <p class="section-title policy-editor-heading">Mẫu chat gửi khách</p>
+            <div id="policyMessageFields"></div>
+            <button id="addPolicyMessage" class="row-btn" type="button">＋ Thêm mẫu chat</button>
           </section>
 
           <!-- Group: Nội dung -->

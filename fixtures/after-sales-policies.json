@@ -1,0 +1,852 @@
+{
+  "items": [
+    {
+      "id": "policy-tutimi-repeat",
+      "type": "policy",
+      "brand": "TUTIMI",
+      "category": "Lỗi lặp lại & thái độ",
+      "title": "Cùng một lỗi xảy ra nhiều lần",
+      "updatedAt": "2026-11-09",
+      "policy": {
+        "status": "draft",
+        "version": "0.4",
+        "effectiveDate": "",
+        "resolution": "Khắc phục lỗi của đơn hiện tại. Từ lần thứ hai xác nhận cùng lỗi trong vòng 3 tháng, kể cả tại các chi nhánh khác nhau: áp dụng hỗ trợ theo chính sách; quản lý tra nguyên nhân và trực tiếp phản hồi.",
+        "refund": "Giữ chính sách hoàn theo loại lỗi của đơn hiện tại. Không dùng voucher thay khoản hoàn.",
+        "extra": "Hỗ trợ hoàn tiền 50% theo chính sách lỗi tái diễn. “Voucher” là cách gọi khoản hỗ trợ hoàn tiền, không phải mã dùng trên app. Khách chọn áp dụng trên chính đơn đó hoặc đơn sau; xác nhận đơn áp dụng và số tiền cụ thể trước khi thực hiện.\nNếu khách chọn áp dụng vào đơn sau, tỷ lệ hỗ trợ tính trên số tiền khách thực trả của đơn sau. Kiểm tra thông tin đơn sau và xác nhận số tiền cụ thể trước khi hoàn.",
+        "verify": "Tra lịch sử cùng khách trong vòng 3 tháng. Cùng lỗi xảy ra tại các chi nhánh khác nhau đều được tính; phân biệt lỗi ở đơn mới với việc khách liên hệ lại về cùng một vụ việc.",
+        "escalation": "Chuyển quản lý xác minh nguyên nhân và phản hồi khách. Ngoài quy định thì hỏi lại quản lý.",
+        "messages": [
+          {
+            "title": "Tiếp nhận lỗi tái diễn",
+            "content": "TuTiMi chân thành xin lỗi vì mình tiếp tục gặp lại sự cố này ạ. Em sẽ chuyển thông tin và lịch sử phản ánh đến quản lý để trực tiếp kiểm tra, theo dõi việc xử lý.\nTrước mắt, bên em xin hỗ trợ khắc phục đơn hiện tại theo phương án thuận tiện nhất cho mình nhé."
+          },
+          {
+            "title": "Xin thông tin đơn (khi chưa có)",
+            "content": "Dạ để có đủ thông tin hỗ trợ nhanh nhất, nhờ mình cung cấp giúp em:\n- Hình ảnh đặt hàng trên app (có mã đơn + tên chi nhánh)\n- SĐT đặt hàng\n- Hình ảnh tem trắng dán trên ly có thông tin món đang gặp vấn đề\nEm sẽ kiểm tra và hỗ trợ xử lý ngay cho mình ạ!"
+          },
+          {
+            "title": "Chọn đơn áp dụng khoản hỗ trợ hoàn tiền",
+            "content": "Để xin lỗi về sự bất tiện lần này, TuTiMi xin hỗ trợ mình một khoản hoàn tiền theo chính sách ạ. Mình muốn áp dụng trên chính đơn này hay đơn sau để bên em hỗ trợ thuận tiện nhất nhé? Em sẽ xác nhận lại đơn áp dụng và số tiền cụ thể với mình trước khi thực hiện ạ.\nNếu mình chọn áp dụng vào đơn sau, khoản hỗ trợ sẽ được tính theo số tiền mình thực trả của đơn sau nhé ạ."
+          },
+          {
+            "title": "Lấy thông tin hoàn tiền (sau khi chốt phương án)",
+            "content": "Dạ mình vui lòng cung cấp giúp em số momo hoặc STK để bên em hoàn tiền cho mình nhé ạ."
+          },
+          {
+            "title": "Kiểm tra sau hỗ trợ",
+            "content": "Dạ em xin kiểm tra lại, mình đã nhận được phần hỗ trợ đầy đủ chưa ạ? Nếu còn điều gì chưa đúng, mình nhắn em để bên em tiếp tục hỗ trợ nhé."
+          },
+          {
+            "title": "Kết thúc hỗ trợ",
+            "content": "Dạ em cảm ơn mình đã cho TuTiMi cơ hội hỗ trợ mình ạ. Nếu cần hỗ trợ thêm thì nhờ mình nhắn lại em nha."
+          }
+        ]
+      }
+    },
+    {
+      "id": "policy-tutimi-attitude",
+      "type": "policy",
+      "brand": "TUTIMI",
+      "category": "Lỗi lặp lại & thái độ",
+      "title": "Thái độ nhân viên",
+      "updatedAt": "2026-11-09",
+      "policy": {
+        "status": "draft",
+        "version": "0.2",
+        "effectiveDate": "",
+        "resolution": "Xin lỗi, tiếp nhận đầy đủ phản ánh và chuyển quản lý xác minh với các bên.",
+        "refund": "Xác nhận giao tiếp thiếu lịch sự: giữ hoàn 50% theo chính sách hiện hành. Xúc phạm, to tiếng hoặc tái diễn sau góp ý: quản lý xem xét hoàn 100% đơn liên quan.",
+        "extra": "Mức 100% cần quản lý duyệt; không tự động áp cho mọi phản ánh.",
+        "verify": "Nội dung giao tiếp, thời điểm, cửa hàng, đơn liên quan và thông tin từ các bên.",
+        "escalation": "Quản lý phản hồi khách và xử lý nguyên nhân. Ngoài quy định thì hỏi lại quản lý.",
+        "messages": [
+          {
+            "title": "Tiếp nhận và chuyển quản lý",
+            "content": "TuTiMi chân thành xin lỗi vì trải nghiệm giao tiếp chưa tốt đã khiến mình không hài lòng ạ.\nEm xin ghi nhận đầy đủ phản ánh và chuyển quản lý kiểm tra, sau đó phản hồi phương án hỗ trợ cụ thể cho mình. Em cảm ơn mình đã góp ý để TuTiMi phục vụ tốt hơn nhé 💛"
+          },
+          {
+            "title": "Xin thông tin đơn (khi chưa có)",
+            "content": "Dạ để có đủ thông tin hỗ trợ nhanh nhất, nhờ mình cung cấp giúp em:\n- Hình ảnh đặt hàng trên app (có mã đơn + tên chi nhánh)\n- SĐT đặt hàng\n- Hình ảnh tem trắng dán trên ly có thông tin món đang gặp vấn đề\nEm sẽ kiểm tra và hỗ trợ xử lý ngay cho mình ạ!"
+          },
+          {
+            "title": "Lấy thông tin hoàn tiền (sau khi chốt phương án)",
+            "content": "Dạ mình vui lòng cung cấp giúp em số momo hoặc STK để bên em hoàn tiền cho mình nhé ạ."
+          },
+          {
+            "title": "Kiểm tra sau hỗ trợ",
+            "content": "Dạ em xin kiểm tra lại, mình đã nhận được phần hỗ trợ đầy đủ chưa ạ? Nếu còn điều gì chưa đúng, mình nhắn em để bên em tiếp tục hỗ trợ nhé."
+          },
+          {
+            "title": "Kết thúc hỗ trợ",
+            "content": "Dạ em cảm ơn mình đã cho TuTiMi cơ hội hỗ trợ mình ạ. Nếu cần hỗ trợ thêm thì nhờ mình nhắn lại em nha."
+          }
+        ]
+      }
+    },
+    {
+      "id": "policy-tutimi-wrong-item",
+      "type": "policy",
+      "brand": "TUTIMI",
+      "category": "Đơn và món",
+      "title": "Sai món / Thiếu món",
+      "updatedAt": "2026-11-09",
+      "policy": {
+        "status": "draft",
+        "version": "0.2",
+        "effectiveDate": "",
+        "resolution": "Ưu tiên giao đúng hoặc giao bù miễn phí khi khách còn nhu cầu, tiện nhận và thời gian dự kiến phù hợp.",
+        "refund": "Nếu khách chọn hoàn hoặc không tiện nhận lại: hoàn 100% phần món sai/thiếu theo chính sách hiện hành.",
+        "extra": "Tặng 1 topping khách chọn khi giao lại. Xác nhận loại topping và món nhận kèm. CSKH tự áp dụng theo chính sách; ngoài quy định thì hỏi quản lý.",
+        "verify": "Đối chiếu đơn đặt, tem ly và khâu chuẩn bị. Kiểm tra món còn sẵn trước khi hẹn.",
+        "escalation": "Chuyển quản lý nếu giao lại tiếp tục lỗi hoặc cần ngoại lệ. Ngoài quy định thì hỏi lại quản lý.",
+        "messages": [
+          {
+            "title": "Đề nghị giao lại / hoàn tiền",
+            "content": "Để đảm bảo quyền lợi và trải nghiệm của mình, TuTiMi xin phép gửi lại món đúng hoàn toàn miễn phí ạ.\nMình còn tiện nhận lại món không ạ? Nếu không thuận tiện, bên em hỗ trợ hoàn tiền phần món bị ảnh hưởng theo giá trị mình đã thanh toán nhé.\nMình chọn phương án thuận tiện nhất để bên em hỗ trợ xử lý ngay nhé."
+          },
+          {
+            "title": "Xin thông tin đơn (khi chưa có)",
+            "content": "Dạ để có đủ thông tin hỗ trợ nhanh nhất, nhờ mình cung cấp giúp em:\n- Hình ảnh đặt hàng trên app (có mã đơn + tên chi nhánh)\n- SĐT đặt hàng\n- Hình ảnh tem trắng dán trên ly có thông tin món đang gặp vấn đề\nEm sẽ kiểm tra và hỗ trợ xử lý ngay cho mình ạ!"
+          },
+          {
+            "title": "Báo đang kiểm tra (khi cần)",
+            "content": "Dạ TuTiMi đang kiểm tra với phía cửa hàng, em sẽ phản hồi lại ngay khi có thông tin để hỗ trợ xử lý cho mình ạ!"
+          },
+          {
+            "title": "Tặng topping theo chính sách",
+            "content": "Để xin lỗi về sự bất tiện lần này, TuTiMi xin tặng thêm 1 topping khi gửi lại món đúng cho mình ạ. Mình chọn giúp em loại topping mình muốn nhận kèm nhé."
+          },
+          {
+            "title": "Lấy thông tin giao lại (sau khi khách đồng ý)",
+            "content": "TuTiMi xin phép lấy thông tin để hỗ trợ gửi lại món mới ạ. Mình cung cấp giúp các thông tin sau nha:\n> Tên người nhận\n> Số điện thoại\n> Địa chỉ hiện tại\n> Khoảng thời gian mình tiện nhận\nEm sẽ kiểm tra và báo thời gian giao dự kiến để mình xác nhận trước khi đặt giao lại nhé.\nĐơn sẽ được giao hoàn toàn miễn phí ạ 💛"
+          },
+          {
+            "title": "Lấy thông tin hoàn tiền (sau khi chốt phương án)",
+            "content": "Dạ mình vui lòng cung cấp giúp em số momo hoặc STK để bên em hoàn tiền cho mình nhé ạ."
+          },
+          {
+            "title": "Kiểm tra sau hỗ trợ",
+            "content": "Dạ em xin kiểm tra lại, mình đã nhận được phần hỗ trợ đầy đủ chưa ạ? Nếu còn điều gì chưa đúng, mình nhắn em để bên em tiếp tục hỗ trợ nhé."
+          },
+          {
+            "title": "Kết thúc hỗ trợ",
+            "content": "Dạ em cảm ơn mình đã cho TuTiMi cơ hội hỗ trợ mình ạ. Nếu cần hỗ trợ thêm thì nhờ mình nhắn lại em nha."
+          }
+        ]
+      }
+    },
+    {
+      "id": "policy-tutimi-topping",
+      "type": "policy",
+      "brand": "TUTIMI",
+      "category": "Đơn và món",
+      "title": "Thiếu topping / Sai topping",
+      "updatedAt": "2026-11-09",
+      "policy": {
+        "status": "draft",
+        "version": "0.2",
+        "effectiveDate": "",
+        "resolution": "Giao bù topping đúng miễn phí nếu khách còn dùng được và muốn nhận. Không giao riêng nếu khách đã hết nhu cầu.",
+        "refund": "Nếu không nhận bù: hoàn tiền phần topping theo chính sách hiện hành. Trường hợp đặc biệt có thể xét hỗ trợ ở mức món.",
+        "extra": "Tặng thêm 1 phần topping khách chọn khi giao bù; thiếu 1 phần thì giao tổng cộng 2 phần. CSKH tự áp dụng theo chính sách; ngoài quy định thì hỏi quản lý.",
+        "verify": "Đơn đặt, topping mặc định hay mua thêm, tình trạng món và khả năng nhận bù.",
+        "escalation": "Chuyển quản lý khi không thể khắc phục bằng topping hoặc cần ngoại lệ. Ngoài quy định thì hỏi lại quản lý.",
+        "messages": [
+          {
+            "title": "Đề nghị giao bù / hoàn tiền topping",
+            "content": "Để đảm bảo quyền lợi và trải nghiệm của mình, TuTiMi xin phép gửi lại phần topping bị thiếu hoặc sai hoàn toàn miễn phí ạ.\nNếu mình không tiện nhận bù, bên em hỗ trợ hoàn tiền phần topping này theo giá trị mình đã thanh toán.\nMình chọn phương án thuận tiện nhất để bên em hỗ trợ xử lý ngay nhé."
+          },
+          {
+            "title": "Xin thông tin đơn (khi chưa có)",
+            "content": "Dạ để có đủ thông tin hỗ trợ nhanh nhất, nhờ mình cung cấp giúp em:\n- Hình ảnh đặt hàng trên app (có mã đơn + tên chi nhánh)\n- SĐT đặt hàng\n- Hình ảnh tem trắng dán trên ly có thông tin món đang gặp vấn đề\nEm sẽ kiểm tra và hỗ trợ xử lý ngay cho mình ạ!"
+          },
+          {
+            "title": "Báo đang kiểm tra (khi cần)",
+            "content": "Dạ TuTiMi đang kiểm tra với phía cửa hàng, em sẽ phản hồi lại ngay khi có thông tin để hỗ trợ xử lý cho mình ạ!"
+          },
+          {
+            "title": "Tặng topping theo chính sách",
+            "content": "Ngoài phần topping gửi bù, TuTiMi xin tặng thêm 1 phần topping mình chọn để xin lỗi về sự bất tiện lần này ạ. Mình chọn giúp em loại topping muốn nhận thêm nhé."
+          },
+          {
+            "title": "Lấy thông tin giao lại (sau khi khách đồng ý)",
+            "content": "TuTiMi xin phép lấy thông tin để hỗ trợ gửi lại phần topping ạ. Mình cung cấp giúp các thông tin sau nha:\n> Tên người nhận\n> Số điện thoại\n> Địa chỉ hiện tại\n> Khoảng thời gian mình tiện nhận\nEm sẽ kiểm tra và báo thời gian giao dự kiến để mình xác nhận trước khi đặt giao lại nhé.\nĐơn sẽ được giao hoàn toàn miễn phí ạ 💛"
+          },
+          {
+            "title": "Lấy thông tin hoàn tiền (sau khi chốt phương án)",
+            "content": "Dạ mình vui lòng cung cấp giúp em số momo hoặc STK để bên em hoàn tiền cho mình nhé ạ."
+          },
+          {
+            "title": "Kiểm tra sau hỗ trợ",
+            "content": "Dạ em xin kiểm tra lại, mình đã nhận được phần hỗ trợ đầy đủ chưa ạ? Nếu còn điều gì chưa đúng, mình nhắn em để bên em tiếp tục hỗ trợ nhé."
+          },
+          {
+            "title": "Kết thúc hỗ trợ",
+            "content": "Dạ em cảm ơn mình đã cho TuTiMi cơ hội hỗ trợ mình ạ. Nếu cần hỗ trợ thêm thì nhờ mình nhắn lại em nha."
+          }
+        ]
+      }
+    },
+    {
+      "id": "policy-tutimi-size",
+      "type": "policy",
+      "brand": "TUTIMI",
+      "category": "Đơn và món",
+      "title": "Sai size",
+      "updatedAt": "2026-11-09",
+      "policy": {
+        "status": "draft",
+        "version": "0.2",
+        "effectiveDate": "",
+        "resolution": "Ưu tiên giao lại đúng size nếu khách muốn và còn tiện nhận. Phân biệt giao nhỏ hơn, lớn hơn size đặt.",
+        "refund": "Giữ phương án hoàn 50% tiền món sai size, ưu tiên tính trên tiền khách thực trả. Không tự động hoàn nếu giao lớn hơn và khách chấp nhận.",
+        "extra": "Không tự cộng quà hoặc hoàn cả đơn khi chỉ một món sai size.",
+        "verify": "Size đặt và size giao; nhu cầu nhận lại của khách.",
+        "escalation": "Chuyển quản lý nếu phạm vi hoàn chưa rõ hoặc cần ngoại lệ. Ngoài quy định thì hỏi lại quản lý.",
+        "messages": [
+          {
+            "title": "Đề nghị giao đúng size",
+            "content": "TuTiMi xin lỗi vì món giao chưa đúng size mình đặt ạ. Để đảm bảo quyền lợi và trải nghiệm của mình, bên em xin hỗ trợ gửi lại món đúng size hoàn toàn miễn phí.\nNếu mình không tiện nhận lại, em hỗ trợ phương án hoàn tiền theo chính sách nhé. Mình chọn phương án thuận tiện nhất để bên em hỗ trợ xử lý ngay ạ."
+          },
+          {
+            "title": "Xin thông tin đơn (khi chưa có)",
+            "content": "Dạ để có đủ thông tin hỗ trợ nhanh nhất, nhờ mình cung cấp giúp em:\n- Hình ảnh đặt hàng trên app (có mã đơn + tên chi nhánh)\n- SĐT đặt hàng\n- Hình ảnh tem trắng dán trên ly có thông tin món đang gặp vấn đề\nEm sẽ kiểm tra và hỗ trợ xử lý ngay cho mình ạ!"
+          },
+          {
+            "title": "Báo đang kiểm tra (khi cần)",
+            "content": "Dạ TuTiMi đang kiểm tra với phía cửa hàng, em sẽ phản hồi lại ngay khi có thông tin để hỗ trợ xử lý cho mình ạ!"
+          },
+          {
+            "title": "Lấy thông tin giao lại (sau khi khách đồng ý)",
+            "content": "TuTiMi xin phép lấy thông tin để hỗ trợ gửi lại món mới ạ. Mình cung cấp giúp các thông tin sau nha:\n> Tên người nhận\n> Số điện thoại\n> Địa chỉ hiện tại\n> Khoảng thời gian mình tiện nhận\nEm sẽ kiểm tra và báo thời gian giao dự kiến để mình xác nhận trước khi đặt giao lại nhé.\nĐơn sẽ được giao hoàn toàn miễn phí ạ 💛"
+          },
+          {
+            "title": "Lấy thông tin hoàn tiền (sau khi chốt phương án)",
+            "content": "Dạ mình vui lòng cung cấp giúp em số momo hoặc STK để bên em hoàn tiền cho mình nhé ạ."
+          },
+          {
+            "title": "Kiểm tra sau hỗ trợ",
+            "content": "Dạ em xin kiểm tra lại, mình đã nhận được phần hỗ trợ đầy đủ chưa ạ? Nếu còn điều gì chưa đúng, mình nhắn em để bên em tiếp tục hỗ trợ nhé."
+          },
+          {
+            "title": "Kết thúc hỗ trợ",
+            "content": "Dạ em cảm ơn mình đã cho TuTiMi cơ hội hỗ trợ mình ạ. Nếu cần hỗ trợ thêm thì nhờ mình nhắn lại em nha."
+          }
+        ]
+      }
+    },
+    {
+      "id": "policy-tutimi-ice-request",
+      "type": "policy",
+      "brand": "TUTIMI",
+      "category": "Đơn và món",
+      "title": "Sai yêu cầu đá chung / Đá riêng",
+      "updatedAt": "2026-11-09",
+      "policy": {
+        "status": "draft",
+        "version": "0.2",
+        "effectiveDate": "",
+        "resolution": "Nếu không dùng được món: ưu tiên giao lại đúng yêu cầu miễn phí. Xác nhận khách có thể nhận.",
+        "refund": "Nếu khách không nhận lại: áp dụng chính sách món lỗi. Nếu khách vẫn dùng được: hoàn 50% tiền món bị ảnh hưởng, ưu tiên tính trên tiền khách thực trả.",
+        "extra": "Tặng 1 topping khách chọn khi giao lại. CSKH tự áp dụng theo chính sách; ngoài quy định thì hỏi quản lý.",
+        "verify": "Yêu cầu trên đơn, thực tế giao và mức ảnh hưởng đến việc sử dụng.",
+        "escalation": "Chuyển quản lý khi yêu cầu ảnh hưởng việc dùng món hoặc cần xử lý ngoại lệ. Ngoài quy định thì hỏi lại quản lý.",
+        "messages": [
+          {
+            "title": "Đề nghị làm lại đúng yêu cầu",
+            "content": "TuTiMi xin lỗi vì món chưa được chuẩn bị đúng yêu cầu đá chung / đá riêng của mình ạ.\nNếu việc này khiến mình không dùng được món, bên em xin hỗ trợ gửi lại món đúng yêu cầu hoàn toàn miễn phí. Mình còn tiện nhận lại món không ạ? Nếu không thuận tiện, em trao đổi phương án hoàn tiền phù hợp cho mình nhé."
+          },
+          {
+            "title": "Xin thông tin đơn (khi chưa có)",
+            "content": "Dạ để có đủ thông tin hỗ trợ nhanh nhất, nhờ mình cung cấp giúp em:\n- Hình ảnh đặt hàng trên app (có mã đơn + tên chi nhánh)\n- SĐT đặt hàng\n- Hình ảnh tem trắng dán trên ly có thông tin món đang gặp vấn đề\nEm sẽ kiểm tra và hỗ trợ xử lý ngay cho mình ạ!"
+          },
+          {
+            "title": "Báo đang kiểm tra (khi cần)",
+            "content": "Dạ TuTiMi đang kiểm tra với phía cửa hàng, em sẽ phản hồi lại ngay khi có thông tin để hỗ trợ xử lý cho mình ạ!"
+          },
+          {
+            "title": "Tặng topping theo chính sách",
+            "content": "Để xin lỗi về sự bất tiện lần này, TuTiMi xin tặng thêm 1 topping khi gửi lại món đúng yêu cầu cho mình ạ. Mình chọn giúp em loại topping muốn nhận kèm nhé."
+          },
+          {
+            "title": "Lấy thông tin giao lại (sau khi khách đồng ý)",
+            "content": "TuTiMi xin phép lấy thông tin để hỗ trợ gửi lại món mới ạ. Mình cung cấp giúp các thông tin sau nha:\n> Tên người nhận\n> Số điện thoại\n> Địa chỉ hiện tại\n> Khoảng thời gian mình tiện nhận\nEm sẽ kiểm tra và báo thời gian giao dự kiến để mình xác nhận trước khi đặt giao lại nhé.\nĐơn sẽ được giao hoàn toàn miễn phí ạ 💛"
+          },
+          {
+            "title": "Lấy thông tin hoàn tiền (sau khi chốt phương án)",
+            "content": "Dạ mình vui lòng cung cấp giúp em số momo hoặc STK để bên em hoàn tiền cho mình nhé ạ."
+          },
+          {
+            "title": "Kiểm tra sau hỗ trợ",
+            "content": "Dạ em xin kiểm tra lại, mình đã nhận được phần hỗ trợ đầy đủ chưa ạ? Nếu còn điều gì chưa đúng, mình nhắn em để bên em tiếp tục hỗ trợ nhé."
+          },
+          {
+            "title": "Kết thúc hỗ trợ",
+            "content": "Dạ em cảm ơn mình đã cho TuTiMi cơ hội hỗ trợ mình ạ. Nếu cần hỗ trợ thêm thì nhờ mình nhắn lại em nha."
+          }
+        ]
+      }
+    },
+    {
+      "id": "policy-tutimi-utensils",
+      "type": "policy",
+      "brand": "TUTIMI",
+      "category": "Đơn và món",
+      "title": "Thiếu đá / Muỗng / Ống hút",
+      "updatedAt": "2026-11-09",
+      "policy": {
+        "status": "draft",
+        "version": "0.4",
+        "effectiveDate": "",
+        "resolution": "Giao bù miễn phí nếu khách còn cần và thời gian nhận còn phù hợp.",
+        "refund": "Nếu khách không cần giao bù: giữ phương án hoàn 30% đơn theo Handbook.",
+        "extra": "Hỗ trợ hoàn tiền 30% theo chính sách. “Voucher” là cách gọi khoản hỗ trợ hoàn tiền, không phải mã dùng trên app. Khách chọn áp dụng trên chính đơn đó hoặc đơn sau; xác nhận đơn áp dụng và số tiền cụ thể trước khi thực hiện.\nNếu khách chọn áp dụng vào đơn sau, tỷ lệ hỗ trợ tính trên số tiền khách thực trả của đơn sau. Kiểm tra thông tin đơn sau và xác nhận số tiền cụ thể trước khi hoàn.",
+        "verify": "Vật dụng bị thiếu, mức ảnh hưởng, khách còn cần nhận hay không.",
+        "escalation": "Chuyển quản lý khi phát sinh ngoại lệ. Ngoài quy định thì hỏi lại quản lý.",
+        "messages": [
+          {
+            "title": "Hỏi nhu cầu nhận bù",
+            "content": "TuTiMi xin lỗi vì đơn của mình bị thiếu đá / muỗng / ống hút ạ. Mình còn cần nhận bù không để bên em hỗ trợ gửi lại hoàn toàn miễn phí nhé.\nNếu mình không tiện nhận bù, em hỗ trợ phương án hoàn tiền theo chính sách cho mình ạ."
+          },
+          {
+            "title": "Xin thông tin đơn (khi chưa có)",
+            "content": "Dạ để có đủ thông tin hỗ trợ nhanh nhất, nhờ mình cung cấp giúp em:\n- Hình ảnh đặt hàng trên app (có mã đơn + tên chi nhánh)\n- SĐT đặt hàng\n- Hình ảnh tem trắng dán trên ly có thông tin món đang gặp vấn đề\nEm sẽ kiểm tra và hỗ trợ xử lý ngay cho mình ạ!"
+          },
+          {
+            "title": "Báo đang kiểm tra (khi cần)",
+            "content": "Dạ TuTiMi đang kiểm tra với phía cửa hàng, em sẽ phản hồi lại ngay khi có thông tin để hỗ trợ xử lý cho mình ạ!"
+          },
+          {
+            "title": "Lấy thông tin giao lại (sau khi khách đồng ý)",
+            "content": "TuTiMi xin phép lấy thông tin để hỗ trợ gửi lại phần vật dụng còn thiếu ạ. Mình cung cấp giúp các thông tin sau nha:\n> Tên người nhận\n> Số điện thoại\n> Địa chỉ hiện tại\n> Khoảng thời gian mình tiện nhận\nEm sẽ kiểm tra và báo thời gian giao dự kiến để mình xác nhận trước khi đặt giao lại nhé.\nĐơn sẽ được giao hoàn toàn miễn phí ạ 💛"
+          },
+          {
+            "title": "Chọn đơn áp dụng khoản hỗ trợ hoàn tiền",
+            "content": "Để xin lỗi về sự bất tiện lần này, TuTiMi xin hỗ trợ mình một khoản hoàn tiền theo chính sách ạ. Mình muốn áp dụng trên chính đơn này hay đơn sau để bên em hỗ trợ thuận tiện nhất nhé? Em sẽ xác nhận lại đơn áp dụng và số tiền cụ thể với mình trước khi thực hiện ạ.\nNếu mình chọn áp dụng vào đơn sau, khoản hỗ trợ sẽ được tính theo số tiền mình thực trả của đơn sau nhé ạ."
+          },
+          {
+            "title": "Lấy thông tin hoàn tiền (sau khi chốt phương án)",
+            "content": "Dạ mình vui lòng cung cấp giúp em số momo hoặc STK để bên em hoàn tiền cho mình nhé ạ."
+          },
+          {
+            "title": "Kiểm tra sau hỗ trợ",
+            "content": "Dạ em xin kiểm tra lại, mình đã nhận được phần hỗ trợ đầy đủ chưa ạ? Nếu còn điều gì chưa đúng, mình nhắn em để bên em tiếp tục hỗ trợ nhé."
+          },
+          {
+            "title": "Kết thúc hỗ trợ",
+            "content": "Dạ em cảm ơn mình đã cho TuTiMi cơ hội hỗ trợ mình ạ. Nếu cần hỗ trợ thêm thì nhờ mình nhắn lại em nha."
+          }
+        ]
+      }
+    },
+    {
+      "id": "policy-tutimi-notes",
+      "type": "policy",
+      "brand": "TUTIMI",
+      "category": "Đơn và món",
+      "title": "Sai ghi chú đơn / Ghi chú món",
+      "updatedAt": "2026-11-09",
+      "policy": {
+        "status": "draft",
+        "version": "0.2",
+        "effectiveDate": "",
+        "resolution": "Ưu tiên làm lại đúng yêu cầu nếu khách còn nhu cầu.",
+        "refund": "Khách không nhận lại: hoàn 50% món nếu ảnh hưởng một món; 50% đơn nếu ảnh hưởng cả đơn, theo chính sách hiện hành. Không dùng được hoàn toàn: chuyển xét ngoại lệ.",
+        "extra": "Không mặc định dừng ở hoàn một phần khi khách hoàn toàn không dùng được món.",
+        "verify": "Ghi chú trên đơn, khả năng đáp ứng yêu cầu và phạm vi ảnh hưởng.",
+        "escalation": "Chuyển quản lý khi khách không dùng được món hoặc cần ngoại lệ. Ngoài quy định thì hỏi lại quản lý.",
+        "messages": [
+          {
+            "title": "Đề nghị làm lại",
+            "content": "TuTiMi xin lỗi vì món giao chưa đúng ghi chú của mình ạ. Để đảm bảo quyền lợi và trải nghiệm, bên em xin kiểm tra và hỗ trợ gửi lại món đúng yêu cầu hoàn toàn miễn phí.\nNếu mình không tiện nhận lại, em hỗ trợ phương án hoàn tiền theo phần món bị ảnh hưởng nhé. Mình chọn phương án thuận tiện nhất giúp em ạ."
+          },
+          {
+            "title": "Xin thông tin đơn (khi chưa có)",
+            "content": "Dạ để có đủ thông tin hỗ trợ nhanh nhất, nhờ mình cung cấp giúp em:\n- Hình ảnh đặt hàng trên app (có mã đơn + tên chi nhánh)\n- SĐT đặt hàng\n- Hình ảnh tem trắng dán trên ly có thông tin món đang gặp vấn đề\nEm sẽ kiểm tra và hỗ trợ xử lý ngay cho mình ạ!"
+          },
+          {
+            "title": "Báo đang kiểm tra (khi cần)",
+            "content": "Dạ TuTiMi đang kiểm tra với phía cửa hàng, em sẽ phản hồi lại ngay khi có thông tin để hỗ trợ xử lý cho mình ạ!"
+          },
+          {
+            "title": "Lấy thông tin giao lại (sau khi khách đồng ý)",
+            "content": "TuTiMi xin phép lấy thông tin để hỗ trợ gửi lại món mới ạ. Mình cung cấp giúp các thông tin sau nha:\n> Tên người nhận\n> Số điện thoại\n> Địa chỉ hiện tại\n> Khoảng thời gian mình tiện nhận\nEm sẽ kiểm tra và báo thời gian giao dự kiến để mình xác nhận trước khi đặt giao lại nhé.\nĐơn sẽ được giao hoàn toàn miễn phí ạ 💛"
+          },
+          {
+            "title": "Lấy thông tin hoàn tiền (sau khi chốt phương án)",
+            "content": "Dạ mình vui lòng cung cấp giúp em số momo hoặc STK để bên em hoàn tiền cho mình nhé ạ."
+          },
+          {
+            "title": "Kiểm tra sau hỗ trợ",
+            "content": "Dạ em xin kiểm tra lại, mình đã nhận được phần hỗ trợ đầy đủ chưa ạ? Nếu còn điều gì chưa đúng, mình nhắn em để bên em tiếp tục hỗ trợ nhé."
+          },
+          {
+            "title": "Kết thúc hỗ trợ",
+            "content": "Dạ em cảm ơn mình đã cho TuTiMi cơ hội hỗ trợ mình ạ. Nếu cần hỗ trợ thêm thì nhờ mình nhắn lại em nha."
+          }
+        ]
+      }
+    },
+    {
+      "id": "policy-tutimi-stock",
+      "type": "policy",
+      "brand": "TUTIMI",
+      "category": "Đơn và món",
+      "title": "Đã xác nhận đơn nhưng sau đó hết món",
+      "updatedAt": "2026-11-09",
+      "policy": {
+        "status": "draft",
+        "version": "0.2",
+        "effectiveDate": "",
+        "resolution": "Báo khách, cho chọn món khác cùng giá; đổi rẻ hơn thì hoàn phần chênh lệch. Chỉ thay khi khách đồng ý.",
+        "refund": "Nếu khách không muốn đổi: hỗ trợ hủy và hoàn phần đã thanh toán cho món chưa nhận.",
+        "extra": "Tặng 1 topping khi khách đổi món. CSKH tự áp dụng theo chính sách; ngoài quy định thì hỏi quản lý.",
+        "verify": "Kiểm tra tồn món thay thế trước khi đề nghị.",
+        "escalation": "Chuyển quản lý nếu không thể đưa phương án phù hợp. Ngoài quy định thì hỏi lại quản lý.",
+        "messages": [
+          {
+            "title": "Đề nghị đổi hoặc hủy món",
+            "content": "TuTiMi xin lỗi vì món đã xác nhận của mình hiện không còn đủ để chuẩn bị ạ. Em xin kiểm tra món khác cùng mức giá để mình lựa chọn. Nếu món thay thế có giá thấp hơn, bên em hoàn phần chênh lệch cho mình nhé.\nNếu mình không muốn đổi món, bên em hỗ trợ hủy và hoàn phần tiền món chưa nhận ạ."
+          },
+          {
+            "title": "Xin thông tin đơn (khi chưa có)",
+            "content": "Dạ để có đủ thông tin hỗ trợ nhanh nhất, nhờ mình cung cấp giúp em:\n- Hình ảnh đặt hàng trên app (có mã đơn + tên chi nhánh)\n- SĐT đặt hàng\n- Hình ảnh tem trắng dán trên ly có thông tin món đang gặp vấn đề\nEm sẽ kiểm tra và hỗ trợ xử lý ngay cho mình ạ!"
+          },
+          {
+            "title": "Báo đang kiểm tra (khi cần)",
+            "content": "Dạ TuTiMi đang kiểm tra với phía cửa hàng, em sẽ phản hồi lại ngay khi có thông tin để hỗ trợ xử lý cho mình ạ!"
+          },
+          {
+            "title": "Tặng topping theo chính sách",
+            "content": "TuTiMi xin tặng thêm 1 topping khi đổi món để xin lỗi về sự bất tiện lần này ạ. Mình chọn giúp em loại topping muốn nhận kèm nhé."
+          },
+          {
+            "title": "Lấy thông tin giao lại (sau khi khách đồng ý)",
+            "content": "TuTiMi xin phép lấy thông tin để hỗ trợ gửi lại món thay thế ạ. Mình cung cấp giúp các thông tin sau nha:\n> Tên người nhận\n> Số điện thoại\n> Địa chỉ hiện tại\n> Khoảng thời gian mình tiện nhận\nEm sẽ kiểm tra và báo thời gian giao dự kiến để mình xác nhận trước khi đặt giao lại nhé.\nĐơn sẽ được giao hoàn toàn miễn phí ạ 💛"
+          },
+          {
+            "title": "Lấy thông tin hoàn tiền (sau khi chốt phương án)",
+            "content": "Dạ mình vui lòng cung cấp giúp em số momo hoặc STK để bên em hoàn tiền cho mình nhé ạ."
+          },
+          {
+            "title": "Kiểm tra sau hỗ trợ",
+            "content": "Dạ em xin kiểm tra lại, mình đã nhận được phần hỗ trợ đầy đủ chưa ạ? Nếu còn điều gì chưa đúng, mình nhắn em để bên em tiếp tục hỗ trợ nhé."
+          },
+          {
+            "title": "Kết thúc hỗ trợ",
+            "content": "Dạ em cảm ơn mình đã cho TuTiMi cơ hội hỗ trợ mình ạ. Nếu cần hỗ trợ thêm thì nhờ mình nhắn lại em nha."
+          }
+        ]
+      }
+    },
+    {
+      "id": "policy-tutimi-taste",
+      "type": "policy",
+      "brand": "TUTIMI",
+      "category": "Chất lượng",
+      "title": "Sản phẩm có mùi hoặc vị lạ",
+      "updatedAt": "2026-11-09",
+      "policy": {
+        "status": "draft",
+        "version": "0.3",
+        "effectiveDate": "",
+        "resolution": "Tiếp nhận phản ánh, chuyển quản lý và QC kiểm tra. Khách chọn hoàn tiền hoặc đổi món khác cùng mức giá, giao miễn phí.",
+        "refund": "Nếu khách chọn hoàn: hoàn 100% tiền món bị ảnh hưởng, ưu tiên tính trên tiền khách thực trả. Hoàn tiền hoặc đổi món là hai phương án thay thế nhau.",
+        "extra": "Không yêu cầu khách tiếp tục dùng món có dấu hiệu bất thường. Không tự động vừa hoàn tiền vừa đổi món; ngoài quy định thì hỏi quản lý.",
+        "verify": "Mã đơn, thời điểm nhận, mô tả, ảnh sản phẩm/tem ly nếu có; ghi nhận tình trạng khách.",
+        "escalation": "Chuyển quản lý/QC, cập nhật tiến độ và kết quả phù hợp; chưa kết luận nguyên nhân trước kiểm tra. Ngoài quy định thì hỏi lại quản lý.",
+        "messages": [
+          {
+            "title": "Tiếp nhận phản ánh chất lượng",
+            "content": "TuTiMi chân thành xin lỗi vì sản phẩm mình nhận có mùi hoặc vị bất thường ạ. Mình vui lòng ngưng sử dụng món này giúp em nhé.\nEm sẽ chuyển thông tin đến quản lý và bộ phận chất lượng để kiểm tra. Để đảm bảo quyền lợi của mình, bên em xin hỗ trợ 1 trong 2 phương án:\n> Hoàn 100% tiền món bị ảnh hưởng theo giá trị mình đã thanh toán\n> Đổi món khác cùng mức giá và giao hoàn toàn miễn phí\nMình chọn phương án thuận tiện nhất để bên em hỗ trợ nhé ạ."
+          },
+          {
+            "title": "Xin thông tin đơn (khi chưa có)",
+            "content": "Dạ để có đủ thông tin hỗ trợ nhanh nhất, nhờ mình cung cấp giúp em:\n- Hình ảnh đặt hàng trên app (có mã đơn + tên chi nhánh)\n- SĐT đặt hàng\n- Hình ảnh tem trắng dán trên ly có thông tin món đang gặp vấn đề\nEm sẽ kiểm tra và hỗ trợ xử lý ngay cho mình ạ!\nNếu còn giữ hình ảnh sản phẩm gặp vấn đề, mình gửi thêm giúp em để bên em kiểm tra đầy đủ hơn nhé ạ."
+          },
+          {
+            "title": "Báo đang kiểm tra (khi cần)",
+            "content": "Dạ TuTiMi đang kiểm tra với phía cửa hàng, em sẽ phản hồi lại ngay khi có thông tin để hỗ trợ xử lý cho mình ạ!"
+          },
+          {
+            "title": "Lấy thông tin đổi món (sau khi khách đồng ý)",
+            "content": "TuTiMi xin phép lấy thông tin để hỗ trợ gửi lại món mới ạ. Mình cung cấp giúp các thông tin sau nha:\n> Tên người nhận\n> Số điện thoại\n> Địa chỉ hiện tại\n> Khoảng thời gian mình tiện nhận\nEm sẽ kiểm tra và báo thời gian giao dự kiến để mình xác nhận trước khi đặt giao lại nhé.\nĐơn sẽ được giao hoàn toàn miễn phí ạ 💛"
+          },
+          {
+            "title": "Lấy thông tin hoàn tiền (sau khi chốt phương án)",
+            "content": "Dạ mình vui lòng cung cấp giúp em số momo hoặc STK để bên em hoàn tiền cho mình nhé ạ."
+          },
+          {
+            "title": "Kiểm tra sau hỗ trợ",
+            "content": "Dạ em xin kiểm tra lại, mình đã nhận được phần hỗ trợ đầy đủ chưa ạ? Nếu còn điều gì chưa đúng, mình nhắn em để bên em tiếp tục hỗ trợ nhé."
+          },
+          {
+            "title": "Kết thúc hỗ trợ",
+            "content": "Dạ em cảm ơn mình đã cho TuTiMi cơ hội hỗ trợ mình ạ. Nếu cần hỗ trợ thêm thì nhờ mình nhắn lại em nha."
+          }
+        ]
+      }
+    },
+    {
+      "id": "policy-tutimi-foreign",
+      "type": "policy",
+      "brand": "TUTIMI",
+      "category": "Chất lượng",
+      "title": "Có vật thể lạ trong sản phẩm",
+      "updatedAt": "2026-11-09",
+      "policy": {
+        "status": "draft",
+        "version": "0.3",
+        "effectiveDate": "",
+        "resolution": "Tiếp nhận phản ánh, chuyển quản lý và QC kiểm tra. Khách chọn hoàn tiền hoặc đổi món khác cùng mức giá, giao miễn phí.",
+        "refund": "Nếu khách chọn hoàn: hoàn 100% tiền món bị ảnh hưởng, ưu tiên tính trên tiền khách thực trả. Hoàn tiền hoặc đổi món là hai phương án thay thế nhau.",
+        "extra": "Cần phản hồi kết quả kiểm tra phù hợp cho khách. Không tự động vừa hoàn tiền vừa đổi món; ngoài quy định thì hỏi quản lý.",
+        "verify": "Thông tin đơn, mô tả, ảnh sản phẩm/tem nếu có và tình trạng khách.",
+        "escalation": "Quản lý/QC theo dõi nguyên nhân; CSKH tiếp tục cập nhật với khách. Ngoài quy định thì hỏi lại quản lý.",
+        "messages": [
+          {
+            "title": "Tiếp nhận vật thể lạ",
+            "content": "TuTiMi chân thành xin lỗi vì sự cố có vật thể lạ trong sản phẩm đã ảnh hưởng đến trải nghiệm của mình ạ. Mình vui lòng ngưng sử dụng món này giúp em nhé.\nEm sẽ chuyển thông tin đến quản lý và bộ phận chất lượng để kiểm tra. Để đảm bảo quyền lợi của mình, bên em xin hỗ trợ 1 trong 2 phương án:\n> Hoàn 100% tiền món bị ảnh hưởng theo giá trị mình đã thanh toán\n> Đổi món khác cùng mức giá và giao hoàn toàn miễn phí\nMình chọn phương án thuận tiện nhất để bên em hỗ trợ nhé ạ."
+          },
+          {
+            "title": "Xin thông tin đơn (khi chưa có)",
+            "content": "Dạ để có đủ thông tin hỗ trợ nhanh nhất, nhờ mình cung cấp giúp em:\n- Hình ảnh đặt hàng trên app (có mã đơn + tên chi nhánh)\n- SĐT đặt hàng\n- Hình ảnh tem trắng dán trên ly có thông tin món đang gặp vấn đề\nEm sẽ kiểm tra và hỗ trợ xử lý ngay cho mình ạ!\nNếu còn giữ hình ảnh sản phẩm gặp vấn đề, mình gửi thêm giúp em để bên em kiểm tra đầy đủ hơn nhé ạ."
+          },
+          {
+            "title": "Báo đang kiểm tra (khi cần)",
+            "content": "Dạ TuTiMi đang kiểm tra với phía cửa hàng, em sẽ phản hồi lại ngay khi có thông tin để hỗ trợ xử lý cho mình ạ!"
+          },
+          {
+            "title": "Lấy thông tin đổi món (sau khi khách đồng ý)",
+            "content": "TuTiMi xin phép lấy thông tin để hỗ trợ gửi lại món mới ạ. Mình cung cấp giúp các thông tin sau nha:\n> Tên người nhận\n> Số điện thoại\n> Địa chỉ hiện tại\n> Khoảng thời gian mình tiện nhận\nEm sẽ kiểm tra và báo thời gian giao dự kiến để mình xác nhận trước khi đặt giao lại nhé.\nĐơn sẽ được giao hoàn toàn miễn phí ạ 💛"
+          },
+          {
+            "title": "Lấy thông tin hoàn tiền (sau khi chốt phương án)",
+            "content": "Dạ mình vui lòng cung cấp giúp em số momo hoặc STK để bên em hoàn tiền cho mình nhé ạ."
+          },
+          {
+            "title": "Kiểm tra sau hỗ trợ",
+            "content": "Dạ em xin kiểm tra lại, mình đã nhận được phần hỗ trợ đầy đủ chưa ạ? Nếu còn điều gì chưa đúng, mình nhắn em để bên em tiếp tục hỗ trợ nhé."
+          },
+          {
+            "title": "Kết thúc hỗ trợ",
+            "content": "Dạ em cảm ơn mình đã cho TuTiMi cơ hội hỗ trợ mình ạ. Nếu cần hỗ trợ thêm thì nhờ mình nhắn lại em nha."
+          }
+        ]
+      }
+    },
+    {
+      "id": "policy-tutimi-spill",
+      "type": "policy",
+      "brand": "TUTIMI",
+      "category": "Chất lượng",
+      "title": "Nước bị đổ / Không dùng được",
+      "updatedAt": "2026-11-09",
+      "policy": {
+        "status": "draft",
+        "version": "0.2",
+        "effectiveDate": "",
+        "resolution": "Không dùng được: giao lại ly mới miễn phí nếu khách đồng ý và còn tiện nhận.",
+        "refund": "Không dùng được: hoàn 100% món nếu chọn hoàn. Đổ một phần, khách đồng ý giữ: đề xuất hoàn 50% món bị ảnh hưởng.",
+        "extra": "Không căn cứ duy nhất vào lượng còn lại nếu có dấu hiệu ảnh hưởng chất lượng.",
+        "verify": "Ảnh/tình trạng ly, mức đổ, thời điểm nhận và khâu bàn giao.",
+        "escalation": "Chuyển quản lý khi chưa rõ mức ảnh hưởng; chuyển QC nếu có bất thường chất lượng. Ngoài quy định thì hỏi lại quản lý.",
+        "messages": [
+          {
+            "title": "Đề nghị thay ly mới",
+            "content": "TuTiMi xin lỗi vì món bị đổ khi giao đến mình ạ. Để đảm bảo quyền lợi và trải nghiệm, nếu món không dùng được, bên em xin hỗ trợ 1 trong 2 phương án:\n> Gửi lại ly mới hoàn toàn miễn phí\n> Hoàn tiền món bị ảnh hưởng theo giá trị mình đã thanh toán\nMình chọn phương án thuận tiện nhất để bên em hỗ trợ xử lý ngay nhé."
+          },
+          {
+            "title": "Xin thông tin đơn (khi chưa có)",
+            "content": "Dạ để có đủ thông tin hỗ trợ nhanh nhất, nhờ mình cung cấp giúp em:\n- Hình ảnh đặt hàng trên app (có mã đơn + tên chi nhánh)\n- SĐT đặt hàng\n- Hình ảnh tem trắng dán trên ly có thông tin món đang gặp vấn đề\nEm sẽ kiểm tra và hỗ trợ xử lý ngay cho mình ạ!\nNếu còn giữ hình ảnh sản phẩm gặp vấn đề, mình gửi thêm giúp em để bên em kiểm tra đầy đủ hơn nhé ạ."
+          },
+          {
+            "title": "Báo đang kiểm tra (khi cần)",
+            "content": "Dạ TuTiMi đang kiểm tra với phía cửa hàng, em sẽ phản hồi lại ngay khi có thông tin để hỗ trợ xử lý cho mình ạ!"
+          },
+          {
+            "title": "Lấy thông tin giao lại (sau khi khách đồng ý)",
+            "content": "TuTiMi xin phép lấy thông tin để hỗ trợ gửi lại món mới ạ. Mình cung cấp giúp các thông tin sau nha:\n> Tên người nhận\n> Số điện thoại\n> Địa chỉ hiện tại\n> Khoảng thời gian mình tiện nhận\nEm sẽ kiểm tra và báo thời gian giao dự kiến để mình xác nhận trước khi đặt giao lại nhé.\nĐơn sẽ được giao hoàn toàn miễn phí ạ 💛"
+          },
+          {
+            "title": "Lấy thông tin hoàn tiền (sau khi chốt phương án)",
+            "content": "Dạ mình vui lòng cung cấp giúp em số momo hoặc STK để bên em hoàn tiền cho mình nhé ạ."
+          },
+          {
+            "title": "Kiểm tra sau hỗ trợ",
+            "content": "Dạ em xin kiểm tra lại, mình đã nhận được phần hỗ trợ đầy đủ chưa ạ? Nếu còn điều gì chưa đúng, mình nhắn em để bên em tiếp tục hỗ trợ nhé."
+          },
+          {
+            "title": "Kết thúc hỗ trợ",
+            "content": "Dạ em cảm ơn mình đã cho TuTiMi cơ hội hỗ trợ mình ạ. Nếu cần hỗ trợ thêm thì nhờ mình nhắn lại em nha."
+          }
+        ]
+      }
+    },
+    {
+      "id": "policy-tutimi-packaging",
+      "type": "policy",
+      "brand": "TUTIMI",
+      "category": "Chất lượng",
+      "title": "Nắp hở, ly nứt, seal bong hoặc túi rách",
+      "updatedAt": "2026-11-09",
+      "policy": {
+        "status": "draft",
+        "version": "0.2",
+        "effectiveDate": "",
+        "resolution": "Nếu hở ly, rò rỉ hoặc không dùng được: xử lý theo “Nước bị đổ / Không dùng được”. Chỉ hỏng bao bì ngoài: xác nhận mức ảnh hưởng trước.",
+        "refund": "Giữ hoàn theo mức ảnh hưởng của món, không áp cùng mức cho mọi lỗi bao bì.",
+        "extra": "Không yêu cầu dùng tiếp nếu có dấu hiệu bất thường.",
+        "verify": "Tình trạng bao bì, sản phẩm và khâu đóng gói/bàn giao.",
+        "escalation": "Chuyển quản lý/QC nếu có nguy cơ chất lượng hoặc chưa rõ tình trạng. Ngoài quy định thì hỏi lại quản lý.",
+        "messages": [
+          {
+            "title": "Kiểm tra mức ảnh hưởng",
+            "content": "TuTiMi xin lỗi vì bao bì món chưa bảo đảm khi giao đến mình ạ. Mình cho em xin hình ảnh và thông tin ly có bị hở, rò rỉ hoặc ảnh hưởng đến sản phẩm không nhé.\nEm sẽ kiểm tra để hỗ trợ gửi lại món hoặc hoàn tiền phù hợp. Nếu sản phẩm có dấu hiệu bất thường, mình vui lòng ngưng sử dụng giúp em ạ."
+          },
+          {
+            "title": "Xin thông tin đơn (khi chưa có)",
+            "content": "Dạ để có đủ thông tin hỗ trợ nhanh nhất, nhờ mình cung cấp giúp em:\n- Hình ảnh đặt hàng trên app (có mã đơn + tên chi nhánh)\n- SĐT đặt hàng\n- Hình ảnh tem trắng dán trên ly có thông tin món đang gặp vấn đề\nEm sẽ kiểm tra và hỗ trợ xử lý ngay cho mình ạ!\nNếu còn giữ hình ảnh sản phẩm gặp vấn đề, mình gửi thêm giúp em để bên em kiểm tra đầy đủ hơn nhé ạ."
+          },
+          {
+            "title": "Báo đang kiểm tra (khi cần)",
+            "content": "Dạ TuTiMi đang kiểm tra với phía cửa hàng, em sẽ phản hồi lại ngay khi có thông tin để hỗ trợ xử lý cho mình ạ!"
+          },
+          {
+            "title": "Lấy thông tin hoàn tiền (sau khi chốt phương án)",
+            "content": "Dạ mình vui lòng cung cấp giúp em số momo hoặc STK để bên em hoàn tiền cho mình nhé ạ."
+          },
+          {
+            "title": "Kiểm tra sau hỗ trợ",
+            "content": "Dạ em xin kiểm tra lại, mình đã nhận được phần hỗ trợ đầy đủ chưa ạ? Nếu còn điều gì chưa đúng, mình nhắn em để bên em tiếp tục hỗ trợ nhé."
+          },
+          {
+            "title": "Kết thúc hỗ trợ",
+            "content": "Dạ em cảm ơn mình đã cho TuTiMi cơ hội hỗ trợ mình ạ. Nếu cần hỗ trợ thêm thì nhờ mình nhắn lại em nha."
+          }
+        ]
+      }
+    },
+    {
+      "id": "policy-tutimi-recipe",
+      "type": "policy",
+      "brand": "TUTIMI",
+      "category": "Chất lượng",
+      "title": "Sai công thức hoặc định lượng",
+      "updatedAt": "2026-11-09",
+      "policy": {
+        "status": "draft",
+        "version": "0.3",
+        "effectiveDate": "",
+        "resolution": "Khi xác nhận pha sai, thiếu thành phần mặc định hoặc hụt lượng rõ rệt: ưu tiên làm lại đúng chuẩn và giao miễn phí nếu khách đồng ý.",
+        "refund": "Nếu khách không muốn nhận lại: hỗ trợ hoàn tiền theo chính sách món lỗi, xác nhận mức ảnh hưởng và số tiền cụ thể trước khi thực hiện.",
+        "extra": "Làm lại hoặc hỗ trợ hoàn tiền là các phương án khắc phục thay thế nhau. Không tự động cộng thêm khoản hỗ trợ 50% sau khi đã làm lại. Ngoài quy định thì hỏi quản lý.",
+        "verify": "Đối chiếu công thức/định lượng chuẩn, món thực tế và yêu cầu đơn.",
+        "escalation": "Chuyển quản lý/QC kiểm tra; ngoại lệ cần phê duyệt. Ngoài quy định thì hỏi lại quản lý.",
+        "messages": [
+          {
+            "title": "Kiểm tra và đề nghị làm lại đúng chuẩn",
+            "content": "TuTiMi xin lỗi vì món mình nhận chưa đúng như mong đợi ạ. Em sẽ kiểm tra thông tin đơn và cách chuẩn bị món với cửa hàng.\nNếu xác nhận món được chuẩn bị chưa đúng công thức hoặc định lượng, bên em hỗ trợ gửi lại món đúng chuẩn hoàn toàn miễn phí. Nếu mình không tiện nhận lại, em trao đổi phương án hoàn tiền phù hợp nhé."
+          },
+          {
+            "title": "Xin thông tin đơn (khi chưa có)",
+            "content": "Dạ để có đủ thông tin hỗ trợ nhanh nhất, nhờ mình cung cấp giúp em:\n- Hình ảnh đặt hàng trên app (có mã đơn + tên chi nhánh)\n- SĐT đặt hàng\n- Hình ảnh tem trắng dán trên ly có thông tin món đang gặp vấn đề\nEm sẽ kiểm tra và hỗ trợ xử lý ngay cho mình ạ!\nNếu còn giữ hình ảnh sản phẩm gặp vấn đề, mình gửi thêm giúp em để bên em kiểm tra đầy đủ hơn nhé ạ."
+          },
+          {
+            "title": "Báo đang kiểm tra (khi cần)",
+            "content": "Dạ TuTiMi đang kiểm tra với phía cửa hàng, em sẽ phản hồi lại ngay khi có thông tin để hỗ trợ xử lý cho mình ạ!"
+          },
+          {
+            "title": "Lấy thông tin giao lại (sau khi khách đồng ý)",
+            "content": "TuTiMi xin phép lấy thông tin để hỗ trợ gửi lại món mới ạ. Mình cung cấp giúp các thông tin sau nha:\n> Tên người nhận\n> Số điện thoại\n> Địa chỉ hiện tại\n> Khoảng thời gian mình tiện nhận\nEm sẽ kiểm tra và báo thời gian giao dự kiến để mình xác nhận trước khi đặt giao lại nhé.\nĐơn sẽ được giao hoàn toàn miễn phí ạ 💛"
+          },
+          {
+            "title": "Lấy thông tin hoàn tiền (sau khi chốt phương án)",
+            "content": "Dạ mình vui lòng cung cấp giúp em số momo hoặc STK để bên em hoàn tiền cho mình nhé ạ."
+          },
+          {
+            "title": "Kiểm tra sau hỗ trợ",
+            "content": "Dạ em xin kiểm tra lại, mình đã nhận được phần hỗ trợ đầy đủ chưa ạ? Nếu còn điều gì chưa đúng, mình nhắn em để bên em tiếp tục hỗ trợ nhé."
+          },
+          {
+            "title": "Kết thúc hỗ trợ",
+            "content": "Dạ em cảm ơn mình đã cho TuTiMi cơ hội hỗ trợ mình ạ. Nếu cần hỗ trợ thêm thì nhờ mình nhắn lại em nha."
+          }
+        ]
+      }
+    },
+    {
+      "id": "policy-tutimi-late",
+      "type": "policy",
+      "brand": "TUTIMI",
+      "category": "Giao hàng",
+      "title": "Đơn đặt trước chưa sẵn sàng hoặc giao trễ hẹn",
+      "updatedAt": "2026-11-09",
+      "policy": {
+        "status": "draft",
+        "version": "0.4",
+        "effectiveDate": "",
+        "resolution": "Chủ động báo giờ mới; hỏi khách có tiếp tục nhận được không. Không để khách phải hỏi lại nhiều lần.",
+        "refund": "Nếu khách không thể nhận do lỡ hẹn: hỗ trợ hủy và hoàn phần đã thanh toán cho món chưa nhận.",
+        "extra": "Nếu khách vẫn nhận đơn: Hỗ trợ hoàn tiền 30% theo chính sách. “Voucher” là cách gọi khoản hỗ trợ hoàn tiền, không phải mã dùng trên app. Khách chọn áp dụng trên chính đơn đó hoặc đơn sau; xác nhận đơn áp dụng và số tiền cụ thể trước khi thực hiện.\nNếu khách chọn áp dụng vào đơn sau, tỷ lệ hỗ trợ tính trên số tiền khách thực trả của đơn sau. Kiểm tra thông tin đơn sau và xác nhận số tiền cụ thể trước khi hoàn.",
+        "verify": "Giờ đã hẹn, thời điểm xử lý, thời gian giao dự kiến và nhu cầu khách.",
+        "escalation": "Chuyển quản lý khi không thể đáp ứng giờ nhận hoặc tiếp tục trễ. Ngoài quy định thì hỏi lại quản lý.",
+        "messages": [
+          {
+            "title": "Thông báo trễ và hỏi lựa chọn",
+            "content": "TuTiMi xin lỗi vì đơn của mình chưa kịp thời gian đã hẹn ạ. Em sẽ kiểm tra với cửa hàng và báo lại thời gian dự kiến để mình xem còn tiện nhận không nhé.\nNếu đơn không còn kịp nhu cầu, bên em hỗ trợ hủy và hoàn phần tiền món mình chưa nhận ạ."
+          },
+          {
+            "title": "Xin thông tin đơn (khi chưa có)",
+            "content": "Dạ để có đủ thông tin hỗ trợ nhanh nhất, nhờ mình cung cấp giúp em:\n- Hình ảnh đặt hàng trên app (có mã đơn + tên chi nhánh)\n- SĐT đặt hàng\n- Hình ảnh tem trắng dán trên ly có thông tin món đang gặp vấn đề\nEm sẽ kiểm tra và hỗ trợ xử lý ngay cho mình ạ!"
+          },
+          {
+            "title": "Báo đang kiểm tra (khi cần)",
+            "content": "Dạ TuTiMi đang kiểm tra với phía cửa hàng, em sẽ phản hồi lại ngay khi có thông tin để hỗ trợ xử lý cho mình ạ!"
+          },
+          {
+            "title": "Chọn đơn áp dụng khoản hỗ trợ hoàn tiền",
+            "content": "Để xin lỗi về sự bất tiện lần này, TuTiMi xin hỗ trợ mình một khoản hoàn tiền theo chính sách ạ. Mình muốn áp dụng trên chính đơn này hay đơn sau để bên em hỗ trợ thuận tiện nhất nhé? Em sẽ xác nhận lại đơn áp dụng và số tiền cụ thể với mình trước khi thực hiện ạ.\nNếu mình chọn áp dụng vào đơn sau, khoản hỗ trợ sẽ được tính theo số tiền mình thực trả của đơn sau nhé ạ."
+          },
+          {
+            "title": "Lấy thông tin hoàn tiền (sau khi chốt phương án)",
+            "content": "Dạ mình vui lòng cung cấp giúp em số momo hoặc STK để bên em hoàn tiền cho mình nhé ạ."
+          },
+          {
+            "title": "Kiểm tra sau hỗ trợ",
+            "content": "Dạ em xin kiểm tra lại, mình đã nhận được phần hỗ trợ đầy đủ chưa ạ? Nếu còn điều gì chưa đúng, mình nhắn em để bên em tiếp tục hỗ trợ nhé."
+          },
+          {
+            "title": "Kết thúc hỗ trợ",
+            "content": "Dạ em cảm ơn mình đã cho TuTiMi cơ hội hỗ trợ mình ạ. Nếu cần hỗ trợ thêm thì nhờ mình nhắn lại em nha."
+          }
+        ]
+      }
+    },
+    {
+      "id": "policy-tutimi-delivery",
+      "type": "policy",
+      "brand": "TUTIMI",
+      "category": "Giao hàng",
+      "title": "Giao nhầm địa chỉ, nhầm người hoặc báo giao nhưng chưa nhận",
+      "updatedAt": "2026-11-09",
+      "policy": {
+        "status": "draft",
+        "version": "0.2",
+        "effectiveDate": "",
+        "resolution": "Kiểm tra thông tin đặt/bàn giao và phối hợp bên giao hàng. Xác nhận giao sai: làm lại và giao miễn phí.",
+        "refund": "Nếu khách không còn nhu cầu, thống nhất hoàn phần chưa nhận theo chính sách. Kiểm tra sàn đã hỗ trợ để tránh trùng khoản.",
+        "extra": "Phân biệt địa chỉ khách cung cấp, lỗi cửa hàng và bên giao; vẫn cập nhật tiến độ cho khách.",
+        "verify": "Địa chỉ đặt, người nhận, thông tin bàn giao và trạng thái sàn.",
+        "escalation": "Chuyển quản lý khi thông tin mâu thuẫn hoặc chưa xác định được việc giao. Ngoài quy định thì hỏi lại quản lý.",
+        "messages": [
+          {
+            "title": "Tiếp nhận chưa nhận được đơn",
+            "content": "TuTiMi xin lỗi vì mình chưa nhận được đơn dù hệ thống đã báo giao ạ. Em sẽ kiểm tra thông tin bàn giao và phối hợp với bên giao hàng.\nNếu xác nhận giao sai, bên em hỗ trợ gửi lại món hoàn toàn miễn phí. Nếu mình không còn tiện nhận, em trao đổi phương án hoàn tiền phù hợp nhé."
+          },
+          {
+            "title": "Xin thông tin đơn (khi chưa có)",
+            "content": "Dạ để có đủ thông tin hỗ trợ nhanh nhất, nhờ mình cung cấp giúp em:\n- Hình ảnh đặt hàng trên app (có mã đơn + tên chi nhánh)\n- SĐT đặt hàng\n- Hình ảnh tem trắng dán trên ly có thông tin món đang gặp vấn đề\nEm sẽ kiểm tra và hỗ trợ xử lý ngay cho mình ạ!"
+          },
+          {
+            "title": "Báo đang kiểm tra (khi cần)",
+            "content": "Dạ TuTiMi đang kiểm tra với phía cửa hàng, em sẽ phản hồi lại ngay khi có thông tin để hỗ trợ xử lý cho mình ạ!"
+          },
+          {
+            "title": "Lấy thông tin giao lại (sau khi khách đồng ý)",
+            "content": "TuTiMi xin phép lấy thông tin để hỗ trợ gửi lại món mới ạ. Mình cung cấp giúp các thông tin sau nha:\n> Tên người nhận\n> Số điện thoại\n> Địa chỉ hiện tại\n> Khoảng thời gian mình tiện nhận\nEm sẽ kiểm tra và báo thời gian giao dự kiến để mình xác nhận trước khi đặt giao lại nhé.\nĐơn sẽ được giao hoàn toàn miễn phí ạ 💛"
+          },
+          {
+            "title": "Lấy thông tin hoàn tiền (sau khi chốt phương án)",
+            "content": "Dạ mình vui lòng cung cấp giúp em số momo hoặc STK để bên em hoàn tiền cho mình nhé ạ."
+          },
+          {
+            "title": "Kiểm tra sau hỗ trợ",
+            "content": "Dạ em xin kiểm tra lại, mình đã nhận được phần hỗ trợ đầy đủ chưa ạ? Nếu còn điều gì chưa đúng, mình nhắn em để bên em tiếp tục hỗ trợ nhé."
+          },
+          {
+            "title": "Kết thúc hỗ trợ",
+            "content": "Dạ em cảm ơn mình đã cho TuTiMi cơ hội hỗ trợ mình ạ. Nếu cần hỗ trợ thêm thì nhờ mình nhắn lại em nha."
+          }
+        ]
+      }
+    },
+    {
+      "id": "policy-tutimi-payment",
+      "type": "policy",
+      "brand": "TUTIMI",
+      "category": "Thanh toán & ưu đãi",
+      "title": "Tính sai giá, thu dư hoặc thanh toán hai lần",
+      "updatedAt": "2026-11-09",
+      "policy": {
+        "status": "draft",
+        "version": "0.2",
+        "effectiveDate": "",
+        "resolution": "Đối soát giao dịch, xác nhận số tiền và phương thức hoàn với khách.",
+        "refund": "Hoàn toàn bộ khoản thu dư đã xác nhận. Ghi rõ số tiền, phương thức và thời gian dự kiến.",
+        "extra": "Tách khoản trả lại tiền thu sai với tiền đền bù; không tự hứa khoản chưa đối soát.",
+        "verify": "Bill, giao dịch và khoản sàn/CSKH đã hoàn.",
+        "escalation": "Chuyển quản lý/đối soát khi giao dịch chưa rõ hoặc cần kiểm tra thêm. Ngoài quy định thì hỏi lại quản lý.",
+        "messages": [
+          {
+            "title": "Tiếp nhận sai thanh toán",
+            "content": "Dạ em ghi nhận thông tin thanh toán của mình nhé. Nhờ mình cung cấp giúp em bill hoặc hình ảnh xác nhận giao dịch để bên em kiểm tra ạ.\nKhoản thu dư được xác nhận sẽ được hoàn đầy đủ. Em sẽ báo lại số tiền cụ thể để mình kiểm tra trước khi bên em thực hiện nhé."
+          },
+          {
+            "title": "Lấy thông tin hoàn tiền (sau khi chốt phương án)",
+            "content": "Dạ mình vui lòng cung cấp giúp em số momo hoặc STK để bên em hoàn tiền cho mình nhé ạ."
+          },
+          {
+            "title": "Kiểm tra sau hỗ trợ",
+            "content": "Dạ em xin kiểm tra lại, mình đã nhận được phần hỗ trợ đầy đủ chưa ạ? Nếu còn điều gì chưa đúng, mình nhắn em để bên em tiếp tục hỗ trợ nhé."
+          },
+          {
+            "title": "Kết thúc hỗ trợ",
+            "content": "Dạ em cảm ơn mình đã cho TuTiMi cơ hội hỗ trợ mình ạ. Nếu cần hỗ trợ thêm thì nhờ mình nhắn lại em nha."
+          }
+        ]
+      }
+    },
+    {
+      "id": "policy-tutimi-promotion",
+      "type": "policy",
+      "brand": "TUTIMI",
+      "category": "Thanh toán & ưu đãi",
+      "title": "Thiếu quà hoặc chưa áp dụng ưu đãi dù đủ điều kiện",
+      "updatedAt": "2026-11-09",
+      "policy": {
+        "status": "draft",
+        "version": "0.2",
+        "effectiveDate": "",
+        "resolution": "Thiếu quà: giao bù miễn phí nếu khách còn cần. Hết quà: đề nghị quà tương đương và chỉ đổi khi khách đồng ý.",
+        "refund": "Chưa áp dụng giảm giá: đối soát và hoàn phần chênh lệch đã xác nhận.",
+        "extra": "Không tự thay quà hoặc hứa ưu đãi chưa kiểm tra điều kiện.",
+        "verify": "Điều kiện CTKM, thông tin đơn, tiền thực trả và ưu đãi sàn.",
+        "escalation": "Chuyển quản lý khi hết quà hoặc có tranh chấp điều kiện ưu đãi. Ngoài quy định thì hỏi lại quản lý.",
+        "messages": [
+          {
+            "title": "Tiếp nhận thiếu quyền lợi",
+            "content": "TuTiMi xin lỗi vì quyền lợi trên đơn của mình chưa đầy đủ ạ. Em sẽ kiểm tra điều kiện ưu đãi và thông tin đơn để hỗ trợ gửi bù quà hoặc hoàn phần giảm giá còn thiếu.\nNếu quà đã hết, bên em sẽ trao đổi quà thay thế để mình xác nhận trước nhé."
+          },
+          {
+            "title": "Xin thông tin đơn (khi chưa có)",
+            "content": "Dạ để có đủ thông tin hỗ trợ nhanh nhất, nhờ mình cung cấp giúp em:\n- Hình ảnh đặt hàng trên app (có mã đơn + tên chi nhánh)\n- SĐT đặt hàng\n- Hình ảnh tem trắng dán trên ly có thông tin món đang gặp vấn đề\nEm sẽ kiểm tra và hỗ trợ xử lý ngay cho mình ạ!"
+          },
+          {
+            "title": "Lấy thông tin hoàn tiền (sau khi chốt phương án)",
+            "content": "Dạ mình vui lòng cung cấp giúp em số momo hoặc STK để bên em hoàn tiền cho mình nhé ạ."
+          },
+          {
+            "title": "Kiểm tra sau hỗ trợ",
+            "content": "Dạ em xin kiểm tra lại, mình đã nhận được phần hỗ trợ đầy đủ chưa ạ? Nếu còn điều gì chưa đúng, mình nhắn em để bên em tiếp tục hỗ trợ nhé."
+          },
+          {
+            "title": "Kết thúc hỗ trợ",
+            "content": "Dạ em cảm ơn mình đã cho TuTiMi cơ hội hỗ trợ mình ạ. Nếu cần hỗ trợ thêm thì nhờ mình nhắn lại em nha."
+          }
+        ]
+      }
+    }
+  ]
+}

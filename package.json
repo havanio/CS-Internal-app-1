@@ -2,6 +2,8 @@
   "name": "cs-internal-app",
   "private": true,
   "scripts": {
+    "test": "node --test tests/*.test.cjs",
+    "preview:local": "python3 scripts/preview-local.py",
     "local": "npx serve public -l 7003",
     "dev": "netlify dev",
     "build:seed": "node scripts/build-seed.mjs",

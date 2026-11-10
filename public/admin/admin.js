@@ -14,6 +14,7 @@
   var PW_KEY = "cms_pw";
   var TYPE_LABELS = {
     script: "KỊCH BẢN CHAT",
+    policy: "CHÍNH SÁCH HẬU MÃI",
     promotion: "CTKM",
     store: "CỬA HÀNG",
     menu: "MENU",
@@ -202,6 +203,7 @@
     return API.data().then(function (d) {
       state.items = Array.isArray(d && d.items) ? d.items : [];
       state.updatedAt = (d && d.updatedAt) || null;
+      $("#localPreviewBanner").hidden = !d.localPreview;
       state.dirty = false;
       updateSaveBtn();
       render();
@@ -252,7 +254,7 @@
       if (t && it.type !== t) return;
       if (b && it.brand !== b) return;
       if (q) {
-        var hay = [it.title, it.content, it.brand].map(function (x) {
+        var hay = [it.title, it.content, it.brand, JSON.stringify(it.policy || {})].map(function (x) {
           return (x || "").toLowerCase();
         }).join(" ");
         if (hay.indexOf(q) < 0) return;
@@ -277,7 +279,7 @@
         '<td class="cell-thumb">' + thumb + "</td>" +
         "<td><span class=\"badge " + esc(it.type) + "\">" + esc(typeLabel(it.type)) + "</span></td>" +
         '<td><span class="brand-chip" data-brand="' + esc(it.brand) + '">' + esc(it.brand || "—") + "</span></td>" +
-        '<td class="cell-title"><strong>' + esc(it.title || "(chưa có tiêu đề)") + "</strong><small>" + esc(it.id || "") + "</small></td>" +
+        '<td class="cell-title"><strong>' + esc(it.title || "(chưa có tiêu đề)") + "</strong><small>" + esc(it.id || "") + "</small>" + (it.type === "policy" ? '<span class="badge">' + (it.policy && it.policy.status === "active" ? "Áp dụng theo ngày hiệu lực" : "Dự thảo") + '</span>' : '') + "</td>" +
         "<td>" + esc(it.category || "—") + "</td>" +
         '<td class="cell-when">' + esc(when) + "</td>" +
         '<td><div class="row-actions">' +
@@ -345,7 +347,40 @@
     $("#f_notes").value = it.notes || "";
     $("#f_startDate").value = it.startDate || "";
     $("#f_endDate").value = it.endDate || "";
+    var policy = it.policy || {};
+    ["status", "version", "effectiveDate", "resolution", "refund", "extra", "verify", "escalation"].forEach(function (key) {
+      $("#p_" + key).value = policy[key] || (key === "status" ? "draft" : "");
+    });
+    $("#policyMessageFields").innerHTML = "";
+    (Array.isArray(policy.messages) && policy.messages.length ? policy.messages : [{title:"",content:""}]).forEach(addMessageField);
+    updatePolicyEditor();
     updatePreview();
+  }
+
+  var messageSequence = 0;
+  function addMessageField(message) {
+    var id = ++messageSequence;
+    var field = document.createElement("div");
+    field.className = "policy-message-field";
+    field.innerHTML = '<label class="field-label" for="message-title-' + id + '">Tên bước / phương án</label><input id="message-title-' + id + '" data-message-title placeholder="VD: Đề nghị giao lại" value="' + esc(message.title || "") + '" /><label class="field-label" for="message-content-' + id + '">Câu chat được sao chép</label><textarea id="message-content-' + id + '" data-message-content rows="5">' + esc(message.content || "") + '</textarea><button type="button" class="row-btn" data-remove-message>Bỏ mẫu này</button>';
+    $("#policyMessageFields").appendChild(field);
+  }
+
+  function updatePolicyEditor() {
+    var isPolicy = $("#f_type").value === "policy";
+    $("#policyEditor").hidden = !isPolicy;
+    ["#grpBody", "#grpImg", "#grpStore", "#grpPromo"].forEach(function (selector) {
+      $(selector).closest("section").hidden = isPolicy;
+    });
+  }
+
+  function readPolicyForm() {
+    var result = {};
+    ["status", "version", "effectiveDate", "resolution", "refund", "extra", "verify", "escalation"].forEach(function (key) { result[key] = $("#p_" + key).value.trim(); });
+    result.messages = Array.from(document.querySelectorAll(".policy-message-field")).map(function (field) {
+      return {title: field.querySelector("[data-message-title]").value.trim(), content: field.querySelector("[data-message-content]").value.trim()};
+    }).filter(function (message) { return message.title || message.content; });
+    return result;
   }
 
   function readForm() {
@@ -409,6 +444,19 @@
     if (!item.title) problems.push(["#f_title", "Tiêu đề"]);
     if (!item.brand) problems.push(["#f_brand", "Brand"]);
     if (!item.type) problems.push(["#f_type", "Loại"]);
+    if (item.type === "policy") {
+      item.policy = readPolicyForm();
+      if (!item.policy.resolution) problems.push(["#p_resolution", "Ưu tiên xử lý"]);
+      if (!item.category) problems.push(["#f_category", "Danh mục"]);
+      if (!item.policy.messages.length || item.policy.messages.some(function (message) { return !message.title || !message.content; })) {
+        toast("Mỗi chính sách cần ít nhất một mẫu chat có tên và nội dung đầy đủ.", "error");
+        return;
+      }
+      if (item.policy.status === "active") {
+        if (!item.policy.version) problems.push(["#p_version", "Phiên bản"]);
+        if (!item.policy.effectiveDate) problems.push(["#p_effectiveDate", "Ngày hiệu lực"]);
+      }
+    }
     if (problems.length) {
       problems.forEach(function (p) { markInvalid($(p[0])); });
       toast("Vui lòng nhập: " + problems.map(function (p) { return p[1]; }).join(", "), "error");
@@ -420,7 +468,12 @@
     item.updatedAt = new Date().toISOString();
 
     if (isNew) state.items.push(item);
-    else state.items[state.editingIndex] = item;
+    else {
+      // Keep unknown fields from newer CMS versions (archive, ordering, metadata).
+      var previous = state.items[state.editingIndex];
+      if (item.type === "policy") item.policy = Object.assign({}, previous.policy || {}, item.policy);
+      state.items[state.editingIndex] = Object.assign({}, previous, item);
+    }
 
     markDirty();
     render();
@@ -561,10 +614,22 @@
 
   /* ---- wiring -------------------------------------------------------- */
   function bind() {
+    $("#f_type").addEventListener("change", updatePolicyEditor);
+    $("#addPolicyMessage").addEventListener("click", function () { addMessageField({}); });
+    $("#policyMessageFields").addEventListener("click", function (event) {
+      var button = event.target.closest("[data-remove-message]");
+      if (button) button.closest(".policy-message-field").remove();
+    });
     $("#loginForm").addEventListener("submit", onLogin);
     $("#saveAllBtn").addEventListener("click", saveAll);
     $("#logoutBtn").addEventListener("click", logout);
     $("#addBtn").addEventListener("click", function () { openEditor(null); });
+    $("#addPolicyBtn").addEventListener("click", function () {
+      openEditor(null);
+      $("#f_type").value = "policy";
+      $("#f_brand").value = $("#filterBrand").value || "TUTIMI";
+      updatePolicyEditor();
+    });
     $("#loadRetry").addEventListener("click", loadData);
 
     $("#filterType").addEventListener("change", applyFilters);

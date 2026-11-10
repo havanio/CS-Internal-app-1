@@ -1,25 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TTMI SK CS INTERNAL APP</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>Tra cứu CSKH | Tutimi</title>
+    <link rel="stylesheet" href="style.css?v=after-sales-copy-2" />
   </head>
   <body>
     <div class="app-shell">
       <header class="topbar">
         <div>
           <p class="eyebrow">CUSTOMER SERVICE APP</p>
-          <h1>KỊCH BẢN CHAT VÀ THÔNG TIN CTKM</h1>
+          <h1>TRA CỨU HỖ TRỢ KHÁCH HÀNG</h1>
           <p id="dataSource" class="data-source">Đang tải dữ liệu...</p>
         </div>
         <div class="topbar-actions">
-          <button id="clearButton" class="icon-button subtle" type="button" title="Clear filters">Reset</button>
+          <button id="clearButton" class="icon-button subtle" type="button" title="Đặt lại bộ lọc">Đặt lại</button>
         </div>
       </header>
 
       <div id="imageWarningBanner" class="notice notice-warning" hidden></div>
+      <div id="localPreviewBanner" class="notice notice-warning" hidden>BẢN THỬ TRÊN MÁY · Dữ liệu riêng, không cập nhật website đang chạy.</div>
 
       <main class="workspace">
         <section class="filter-board" aria-label="Filters">
@@ -29,12 +30,12 @@
           </section>
 
           <section class="filter-section">
-            <div class="section-title">Content</div>
+            <div class="section-title">Loại nội dung</div>
             <div id="typeFilters" class="filter-row" role="group" aria-label="Content type filter"></div>
           </section>
 
           <section class="filter-section">
-            <div class="section-title">Category</div>
+            <div class="section-title">Danh mục</div>
             <div id="categoryFilters" class="category-row" role="group" aria-label="Category filter"></div>
           </section>
         </section>
@@ -54,14 +55,37 @@
           </div>
 
           <section id="storeSearchSection" class="store-search" hidden>
-            <label class="field-label" for="searchInput">Search Stores</label>
+            <label id="searchLabel" class="field-label" for="searchInput">Tìm cửa hàng</label>
             <input id="searchInput" type="search" placeholder="Search store name, address, phone, manager" autocomplete="off" />
           </section>
 
+          <section id="policySelectSection" class="store-search" hidden>
+            <label class="field-label" for="policySelect">Chọn tình huống cần hỗ trợ</label>
+            <select id="policySelect"><option value="">Tất cả tình huống</option></select>
+          </section>
+
+          <section id="policyGuide" class="policy-guide" hidden>
+            <div><strong>Giao lại thuận tiện. Giữ lựa chọn hoàn tiền.</strong><p>Đọc chính sách bên trái, chọn câu phù hợp bên phải. Bấm vào câu chat hoặc nút Sao chép để lấy nội dung gửi khách.</p></div>
+            <label class="draft-toggle"><input id="showPolicyDrafts" type="checkbox" /> Xem bản dự thảo</label>
+          </section>
+          <p id="policyDraftNotice" class="notice notice-warning" hidden>Đang xem thêm các bản dự thảo chưa ban hành. Mẫu chat có thể chứa quyền lợi chưa được duyệt; chỉ dùng để xem thử.</p>
+          <details id="policyPrinciples" class="policy-principles" hidden>
+            <summary>Nguyên tắc xử lý chung</summary>
+            <ul>
+              <li>Xác nhận khách còn nhu cầu, địa chỉ hiện tại và thời gian tiện nhận trước khi giao lại; kiểm tra món sẵn có rồi báo thời gian dự kiến.</li>
+              <li>Giữ lựa chọn hoàn tiền. Nếu giao lại không kịp nhu cầu, chủ động thống nhất phương án khác với khách.</li>
+              <li>Topping và quyền lợi trong chính sách: CSKH tự áp dụng, không xin duyệt từng trường hợp. Ngoài quy định thì hỏi lại quản lý; giữ các bước quản lý/QC được nêu riêng trong từng tình huống.</li>
+              <li>Ưu tiên tính khoản hoàn trên tiền khách thực trả của phần được hỗ trợ; có thể hoàn kèm phí giao hàng khách đã trả nếu có. Xác nhận số tiền cụ thể trước khi thực hiện.</li>
+              <li>“Voucher” trong chính sách là khoản hỗ trợ hoàn tiền, không phải mã dùng trên app. Khách chọn áp dụng trên chính đơn đó hoặc đơn sau; CSKH xác nhận lại đơn và số tiền áp dụng.</li>
+              <li>Nếu khách chọn đơn sau, khoản hỗ trợ 30%/50% được tính trên số tiền khách thực trả của đơn sau. Kiểm tra thông tin đơn sau và xác nhận số tiền cụ thể trước khi hoàn.</li>
+              <li>Kiểm tra sàn đã hỗ trợ khoản nào, lưu chứng từ và theo dõi đến khi khách nhận đúng món hoặc tiền hoàn. Vụ việc chờ quản lý/QC cần tiếp tục được theo dõi.</li>
+            </ul>
+          </details>
+
           <div id="results" class="results-grid" aria-live="polite"></div>
           <div id="emptyState" class="empty-state" hidden>
-            <h3>No matching content</h3>
-            <p>Try a different brand, content type, category, or store search keyword.</p>
+            <h3>Chưa có nội dung phù hợp</h3>
+            <p>Thử đổi bộ lọc hoặc tình huống đã chọn. Với chính sách mới, có thể bật “Xem bản dự thảo”.</p>
           </div>
         </section>
       </main>
@@ -70,6 +94,6 @@
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
     <script src="data.js"></script>
-    <script src="script.js"></script>
+    <script src="script.js?v=after-sales-decisions-3"></script>
   </body>
 </html>

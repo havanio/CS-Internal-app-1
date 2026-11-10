@@ -314,7 +314,7 @@
   z-index: 70;
   display: flex;
   flex-direction: column;
-  width: min(560px, 100%);
+  width: min(720px, 100%);
   height: 100dvh;
   background: var(--surface);
   border-left: 5px solid var(--green);
@@ -501,3 +501,9 @@
     border-top: 5px solid var(--green);
   }
 }
+
+.policy-editor-heading { margin-top: 24px; }
+.policy-message-field { padding: 16px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); margin-bottom: 16px; }
+.policy-message-field input, .policy-message-field textarea { margin-bottom: 12px; }
+.policy-message-field .row-btn { margin-top: 4px; }
+.toolbar-add { display: flex; flex-wrap: wrap; gap: 8px; }

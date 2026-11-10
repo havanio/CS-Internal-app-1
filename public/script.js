@@ -24,6 +24,8 @@ const state = {
   query: initialUrlState.query || defaultFilters.query,
   status: initialUrlState.status || defaultFilters.status,
   category: initialUrlState.category || defaultFilters.category,
+  showDrafts: new URLSearchParams(window.location.search).get("drafts") === "1",
+  policyId: initialUrlState.policyId || "",
   items: Array.isArray(supportData) ? [...supportData] : [],
   notes: readStoredJson(storageKeys.notes, []),
   imageWarnings: []
@@ -32,6 +34,7 @@ const state = {
 const typeLabels = {
   all: "TẤT CẢ",
   script: "KỊCH BẢN CHAT",
+  policy: "CHÍNH SÁCH HẬU MÃI",
   promotion: "CTKM",
   store: "CỬA HÀNG",
   menu: "MENU",
@@ -99,6 +102,7 @@ function readUrlState() {
     brand: (params.get("brand") || "").trim(),
     type: getTypes().includes(type) ? type : "",
     category: (params.get("category") || "").trim(),
+    policyId: (params.get("policy") || "").trim(),
     query: (params.get("q") || "").trim(),
     status: allowedStatuses.has(status) ? status : ""
   };
@@ -110,6 +114,13 @@ function applyUrlState(nextState = initialUrlState) {
   state.category = nextState.category || "";
   state.query = nextState.query || "";
   state.status = nextState.status || "all";
+  state.policyId = nextState.policyId || "";
+  // Old shared links used q=<exact situation title>; migrate them to the dropdown.
+  if (state.type === "policy" && state.query) {
+    const legacy = state.items.find((item) => item.type === "policy" && item.brand === state.brand && item.title === state.query);
+    if (!state.policyId && legacy) state.policyId = legacy.id;
+    state.query = "";
+  }
 
   if (elements.search) elements.search.value = state.query;
   if (elements.status) elements.status.value = state.status;
@@ -125,6 +136,8 @@ function syncUrlState() {
   if (state.category) params.set("category", state.category);
   if (state.status !== "all" && state.type === "promotion") params.set("status", state.status);
   if (state.query && state.type === "store") params.set("q", state.query);
+  if (state.type === "policy" && state.policyId) params.set("policy", state.policyId);
+  if (state.type === "policy" && state.showDrafts) params.set("drafts", "1");
 
   const nextQuery = params.toString();
   const nextUrl = `${window.location.pathname}${nextQuery ? `?${nextQuery}` : ""}`;
@@ -140,7 +153,7 @@ function getBrands() {
 }
 
 function getTypes() {
-  return ["script", "promotion", "store", "menu"];
+  return ["script", "policy", "promotion", "store", "menu"];
 }
 
 function ensureDefaultFilters() {
@@ -390,6 +403,7 @@ async function loadSheetData() {
     if (!response.ok) throw new Error(`API returned ${response.status}`);
 
     const data = await response.json();
+    document.querySelector("#localPreviewBanner").hidden = !data.localPreview;
     const items = Array.isArray(data.items) ? data.items : [];
     if (!items.length) throw new Error("No content items returned");
 
@@ -430,6 +444,8 @@ function getPromotionStatus(item) {
 function itemMatchesQuery(item) {
   if (!state.query) return true;
 
+  const searchText = (value) => normalize(value).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d");
+
   const searchable = [
     item.brand,
     item.type,
@@ -447,13 +463,15 @@ function itemMatchesQuery(item) {
     item.imageUrl,
     item.startDate,
     item.endDate,
+    ...Object.values(item.policy || {}).filter((value) => typeof value === "string"),
+    ...(item.policy?.messages || []).flatMap((message) => [message.title, message.content]),
     ...(item.tags || []),
     ...(item.channels || [])
   ]
-    .map(normalize)
+    .map(searchText)
     .join(" ");
 
-  return searchable.includes(normalize(state.query));
+  return searchable.includes(searchText(state.query));
 }
 
 function getStorePhones(item) {
@@ -478,11 +496,22 @@ function getFilteredItems() {
     const typeMatch = item.type === state.type;
     const categoryMatch = !state.category || item.category === state.category;
     const queryMatch = state.type !== "store" || itemMatchesQuery(item);
+    const situationMatch = item.type !== "policy" || !state.policyId || item.id === state.policyId;
+    const policyMatch = item.type !== "policy" || state.showDrafts || policyIsActive(item);
     const statusMatch =
       state.status === "all" || item.type !== "promotion" || getPromotionStatus(item) === state.status;
 
-    return brandMatch && typeMatch && categoryMatch && queryMatch && statusMatch;
+    return !item.archived && brandMatch && typeMatch && categoryMatch && queryMatch && statusMatch && policyMatch && situationMatch;
   });
+}
+
+function renderPolicySelect() {
+  const options = getAllItems().filter((item) => item.type === "policy" && !item.archived && item.brand === state.brand && (!state.category || item.category === state.category) && (state.showDrafts || policyIsActive(item)));
+  if (!options.some((item) => item.id === state.policyId)) state.policyId = "";
+  const select = document.querySelector("#policySelect");
+  select.innerHTML = '<option value="">Tất cả tình huống</option>' + options.map((item) => `<option value="${escapeHtml(item.id)}">${escapeHtml(item.title)}</option>`).join("");
+  select.value = state.policyId;
+  select.disabled = options.length === 0;
 }
 
 function syncSelectedCategories() {
@@ -527,7 +556,24 @@ function renderFilters() {
           `
         )
         .join("")
-    : `<p class="checkbox-empty">No categories for this view.</p>`;
+    : `<p class="checkbox-empty">Chưa có danh mục.</p>`;
+}
+
+function policyIsActive(item) {
+  const policy = item.policy || {};
+  return policy.status === "active" && /^\d{4}-\d{2}-\d{2}$/.test(policy.effectiveDate || "") && policy.effectiveDate <= new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Ho_Chi_Minh", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
+}
+
+function renderPolicies(items) {
+  return items.map((item) => {
+    const policy = item.policy || {};
+    const blocks = [["Ưu tiên xử lý", policy.resolution], ["Phương án hoàn tiền", policy.refund], ["Hỗ trợ thêm", policy.extra], ["Cần kiểm tra", policy.verify], ["Chuyển quản lý / QC", policy.escalation]];
+    const messages = Array.isArray(policy.messages) ? policy.messages : [];
+    return `<article class="policy-card" aria-label="${escapeHtml(item.title)}">
+      <header class="policy-card-head"><div><p class="policy-category">${escapeHtml(item.category || "Chính sách")}</p><h3>${escapeHtml(item.title)}</h3></div><div class="policy-version"><span class="badge ${policyIsActive(item) ? "active" : "upcoming"}">${policyIsActive(item) ? "Đang áp dụng" : policy.status === "active" ? "Sắp áp dụng" : "Dự thảo"}</span><small>${escapeHtml(policy.version || "Chưa có phiên bản")}${policy.effectiveDate ? " · Từ " + escapeHtml(policy.effectiveDate.split("-").reverse().join("/")) : " · Chưa có ngày hiệu lực"}</small></div></header>
+      <div class="policy-columns"><section class="policy-rules" aria-label="Chính sách nội bộ"><h4>CHÍNH SÁCH NỘI BỘ</h4>${blocks.filter(([, body]) => body).map(([label, body]) => `<div class="policy-rule"><strong>${label}</strong><p>${escapeHtml(body)}</p></div>`).join("")}</section>
+      <section class="policy-messages" aria-label="Mẫu chat gửi khách"><h4>MẪU CHAT GỬI KHÁCH</h4>${messages.length ? messages.map((message, index) => `<div class="policy-message"><div class="policy-message-head"><strong>${escapeHtml(message.title)}</strong><button type="button" class="icon-button" data-copy-policy="${escapeHtml(item.id)}" data-message-index="${index}" aria-label="Sao chép ${escapeHtml(message.title)} - ${escapeHtml(item.title)}">Sao chép</button></div><p class="policy-message-text" role="button" tabindex="0" data-copy-policy="${escapeHtml(item.id)}" data-message-index="${index}" aria-label="Sao chép câu chat: ${escapeHtml(message.title)} - ${escapeHtml(item.title)}" title="Bấm vào câu chat để sao chép">${escapeHtml(message.content)}</p></div>`).join("") : '<p class="muted">Chưa có mẫu chat cho tình huống này.</p>'}</section></div></article>`;
+  }).join("");
 }
 
 function renderStats(items) {
@@ -797,19 +843,27 @@ function renderScriptTable(items) {
 }
 
 function renderResults() {
+  if (state.type === "policy") renderPolicySelect();
   const items = getFilteredItems();
   const useScriptTable = state.type === "script" || (items.length > 0 && items.every((item) => item.type === "script"));
   const brandClass = getBrandClass(state.brand);
 
   if (elements.status) elements.status.hidden = state.type !== "promotion";
   if (elements.storeSearchSection) elements.storeSearchSection.hidden = state.type !== "store";
+  document.querySelector("#policySelectSection").hidden = state.type !== "policy";
+  elements.search.placeholder = "Tên, địa chỉ, số điện thoại cửa hàng…";
+  document.querySelector("#policyGuide").hidden = state.type !== "policy";
+  document.querySelector("#policyPrinciples").hidden = state.type !== "policy";
+  document.querySelector("#showPolicyDrafts").checked = state.showDrafts;
+  document.querySelector("#policyDraftNotice").hidden = state.type !== "policy" || !state.showDrafts;
   elements.results.dataset.brand = brandClass;
   elements.results.classList.remove("brand-tutimi", "brand-sekai", "brand-dhi", "brand-general");
   elements.results.classList.add(brandClass);
   elements.results.classList.toggle("is-script-table", useScriptTable);
-  elements.results.innerHTML = useScriptTable ? renderScriptTable(items) : items.map(renderCard).join("");
+  elements.results.classList.toggle("is-policy-list", state.type === "policy");
+  elements.results.innerHTML = state.type === "policy" ? renderPolicies(items) : useScriptTable ? renderScriptTable(items) : items.map(renderCard).join("");
   elements.empty.hidden = items.length > 0;
-  elements.summary.textContent = `${items.length} result${items.length === 1 ? "" : "s"} found`;
+  elements.summary.textContent = `${items.length} ${state.type === "policy" ? "tình huống" : "mục"} phù hợp`;
   elements.currentView.textContent = typeLabels[state.type];
   renderStats(items);
   updateImageWarnings();
@@ -830,7 +884,7 @@ async function copyToClipboard(text, message) {
     await navigator.clipboard.writeText(text);
     showToast(message);
   } catch {
-    showToast("Copy failed. Select the text manually.");
+    showToast("Chưa sao chép được. Bạn có thể chọn và sao chép nội dung thủ công.");
   }
 }
 
@@ -953,6 +1007,8 @@ function resetFilters() {
   state.query = defaultFilters.query;
   state.status = defaultFilters.status;
   state.category = defaultFilters.category;
+  state.showDrafts = false;
+  state.policyId = "";
   if (elements.search) elements.search.value = "";
   if (elements.status) elements.status.value = "all";
   renderFilters();
@@ -960,6 +1016,20 @@ function resetFilters() {
 }
 
 function bindEvents() {
+  elements.results.addEventListener("keydown", (event) => {
+    if (event.target.matches(".policy-message-text") && ["Enter", " "].includes(event.key)) {
+      event.preventDefault();
+      event.target.click();
+    }
+  });
+  document.querySelector("#policySelect").addEventListener("change", (event) => {
+    state.policyId = event.target.value;
+    renderResults();
+  });
+  document.querySelector("#showPolicyDrafts").addEventListener("change", (event) => {
+    state.showDrafts = event.target.checked;
+    renderResults();
+  });
   elements.search?.addEventListener("input", (event) => {
     state.query = event.target.value.trim();
     renderResults();
@@ -978,7 +1048,7 @@ function bindEvents() {
     const button = event.target.closest("[data-type]");
     if (!button) return;
     state.type = button.dataset.type;
-    if (state.type !== "store") {
+    if (!["store", "policy"].includes(state.type)) {
       state.query = "";
       if (elements.search) elements.search.value = "";
     }
@@ -1001,6 +1071,13 @@ function bindEvents() {
   });
 
   elements.results.addEventListener("click", (event) => {
+    const policyCopy = event.target.closest("[data-copy-policy]");
+    if (policyCopy) {
+      const item = getFilteredItems().find((entry) => entry.id === policyCopy.dataset.copyPolicy);
+      const message = item?.policy?.messages?.[Number(policyCopy.dataset.messageIndex)];
+      if (message?.content) copyToClipboard(message.content, "Đã sao chép câu chat");
+      return;
+    }
     const copyButton = event.target.closest("[data-copy]");
     const copyRow = event.target.closest("[data-copy-row]");
     const copyImageButton = event.target.closest("[data-copy-image]");
