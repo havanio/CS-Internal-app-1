@@ -16,7 +16,7 @@ function app() {
   class Clock extends Date { constructor(...args) { super(...(args.length ? args : ['2026-11-08T17:01:00Z'])); } }
   const context = vm.createContext({
     console, URLSearchParams, URL, Intl, Date: Clock, supportData: structuredClone(drafts),
-    document: {querySelector: node,body:node('body')}, localStorage: { getItem(){return null}, setItem(){} },
+    document: { addEventListener() {},querySelector: node,body:node('body')}, localStorage: { getItem(){return null}, setItem(){} },
     window: {location:{search:'?brand=TUTIMI&type=policy',pathname:'/'},history:{replaceState(){}}, clearTimeout(){},setTimeout(){}},
     navigator: {clipboard:{writeText: async text => copied.push(text)}}
   });

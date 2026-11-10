@@ -41,7 +41,6 @@
       </header>
 
       <!-- Load error / retry banner -->
-      <div id="localPreviewBanner" class="notice notice-warning" hidden>BẢN THỬ TRÊN MÁY · Mọi thay đổi chỉ lưu vào dữ liệu thử trên máy.</div>
       <div id="loadError" class="notice notice-warning" role="alert" hidden>
         <div class="loaderr-row">
           <span id="loadErrorMsg">Không tải được dữ liệu.</span>
@@ -57,8 +56,8 @@
               <label class="field-label" for="filterType">Loại nội dung</label>
               <select id="filterType">
                 <option value="">Tất cả loại</option>
-                <option value="script">KỊCH BẢN CHAT</option>
                 <option value="policy">CHÍNH SÁCH HẬU MÃI</option>
+<option value="script">KỊCH BẢN CHAT</option>
                 <option value="promotion">CTKM</option>
                 <option value="store">CỬA HÀNG</option>
                 <option value="menu">MENU</option>
@@ -71,13 +70,35 @@
                 <option value="">Tất cả brand</option>
               </select>
             </div>
+            <div class="filter-section">
+              <label class="field-label" for="filterStatus">Trạng thái CTKM</label>
+              <select id="filterStatus">
+                <option value="">Tất cả trạng thái</option>
+                <option value="active">Đang áp dụng</option>
+                <option value="upcoming">Sắp áp dụng</option>
+                <option value="expired">Đã hết hạn</option>
+                <option value="archived">Đã ẩn</option>
+              </select>
+            </div>
             <div class="filter-section toolbar-search">
               <label class="field-label" for="searchInput">Tìm kiếm</label>
               <input id="searchInput" type="search" placeholder="Tìm theo tiêu đề, nội dung, brand…" autocomplete="off" />
             </div>
             <div class="filter-section toolbar-add">
-              <button id="addBtn" class="icon-button" type="button">＋ Thêm mới</button>
-              <button id="addPolicyBtn" class="icon-button subtle" type="button">＋ Thêm chính sách</button>
+              <span class="field-label">Tạo nội dung mới</span>
+              <div class="add-actions" role="group" aria-label="Tạo nội dung mới theo loại">
+                <button id="addPolicyBtn" type="button" class="btn">＋ Chính sách hậu mãi</button>
+<button id="addScriptBtn" class="icon-button add-action" type="button">＋ Thêm Script</button>
+                <button id="addPromoBtn" class="icon-button subtle add-action" type="button">＋ Thêm Promotion</button>
+                <button id="addMenuBtn" class="icon-button subtle add-action" type="button">＋ Thêm Menu</button>
+                <button id="addStoreBtn" class="icon-button subtle add-action" type="button">＋ Thêm Store</button>
+              </div>
+            </div>
+            <div class="filter-section toolbar-archive-toggle">
+              <label class="toggle-check" for="showArchived">
+                <input id="showArchived" type="checkbox" />
+                <span>Hiện mục lưu trữ</span>
+              </label>
             </div>
           </div>
         </section>
@@ -101,7 +122,7 @@
                   <th scope="col">Tiêu đề</th>
                   <th scope="col">Danh mục</th>
                   <th scope="col">Cập nhật</th>
-                  <th scope="col" class="th-actions"><span class="sr-only">Hành động</span></th>
+                  <th scope="col" class="th-actions">Sắp xếp / Hành động</th>
                 </tr>
               </thead>
               <tbody id="tableBody"></tbody>
@@ -143,8 +164,8 @@
               <div class="field">
                 <label class="field-label" for="f_type">Loại <span class="req">*</span></label>
                 <select id="f_type" required>
-                  <option value="script">KỊCH BẢN CHAT</option>
                   <option value="policy">CHÍNH SÁCH HẬU MÃI</option>
+<option value="script">KỊCH BẢN CHAT</option>
                   <option value="promotion">CTKM</option>
                   <option value="store">CỬA HÀNG</option>
                   <option value="menu">MENU</option>
@@ -165,9 +186,18 @@
                 <input id="f_id" type="text" placeholder="Tự tạo từ tiêu đề" />
                 <p class="field-hint">Bỏ trống để tự sinh từ tiêu đề.</p>
               </div>
-              <div class="field">
+              <div class="field" id="f_categoryField">
                 <label class="field-label" for="f_category">Danh mục</label>
                 <input id="f_category" type="text" placeholder="VD: 1. Tiếp nhận" />
+              </div>
+              <div class="field col-span">
+                <div class="editor-intro" id="editorTypeIntro" aria-live="polite">
+                  <span class="editor-type-badge" id="editorTypeBadge">Script</span>
+                  <p class="editor-intro-title" id="editorTypeIntroTitle">Kịch bản chat</p>
+                  <p class="editor-intro-copy" id="editorTypeIntroCopy">
+                    Dùng cho nội dung tư vấn/chăm sóc khách hàng. Cần brand, tiêu đề và nội dung script.
+                  </p>
+                </div>
               </div>
             </div>
           </section>
@@ -190,12 +220,12 @@
             <button id="addPolicyMessage" class="row-btn" type="button">＋ Thêm mẫu chat</button>
           </section>
 
-          <!-- Group: Nội dung -->
-          <section class="editor-group" role="group" aria-labelledby="grpBody">
-            <p class="section-title" id="grpBody">Nội dung</p>
+          <!-- Group: Nội dung script / ghi chú -->
+          <section class="editor-group" id="grpBodySection" role="group" aria-labelledby="grpBody">
+            <p class="section-title" id="grpBody">Nội dung script</p>
             <div class="group-grid">
               <div class="field col-span">
-                <label class="field-label" for="f_content">Nội dung</label>
+                <label class="field-label" for="f_content">Nội dung <span class="req" data-required-for="script note" hidden>*</span></label>
                 <textarea id="f_content" rows="6" placeholder="Nội dung kịch bản / mô tả…"></textarea>
               </div>
               <div class="field">
@@ -211,10 +241,15 @@
             </div>
           </section>
 
-          <!-- Group: Hình ảnh -->
-          <section class="editor-group" role="group" aria-labelledby="grpImg">
-            <p class="section-title" id="grpImg">Hình ảnh</p>
+          <!-- Group: Promotion / menu -->
+          <section class="editor-group" id="grpPromoSection" role="group" aria-labelledby="grpImg">
+            <p class="section-title" id="grpImg">Promotion / Menu</p>
             <div class="group-grid">
+              <div class="field col-span">
+                <label class="field-label" for="f_promoContent">Nội dung mô tả</label>
+                <textarea id="f_promoContent" rows="5" placeholder="Mô tả CTKM, menu, giá trị áp dụng…"></textarea>
+                <p class="field-hint">Nhập nội dung mô tả hoặc tải ảnh lên. Với CTKM/menu nên có ít nhất một trong hai.</p>
+              </div>
               <div class="field col-span">
                 <span class="field-label" id="dzLabel">Tải ảnh lên</span>
                 <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-labelledby="dzLabel">
@@ -231,6 +266,17 @@
                 <label class="field-label" for="f_imageLabel">Nhãn ảnh</label>
                 <input id="f_imageLabel" type="text" placeholder="Mô tả ngắn cho ảnh" />
               </div>
+              <div class="field col-span" id="f_promoDatesTitleField">
+                <p class="section-title">Thời gian áp dụng</p>
+              </div>
+              <div class="field" id="f_startDateField">
+                <label class="field-label" for="f_startDate">Ngày bắt đầu</label>
+                <input id="f_startDate" type="date" />
+              </div>
+              <div class="field" id="f_endDateField">
+                <label class="field-label" for="f_endDate">Ngày kết thúc</label>
+                <input id="f_endDate" type="date" />
+              </div>
               <div id="imgPreview" class="img-preview col-span">
                 <figure><img id="imgPreviewImg" alt="Xem trước ảnh" /></figure>
                 <button type="button" id="clearImgBtn" class="row-btn danger">Xoá ảnh</button>
@@ -239,13 +285,9 @@
           </section>
 
           <!-- Group: Liên hệ & cửa hàng -->
-          <section class="editor-group" role="group" aria-labelledby="grpStore">
-            <p class="section-title" id="grpStore">Liên hệ &amp; cửa hàng</p>
+          <section class="editor-group" id="grpStoreSection" role="group" aria-labelledby="grpStore">
+            <p class="section-title" id="grpStore">Thông tin cửa hàng</p>
             <div class="group-grid">
-              <div class="field">
-                <label class="field-label" for="f_phone">Điện thoại (chung)</label>
-                <input id="f_phone" type="text" />
-              </div>
               <div class="field">
                 <label class="field-label" for="f_managerName">Quản lý</label>
                 <input id="f_managerName" type="text" />
@@ -267,8 +309,29 @@
                 <input id="f_address" type="text" />
               </div>
               <div class="field col-span">
-                <label class="field-label" for="f_hours">Giờ mở cửa</label>
-                <input id="f_hours" type="text" placeholder="VD: 08:00 – 22:00" />
+                <label class="field-label" id="f_hoursLabel" for="f_hoursOpenHour">Giờ mở cửa</label>
+                <input id="f_hours" type="hidden" />
+                <div class="hours-picker" role="group" aria-labelledby="f_hoursLabel">
+                  <label class="hours-time">
+                    <span>Mở cửa</span>
+                    <span class="hours-selects">
+                      <select id="f_hoursOpenHour" aria-label="Giờ mở cửa"></select>
+                      <select id="f_hoursOpenMinute" aria-label="Phút mở cửa"></select>
+                    </span>
+                  </label>
+                  <span class="hours-separator" aria-hidden="true">-</span>
+                  <label class="hours-time">
+                    <span>Đóng cửa</span>
+                    <span class="hours-selects">
+                      <select id="f_hoursCloseHour" aria-label="Giờ đóng cửa"></select>
+                      <select id="f_hoursCloseMinute" aria-label="Phút đóng cửa"></select>
+                    </span>
+                  </label>
+                  <label class="toggle-check hours-all-day">
+                    <input id="f_hoursAllDay" type="checkbox" />
+                    <span>Cả ngày</span>
+                  </label>
+                </div>
               </div>
               <div class="field col-span">
                 <label class="field-label" for="f_notes">Ghi chú</label>
@@ -277,20 +340,6 @@
             </div>
           </section>
 
-          <!-- Group: Khuyến mãi -->
-          <section class="editor-group" role="group" aria-labelledby="grpPromo">
-            <p class="section-title" id="grpPromo">Thời gian khuyến mãi</p>
-            <div class="group-grid">
-              <div class="field">
-                <label class="field-label" for="f_startDate">Ngày bắt đầu</label>
-                <input id="f_startDate" type="date" />
-              </div>
-              <div class="field">
-                <label class="field-label" for="f_endDate">Ngày kết thúc</label>
-                <input id="f_endDate" type="date" />
-              </div>
-            </div>
-          </section>
         </form>
       </div>
 

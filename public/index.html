@@ -3,15 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tra cứu CSKH | Tutimi</title>
-    <link rel="stylesheet" href="style.css?v=after-sales-copy-2" />
+    <title>TTMI SK CS INTERNAL APP</title>
+    <link rel="stylesheet" href="style.css?v=policy-production-1" />
   </head>
   <body>
     <div class="app-shell">
       <header class="topbar">
         <div>
           <p class="eyebrow">CUSTOMER SERVICE APP</p>
-          <h1>TRA CỨU HỖ TRỢ KHÁCH HÀNG</h1>
+          <h1>KỊCH BẢN CHAT VÀ THÔNG TIN CTKM</h1>
           <p id="dataSource" class="data-source">Đang tải dữ liệu...</p>
         </div>
         <div class="topbar-actions">
@@ -20,23 +20,23 @@
       </header>
 
       <div id="imageWarningBanner" class="notice notice-warning" hidden></div>
-      <div id="localPreviewBanner" class="notice notice-warning" hidden>BẢN THỬ TRÊN MÁY · Dữ liệu riêng, không cập nhật website đang chạy.</div>
 
+      <div id="localPreviewBanner" class="notice notice-warning" hidden>BẢN THỬ TRÊN MÁY · Chỉ lưu dữ liệu trên máy.</div>
       <main class="workspace">
         <section class="filter-board" aria-label="Filters">
           <section class="filter-section">
             <div class="section-title">Brand</div>
-            <div id="brandFilters" class="filter-row" role="group" aria-label="Brand filter"></div>
+            <div id="brandFilters" class="filter-row" role="group" aria-label="Bộ lọc brand"></div>
           </section>
 
           <section class="filter-section">
             <div class="section-title">Loại nội dung</div>
-            <div id="typeFilters" class="filter-row" role="group" aria-label="Content type filter"></div>
+            <div id="typeFilters" class="filter-row" role="group" aria-label="Bộ lọc loại nội dung"></div>
           </section>
 
           <section class="filter-section">
             <div class="section-title">Danh mục</div>
-            <div id="categoryFilters" class="category-row" role="group" aria-label="Category filter"></div>
+            <div id="categoryFilters" class="category-row" role="group" aria-label="Bộ lọc danh mục"></div>
           </section>
         </section>
 
@@ -44,19 +44,19 @@
           <div class="content-header">
             <div>
               <p id="resultSummary" class="muted"></p>
-              <h2 id="currentView">All Support Content</h2>
+              <h2 id="currentView">Tất cả nội dung hỗ trợ</h2>
             </div>
-            <select id="statusFilter" aria-label="Promotion status filter">
-              <option value="all">All statuses</option>
-              <option value="active">Active promos</option>
-              <option value="upcoming">Upcoming promos</option>
-              <option value="expired">Expired promos</option>
+            <select id="statusFilter" aria-label="Bộ lọc trạng thái CTKM">
+              <option value="all">Tất cả trạng thái</option>
+              <option value="active">Đang áp dụng</option>
+              <option value="upcoming">Sắp áp dụng</option>
+              <option value="expired">Đã hết hạn</option>
             </select>
           </div>
 
           <section id="storeSearchSection" class="store-search" hidden>
-            <label id="searchLabel" class="field-label" for="searchInput">Tìm cửa hàng</label>
-            <input id="searchInput" type="search" placeholder="Search store name, address, phone, manager" autocomplete="off" />
+            <label class="field-label" for="searchInput">Tìm cửa hàng</label>
+            <input id="searchInput" type="search" placeholder="Tìm theo tên cửa hàng, địa chỉ, số điện thoại, quản lý" autocomplete="off" />
           </section>
 
           <section id="policySelectSection" class="store-search" hidden>
@@ -84,8 +84,8 @@
 
           <div id="results" class="results-grid" aria-live="polite"></div>
           <div id="emptyState" class="empty-state" hidden>
-            <h3>Chưa có nội dung phù hợp</h3>
-            <p>Thử đổi bộ lọc hoặc tình huống đã chọn. Với chính sách mới, có thể bật “Xem bản dự thảo”.</p>
+            <h3>Không có nội dung phù hợp</h3>
+            <p>Thử đổi brand, loại nội dung, danh mục hoặc từ khoá tìm kiếm.</p>
           </div>
         </section>
       </main>
@@ -94,6 +94,6 @@
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
     <script src="data.js"></script>
-    <script src="script.js?v=after-sales-decisions-3"></script>
+    <script src="script.js?v=policy-production-1"></script>
   </body>
 </html>
