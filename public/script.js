@@ -564,6 +564,7 @@ function syncSelectedCategories() {
 
 function renderFilters() {
   ensureDefaultFilters();
+  document.body.dataset.brand = getBrandClass(state.brand);
   syncSelectedCategories();
 
   elements.brandFilters.innerHTML = getBrands()
