@@ -1,0 +1,236 @@
+{
+  "items": [
+    {
+      "id": "promo-signature-dessert",
+      "type": "promotion",
+      "brand": "TUTIMI SIGNATURE",
+      "title": "Mua thức uống – Tặng món tráng miệng",
+      "category": "Ưu đãi tại cửa hàng",
+      "startDate": "2026-11-07",
+      "endDate": "",
+      "content": "Mua thức uống – Tặng món tráng miệng\nMua 01 thức uống trong danh sách, tặng 01 món tráng miệng tương ứng.\nĐịa điểm: TuTiMi Signature – 146 Bình Lợi, P. Bình Lợi Trung, TP.HCM\nThời gian: 2026-11-07 đến khi có thông báo kết thúc\nTrà Kiwi Nho Xanh → 01 Panna Cotta Nho Xanh.\nOlong Cốm Xanh → 01 Bánh Flan.\nTrà Lựu Mâm Xôi → 01 Panna Cotta Lựu.\nQuà tặng đi kèm đúng sản phẩm tương ứng; không đổi sang món khác.",
+      "imageUrl": "/media/tutimi-signature/tutimi-signature-01.jpg",
+      "imageLabel": "Mua thức uống – Tặng món tráng miệng",
+      "promotion": {
+        "benefit": "Mua 01 thức uống trong danh sách, tặng 01 món tráng miệng tương ứng.",
+        "location": "TuTiMi Signature – 146 Bình Lợi, P. Bình Lợi Trung, TP.HCM",
+        "conditions": [
+          "Quà tặng đi kèm đúng sản phẩm tương ứng; không đổi sang món khác."
+        ],
+        "products": [
+          "Trà Kiwi Nho Xanh → 01 Panna Cotta Nho Xanh.",
+          "Olong Cốm Xanh → 01 Bánh Flan.",
+          "Trà Lựu Mâm Xôi → 01 Panna Cotta Lựu."
+        ],
+        "untilNotice": true
+      },
+      "sourceNote": "Nhóm Zalo DÙNG XONG XOÁ, thông báo và ảnh ngày 11/11/2026."
+    },
+    {
+      "id": "promo-signature-bill89-cake",
+      "type": "promotion",
+      "brand": "TUTIMI SIGNATURE",
+      "title": "Hóa đơn từ 89K – Tặng bánh ngọt",
+      "category": "Ưu đãi tại cửa hàng",
+      "startDate": "2026-11-07",
+      "endDate": "",
+      "content": "Hóa đơn từ 89K – Tặng bánh ngọt\nHóa đơn từ 89.000đ được tặng 01 bánh ngọt.\nĐịa điểm: TuTiMi Signature – 146 Bình Lợi, P. Bình Lợi Trung, TP.HCM\nThời gian: 2026-11-07 đến khi có thông báo kết thúc\nNguồn chưa nêu danh sách bánh được chọn hoặc cách cộng dồn ưu đãi; kiểm tra trước khi tư vấn các điều kiện này.",
+      "imageUrl": "/media/tutimi-signature/tutimi-signature-02.jpg",
+      "imageLabel": "Hóa đơn từ 89K – Tặng bánh ngọt",
+      "promotion": {
+        "benefit": "Hóa đơn từ 89.000đ được tặng 01 bánh ngọt.",
+        "location": "TuTiMi Signature – 146 Bình Lợi, P. Bình Lợi Trung, TP.HCM",
+        "conditions": [
+          "Nguồn chưa nêu danh sách bánh được chọn hoặc cách cộng dồn ưu đãi; kiểm tra trước khi tư vấn các điều kiện này."
+        ],
+        "products": [],
+        "untilNotice": true
+      },
+      "sourceNote": "Nhóm Zalo DÙNG XONG XOÁ, thông báo và ảnh ngày 11/11/2026."
+    },
+    {
+      "id": "promo-signature-bill259-thermos",
+      "type": "promotion",
+      "brand": "TUTIMI SIGNATURE",
+      "title": "Hóa đơn từ 259K – Tặng bình giữ nhiệt",
+      "category": "Ưu đãi tại cửa hàng",
+      "startDate": "2026-11-07",
+      "endDate": "",
+      "content": "Hóa đơn từ 259K – Tặng bình giữ nhiệt\nHóa đơn từ 259.000đ được tặng 01 bình giữ nhiệt TuTiMi.\nĐịa điểm: TuTiMi Signature – 146 Bình Lợi, P. Bình Lợi Trung, TP.HCM\nThời gian: 2026-11-07 đến khi có thông báo kết thúc\nKhông nhầm với chương trình hóa đơn 89K tặng ly nhựa bằng voucher giấy.",
+      "imageUrl": "/media/tutimi-signature/tutimi-signature-03.jpg",
+      "imageLabel": "Hóa đơn từ 259K – Tặng bình giữ nhiệt",
+      "promotion": {
+        "benefit": "Hóa đơn từ 259.000đ được tặng 01 bình giữ nhiệt TuTiMi.",
+        "location": "TuTiMi Signature – 146 Bình Lợi, P. Bình Lợi Trung, TP.HCM",
+        "conditions": [
+          "Không nhầm với chương trình hóa đơn 89K tặng ly nhựa bằng voucher giấy."
+        ],
+        "products": [],
+        "untilNotice": true
+      },
+      "sourceNote": "Nhóm Zalo DÙNG XONG XOÁ, thông báo và ảnh ngày 11/11/2026."
+    },
+    {
+      "id": "promo-signature-app50",
+      "type": "promotion",
+      "brand": "TUTIMI SIGNATURE",
+      "title": "Tải app TuTiMi – Giảm 50%",
+      "category": "Ưu đãi qua app",
+      "startDate": "",
+      "endDate": "",
+      "content": "Tải app TuTiMi – Giảm 50%\nGiảm 50% trên tổng hóa đơn, tối đa 100.000đ/hóa đơn.\nĐịa điểm: TuTiMi Signature – 146 Bình Lợi, P. Bình Lợi Trung, TP.HCM\nKhách tải và đăng ký app TuTiMi.\nChọn voucher muốn dùng và nhấn Đổi mã trên ứng dụng.\nNhân viên cửa hàng quét mã voucher sau khi khách đổi mã thành công.\nThông báo chưa ghi ngày bắt đầu/kết thúc. Cần xác nhận thời hạn trước khi tư vấn áp dụng.",
+      "imageUrl": "/media/tutimi-signature/tutimi-signature-04.jpg",
+      "imageLabel": "Tải app TuTiMi – Giảm 50%",
+      "promotion": {
+        "benefit": "Giảm 50% trên tổng hóa đơn, tối đa 100.000đ/hóa đơn.",
+        "location": "TuTiMi Signature – 146 Bình Lợi, P. Bình Lợi Trung, TP.HCM",
+        "conditions": [
+          "Khách tải và đăng ký app TuTiMi.",
+          "Chọn voucher muốn dùng và nhấn Đổi mã trên ứng dụng.",
+          "Nhân viên cửa hàng quét mã voucher sau khi khách đổi mã thành công."
+        ],
+        "products": [],
+        "needsConfirmation": true,
+        "dateNote": "Thông báo chưa ghi ngày bắt đầu/kết thúc. Cần xác nhận thời hạn trước khi tư vấn áp dụng."
+      },
+      "sourceNote": "Nhóm Zalo DÙNG XONG XOÁ, thông báo và ảnh ngày 11/11/2026."
+    },
+    {
+      "id": "promo-signature-breakfast29",
+      "type": "promotion",
+      "brand": "TUTIMI SIGNATURE",
+      "title": "Combo buổi sáng no nê – 29K",
+      "category": "Ưu đãi theo giờ",
+      "startDate": "2026-11-07",
+      "endDate": "2026-11-09",
+      "content": "Combo buổi sáng no nê – 29K\n01 cà phê Phin Đen (S) hoặc Phin Sữa (S) + 01 bánh mì que, giá combo 29.000đ.\nĐịa điểm: TuTiMi Signature – 146 Bình Lợi, P. Bình Lợi Trung, TP.HCM\nThời gian: 2026-11-07 đến 2026-11-09\nLịch: 2026-11-07 đến 2026-11-08, 08:00–09:00\nLịch: 2026-11-09 đến 2026-11-09, 06:00–09:00\nPhin Đen (S) hoặc Phin Sữa (S).\n01 bánh mì que.\nNguồn chỉ xác nhận lịch 07–09/11. Chưa có xác nhận tiếp tục sau 09/11; không tư vấn là đang áp dụng.",
+      "imageUrl": "/media/tutimi-signature/tutimi-signature-05.jpg",
+      "imageLabel": "Combo buổi sáng no nê – 29K",
+      "promotion": {
+        "benefit": "01 cà phê Phin Đen (S) hoặc Phin Sữa (S) + 01 bánh mì que, giá combo 29.000đ.",
+        "location": "TuTiMi Signature – 146 Bình Lợi, P. Bình Lợi Trung, TP.HCM",
+        "conditions": [],
+        "products": [
+          "Phin Đen (S) hoặc Phin Sữa (S).",
+          "01 bánh mì que."
+        ],
+        "schedule": [
+          {
+            "startDate": "2026-11-07",
+            "endDate": "2026-11-08",
+            "startTime": "08:00",
+            "endTime": "09:00"
+          },
+          {
+            "startDate": "2026-11-09",
+            "endDate": "2026-11-09",
+            "startTime": "06:00",
+            "endTime": "09:00"
+          }
+        ],
+        "dateNote": "Nguồn chỉ xác nhận lịch 07–09/11. Chưa có xác nhận tiếp tục sau 09/11; không tư vấn là đang áp dụng.",
+        "awaitingContinuation": true
+      },
+      "sourceNote": "Nhóm Zalo DÙNG XONG XOÁ, thông báo và ảnh ngày 11/11/2026."
+    },
+    {
+      "id": "promo-signature-paper50",
+      "type": "promotion",
+      "brand": "TUTIMI SIGNATURE",
+      "title": "Voucher giấy – Giảm 50%, tối đa 200K",
+      "category": "Voucher giấy",
+      "startDate": "2026-11-07",
+      "endDate": "2026-11-30",
+      "content": "Voucher giấy – Giảm 50%, tối đa 200K\nGiảm 50% trên tổng hóa đơn, tối đa 200.000đ/hóa đơn.\nĐịa điểm: TuTiMi Signature – 146 Bình Lợi, P. Bình Lợi Trung, TP.HCM\nThời gian: 2026-11-07 đến 2026-11-30\nCần voucher giấy còn nguyên vẹn, không rách hoặc nhàu nát.\nMỗi voucher chỉ sử dụng 01 lần.\nKhông áp dụng đồng thời với các chương trình khuyến mãi khác.\nChỉ sử dụng trong thời gian ghi trên voucher.\nKhác ưu đãi app: voucher giấy giảm tối đa 200K, app giảm tối đa 100K.",
+      "imageUrl": "/media/tutimi-signature/tutimi-signature-06.jpg",
+      "imageLabel": "Voucher giấy – Giảm 50%, tối đa 200K",
+      "promotion": {
+        "benefit": "Giảm 50% trên tổng hóa đơn, tối đa 200.000đ/hóa đơn.",
+        "location": "TuTiMi Signature – 146 Bình Lợi, P. Bình Lợi Trung, TP.HCM",
+        "conditions": [
+          "Cần voucher giấy còn nguyên vẹn, không rách hoặc nhàu nát.",
+          "Mỗi voucher chỉ sử dụng 01 lần.",
+          "Không áp dụng đồng thời với các chương trình khuyến mãi khác.",
+          "Chỉ sử dụng trong thời gian ghi trên voucher."
+        ],
+        "products": [],
+        "warning": "Khác ưu đãi app: voucher giấy giảm tối đa 200K, app giảm tối đa 100K."
+      },
+      "sourceNote": "Nhóm Zalo DÙNG XONG XOÁ, thông báo và ảnh ngày 11/11/2026."
+    },
+    {
+      "id": "promo-signature-paper-matcha99",
+      "type": "promotion",
+      "brand": "TUTIMI SIGNATURE",
+      "title": "Voucher giấy – Combo Matcha 99K",
+      "category": "Voucher giấy",
+      "startDate": "2026-11-07",
+      "endDate": "2026-11-30",
+      "content": "Voucher giấy – Combo Matcha 99K\n02 ly nước thuộc nhóm Matcha + 01 bánh ngọt, giá trọn gói 99.000đ.\nĐịa điểm: TuTiMi Signature – 146 Bình Lợi, P. Bình Lợi Trung, TP.HCM\nThời gian: 2026-11-07 đến 2026-11-30\n02 ly nước thuộc nhóm Matcha.\n01 bánh ngọt.\nCần voucher giấy còn nguyên vẹn, không rách hoặc nhàu nát.\nMỗi voucher chỉ sử dụng 01 lần.\nKhông áp dụng đồng thời với các chương trình khuyến mãi khác.\nChỉ sử dụng trong thời gian ghi trên voucher.",
+      "imageUrl": "/media/tutimi-signature/tutimi-signature-06.jpg",
+      "imageLabel": "Voucher giấy – Combo Matcha 99K",
+      "promotion": {
+        "benefit": "02 ly nước thuộc nhóm Matcha + 01 bánh ngọt, giá trọn gói 99.000đ.",
+        "location": "TuTiMi Signature – 146 Bình Lợi, P. Bình Lợi Trung, TP.HCM",
+        "conditions": [
+          "Cần voucher giấy còn nguyên vẹn, không rách hoặc nhàu nát.",
+          "Mỗi voucher chỉ sử dụng 01 lần.",
+          "Không áp dụng đồng thời với các chương trình khuyến mãi khác.",
+          "Chỉ sử dụng trong thời gian ghi trên voucher."
+        ],
+        "products": [
+          "02 ly nước thuộc nhóm Matcha.",
+          "01 bánh ngọt."
+        ]
+      },
+      "sourceNote": "Nhóm Zalo DÙNG XONG XOÁ, thông báo và ảnh ngày 11/11/2026."
+    },
+    {
+      "id": "promo-signature-paper89-cup",
+      "type": "promotion",
+      "brand": "TUTIMI SIGNATURE",
+      "title": "Voucher giấy – Hóa đơn 89K tặng ly nhựa",
+      "category": "Voucher giấy",
+      "startDate": "2026-11-07",
+      "endDate": "2026-11-30",
+      "content": "Voucher giấy – Hóa đơn 89K tặng ly nhựa\nHóa đơn từ 89.000đ được tặng 01 ly nhựa TuTiMi Signature.\nĐịa điểm: TuTiMi Signature – 146 Bình Lợi, P. Bình Lợi Trung, TP.HCM\nThời gian: 2026-11-07 đến 2026-11-30\nCần voucher giấy còn nguyên vẹn, không rách hoặc nhàu nát.\nMỗi voucher chỉ sử dụng 01 lần.\nKhông áp dụng đồng thời với các chương trình khuyến mãi khác.\nChỉ sử dụng trong thời gian ghi trên voucher.\nCần voucher giấy; khác chương trình hóa đơn 89K tặng bánh ngọt.",
+      "imageUrl": "/media/tutimi-signature/tutimi-signature-06.jpg",
+      "imageLabel": "Voucher giấy – Hóa đơn 89K tặng ly nhựa",
+      "promotion": {
+        "benefit": "Hóa đơn từ 89.000đ được tặng 01 ly nhựa TuTiMi Signature.",
+        "location": "TuTiMi Signature – 146 Bình Lợi, P. Bình Lợi Trung, TP.HCM",
+        "conditions": [
+          "Cần voucher giấy còn nguyên vẹn, không rách hoặc nhàu nát.",
+          "Mỗi voucher chỉ sử dụng 01 lần.",
+          "Không áp dụng đồng thời với các chương trình khuyến mãi khác.",
+          "Chỉ sử dụng trong thời gian ghi trên voucher."
+        ],
+        "products": [],
+        "warning": "Cần voucher giấy; khác chương trình hóa đơn 89K tặng bánh ngọt."
+      },
+      "sourceNote": "Nhóm Zalo DÙNG XONG XOÁ, thông báo và ảnh ngày 11/11/2026."
+    },
+    {
+      "id": "promo-signature-night59",
+      "type": "promotion",
+      "brand": "TUTIMI SIGNATURE",
+      "title": "Hóa đơn từ 59K – Tặng bánh mì que",
+      "category": "Ưu đãi theo giờ",
+      "startDate": "2026-11-11",
+      "endDate": "2026-11-30",
+      "content": "Hóa đơn từ 59K – Tặng bánh mì que\nHóa đơn từ 59.000đ được tặng 01 Bánh Mì Que Pate Phô Mai Chà Bông.\nĐịa điểm: TuTiMi Signature – 146 Bình Lợi, P. Bình Lợi Trung, TP.HCM\nThời gian: 2026-11-11 đến 2026-11-30\nKhung giờ: 22:00–05:00 (qua nửa đêm)\nÁp dụng hằng ngày trong thời gian chương trình; khung giờ qua nửa đêm.",
+      "imageUrl": "/media/tutimi-signature/tutimi-signature-07.jpg",
+      "imageLabel": "Hóa đơn từ 59K – Tặng bánh mì que",
+      "promotion": {
+        "benefit": "Hóa đơn từ 59.000đ được tặng 01 Bánh Mì Que Pate Phô Mai Chà Bông.",
+        "location": "TuTiMi Signature – 146 Bình Lợi, P. Bình Lợi Trung, TP.HCM",
+        "conditions": [],
+        "products": [],
+        "startTime": "22:00",
+        "endTime": "05:00",
+        "dateNote": "Áp dụng hằng ngày trong thời gian chương trình; khung giờ qua nửa đêm."
+      },
+      "sourceNote": "Nhóm Zalo DÙNG XONG XOÁ, thông báo và ảnh ngày 11/11/2026."
+    }
+  ]
+}

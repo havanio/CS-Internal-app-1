@@ -94,7 +94,7 @@ function writeStoredJson(key, value) {
 
 function readUrlState() {
   const params = new URLSearchParams(window.location.search);
-  const allowedStatuses = new Set(["all", "active", "upcoming", "expired"]);
+  const allowedStatuses = new Set(["all", "active", "upcoming", "expired", "verify"]);
   const type = normalizeContentType(params.get("type"));
   const status = params.get("status");
 
@@ -136,7 +136,7 @@ function syncUrlState() {
   if (state.type && state.type !== "script") params.set("type", state.type);
   if (state.category) params.set("category", state.category);
   if (state.status !== "all" && state.type === "promotion") params.set("status", state.status);
-  if (state.query && state.type === "store") params.set("q", state.query);
+  if (state.query && ["store", "promotion"].includes(state.type)) params.set("q", state.query);
 
   if (state.type === "policy" && state.policyId) params.set("policy", state.policyId);
   if (state.type === "policy" && state.showDrafts) params.set("drafts", "1");
@@ -445,7 +445,57 @@ async function loadSheetData() {
   renderResults();
 }
 
+function vietnamMoment(at = new Date()) {
+  const parts = new Intl.DateTimeFormat('en-CA', {timeZone:'Asia/Ho_Chi_Minh',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(at);
+  const get = key => parts.find(p => p.type === key).value;
+  return {date:`${get('year')}-${get('month')}-${get('day')}`,time:`${get('hour')}:${get('minute')}`};
+}
+function promoTimeWindow(item, at = new Date()) {
+  const p=item.promotion || {}, now=vietnamMoment(at);
+  const schedule=p.schedule?.length ? p.schedule : [{startDate:item.startDate,endDate:item.endDate,startTime:p.startTime,endTime:p.endTime}];
+  return schedule.some(w => {
+    let day=now.date;
+    const overnight=w.startTime && w.endTime && w.startTime>w.endTime;
+    if(overnight && now.time<w.endTime) { const previous=new Date(now.date+'T00:00:00+07:00'); previous.setUTCDate(previous.getUTCDate()-1); day=vietnamMoment(previous).date; }
+    if(w.startDate && day<w.startDate || w.endDate && day>w.endDate || item.endDate && now.date>item.endDate) return false;
+    if(!w.startTime || !w.endTime) return true;
+    return overnight ? now.time>=w.startTime || now.time<w.endTime : now.time>=w.startTime && now.time<w.endTime;
+  });
+}
+function signaturePromoStatus(item, at = new Date()) {
+  if(item.promotion?.needsConfirmation || !item.startDate) return 'verify';
+  const day=vietnamMoment(at).date;
+  if(day<item.startDate) return 'upcoming';
+  if(item.endDate && day>item.endDate) return item.promotion?.awaitingContinuation ? 'verify' : 'expired';
+  return 'active';
+}
+function promoDateLabel(value) { return /^\d{4}-\d{2}-\d{2}$/.test(value || '') ? value.split('-').reverse().join('/') : value || ''; }
+function promoPeriod(item) {
+  if(!item.startDate) return 'Chưa xác nhận ngày bắt đầu / kết thúc';
+  return promoDateLabel(item.startDate)+(item.endDate ? ' – '+promoDateLabel(item.endDate) : item.promotion?.untilNotice ? ' – Đến khi có thông báo kết thúc' : ' – Chưa nêu ngày kết thúc');
+}
+function renderSignaturePromotions(items) {
+  let previous='';
+  return `<p class="promotion-order-note">Sắp theo ngày bắt đầu áp dụng, từ sớm đến muộn. Kiểm tra trạng thái, khung giờ và điều kiện trước khi tư vấn. Giờ Việt Nam.</p>` + items.map(item => {
+    const p=item.promotion || {}, status=getPromotionStatus(item), image=getDisplayImageUrl(item.imageUrl);
+    const day=item.startDate || 'unconfirmed';
+    const heading=day!==previous ? `<h3 class="promo-date-heading">${day==='unconfirmed' ? 'Chưa xác nhận lịch áp dụng' : 'Bắt đầu '+promoDateLabel(day)}</h3>` : ''; previous=day;
+    const hours=p.schedule?.length ? p.schedule.map(w=>`${promoDateLabel(w.startDate)}${w.endDate!==w.startDate ? '–'+promoDateLabel(w.endDate) : ''}: ${w.startTime}–${w.endTime}`).join('\n') : p.startTime && p.endTime ? `${p.startTime}–${p.endTime}${p.startTime>p.endTime ? ' hôm sau' : ''} hằng ngày` : 'Nguồn chưa nêu khung giờ riêng';
+    const windowLabel=status==='active' && (p.startTime || p.schedule?.length) ? `<span class="promo-window ${promoTimeWindow(item) ? 'in-window' : ''}">${promoTimeWindow(item) ? 'Trong khung giờ' : 'Ngoài khung giờ hiện tại'}</span>` : '';
+    return `${heading}<article class="promo-entry" aria-label="${escapeHtml(item.title)}">
+      <a class="promo-poster" href="${escapeHtml(image)}" target="_blank" rel="noopener" aria-label="Xem hình gốc: ${escapeHtml(item.title)}"><img src="${escapeHtml(image)}" alt="${escapeHtml(item.imageLabel || item.title)}" loading="lazy" /></a>
+      <div class="promo-info"><div class="badge-row"><span class="badge ${status==='verify' ? 'upcoming' : status}">${status==='active' ? 'Trong thời gian chương trình' : status==='verify' ? 'Cần xác nhận thời hạn' : getPromotionStatusLabel(status)}</span>${windowLabel}<span class="promo-kind">${escapeHtml(item.category)}</span></div>
+      <h3>${escapeHtml(item.title)}</h3><p class="promo-benefit">${escapeHtml(p.benefit || item.content)}</p>
+      ${p.products?.length ? `<ul class="promo-products">${p.products.map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul>` : ''}${item.category==='Voucher giấy' ? '<p class="promo-eligibility">Cần voucher giấy · Mỗi voucher dùng 1 lần · Không cộng dồn CTKM khác</p>' : ''}
+      <dl class="promo-facts"><div><dt>Ngày áp dụng</dt><dd>${escapeHtml(promoPeriod(item))}</dd></div><div><dt>Khung giờ</dt><dd>${escapeHtml(hours)}</dd></div><div><dt>Địa điểm</dt><dd>${escapeHtml(p.location || '')}</dd></div></dl>
+      ${p.dateNote ? `<p class="promo-note">${escapeHtml(p.dateNote)}</p>` : ''}${p.warning ? `<p class="promo-warning">${escapeHtml(p.warning)}</p>` : ''}
+      <details class="promo-details"><summary>Sản phẩm & điều kiện chi tiết</summary>${p.products?.length ? `<ul>${p.products.map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul>` : ''}${p.conditions?.length ? `<ul>${p.conditions.map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul>` : '<p>Thông báo chưa nêu thêm điều kiện riêng.</p>'}</details>
+      <div class="promo-actions"><button class="icon-button subtle" type="button" data-copy="${escapeHtml(item.id)}">Sao chép thông tin</button><a href="${escapeHtml(image)}" target="_blank" rel="noopener">Xem hình gốc</a></div></div></article>`;
+  }).join('');
+}
+
 function getPromotionStatus(item) {
+  if (item.promotion) return signaturePromoStatus(item);
   if (item.type !== "promotion") return "";
 
   const start = parseSheetDate(item.startDate);
@@ -460,7 +510,8 @@ function getPromotionStatusLabel(status) {
   return {
     active: "Đang áp dụng",
     upcoming: "Sắp áp dụng",
-    expired: "Đã hết hạn"
+    expired: "Đã hết hạn",
+    verify: "Cần xác nhận"
   }[status] || "";
 }
 
@@ -480,7 +531,8 @@ function getPromotionValidity(item) {
 
 function sortItemsForDisplay(items) {
   if (state.type !== "promotion") return items;
-  const rank = { active: 0, upcoming: 1, expired: 2 };
+  if (state.brand === "TUTIMI SIGNATURE") return [...items].sort((a,b) => (a.startDate || "9999").localeCompare(b.startDate || "9999") || (a.promotion?.startTime || a.promotion?.schedule?.[0]?.startTime || "00:00").localeCompare(b.promotion?.startTime || b.promotion?.schedule?.[0]?.startTime || "00:00"));
+  const rank = { active: 0, upcoming: 1, expired: 2, verify: 3 };
   return [...items].sort((a, b) => {
     const byStatus = rank[getPromotionStatus(a)] - rank[getPromotionStatus(b)];
     if (byStatus !== 0) return byStatus;
@@ -508,6 +560,7 @@ function itemMatchesQuery(item) {
     item.imageUrl,
     item.startDate,
     item.endDate,
+    ...(item.promotion ? [JSON.stringify(item.promotion)] : []),
     ...(item.tags || []),
     ...(item.channels || [])
   ]
@@ -538,7 +591,7 @@ function getFilteredItems() {
     const brandMatch = item.brand === state.brand;
     const typeMatch = item.type === state.type;
     const categoryMatch = !state.category || item.category === state.category;
-    const queryMatch = state.type !== "store" || itemMatchesQuery(item);
+    const queryMatch = !["store", "promotion"].includes(state.type) || itemMatchesQuery(item);
     const statusMatch =
       state.status === "all" || item.type !== "promotion" || getPromotionStatus(item) === state.status;
 
@@ -644,6 +697,7 @@ function renderStats(items) {
 }
 
 function getCopyText(item) {
+  if(item.promotion) return item.content;
   if (item.type === "store") {
     const managerName = getManagerName(item);
     const managerPhone = getManagerPhone(item);
@@ -920,9 +974,10 @@ function renderResults() {
   const brandClass = getBrandClass(state.brand);
 
   if (elements.status) elements.status.hidden = state.type !== "promotion";
-  if (elements.storeSearchSection) elements.storeSearchSection.hidden = state.type !== "store";
+  if (elements.storeSearchSection) elements.storeSearchSection.hidden = !["store", "promotion"].includes(state.type);
+  document.querySelector("#searchLabel").textContent = state.type === "promotion" ? "Tìm chương trình khuyến mãi" : "Tìm cửa hàng";
   document.querySelector("#policySelectSection").hidden = state.type !== "policy";
-  elements.search.placeholder = "Tên, địa chỉ, số điện thoại cửa hàng…";
+  elements.search.placeholder = state.type === "promotion" ? "VD: 89K, bánh ngọt, voucher giấy, 50%…" : "Tên, địa chỉ, số điện thoại cửa hàng…";
   document.querySelector("#policyGuide").hidden = state.type !== "policy";
   document.querySelector("#policyPrinciples").hidden = state.type !== "policy";
   document.querySelector("#showPolicyDrafts").checked = state.showDrafts;
@@ -932,7 +987,9 @@ function renderResults() {
   elements.results.classList.add(brandClass);
   elements.results.classList.toggle("is-script-table", useScriptTable);
   elements.results.classList.toggle("is-policy-list", state.type === "policy");
-  elements.results.innerHTML = state.type === "policy" ? renderPolicies(items) : useScriptTable ? renderScriptTable(items) : items.map(renderCard).join("");
+  const signaturePromos = state.type === "promotion" && state.brand === "TUTIMI SIGNATURE";
+  elements.results.classList.toggle("is-promotion-timeline", signaturePromos);
+  elements.results.innerHTML = state.type === "policy" ? renderPolicies(items) : signaturePromos ? renderSignaturePromotions(items) : useScriptTable ? renderScriptTable(items) : items.map(renderCard).join("");
   elements.empty.hidden = items.length > 0;
   elements.summary.textContent = `${items.length} mục phù hợp`;
   elements.currentView.textContent = typeLabels[state.type];
@@ -1111,6 +1168,7 @@ function bindEvents() {
     const button = event.target.closest("[data-brand]");
     if (!button) return;
     state.brand = button.dataset.brand;
+    if (state.brand === "TUTIMI SIGNATURE") { state.type = "promotion"; state.query = ""; state.status = "all"; if(elements.search) elements.search.value = ""; }
     syncSelectedCategories();
     renderFilters();
     renderResults();
@@ -1120,7 +1178,7 @@ function bindEvents() {
     const button = event.target.closest("[data-type]");
     if (!button) return;
     state.type = button.dataset.type;
-    if (state.type !== "store") {
+    if (!["store", "promotion"].includes(state.type)) {
       state.query = "";
       if (elements.search) elements.search.value = "";
     }

@@ -149,3 +149,43 @@ test('copy selects only the requested chat, not another message or internal poli
   assert.deepEqual(a.copied,[expected]);
   assert.ok(!a.copied[0].includes('Chuyển quản lý'));
 });
+
+const promotions=JSON.parse(fs.readFileSync(path.join(root,'fixtures/tutimi-signature-promotions.json'))).items;
+test('Signature promotions retain distinct eligibility and all seven source images',()=>{
+ assert.equal(promotions.length,9);
+ assert.equal(new Set(promotions.map(x=>x.id)).size,9);
+ assert.equal(new Set(promotions.map(x=>x.imageUrl)).size,7);
+ for(const item of promotions) assert.ok(fs.existsSync(path.join(root,'public',item.imageUrl)),item.id);
+ const get=slug=>promotions.find(x=>x.id==='promo-signature-'+slug);
+ assert.match(get('app50').promotion.benefit,/100.000/);
+ assert.match(get('paper50').promotion.benefit,/200.000/);
+ assert.equal(get('app50').promotion.needsConfirmation,true);
+ assert.match(get('paper89-cup').promotion.benefit,/ly nhựa/);
+ assert.match(get('bill89-cake').promotion.benefit,/bánh ngọt/);
+ assert.ok(promotions.filter(x=>x.category==='Voucher giấy').every(x=>x.promotion.conditions.some(s=>s.includes('Không áp dụng đồng thời'))));
+});
+test('Signature time checks use Vietnam time and handle overnight and dated schedules',()=>{
+ const a=app();a.run(`state.items=${JSON.stringify(promotions)}`);
+ const window=(slug,stamp)=>a.run(`promoTimeWindow(state.items.find(x=>x.id==='promo-signature-${slug}'),new Date('${stamp}'))`);
+ assert.equal(window('night59','2026-11-11T21:59:00+07:00'),false);
+ assert.equal(window('night59','2026-11-11T22:00:00+07:00'),true);
+ assert.equal(window('night59','2026-11-12T04:59:00+07:00'),true);
+ assert.equal(window('night59','2026-11-12T05:00:00+07:00'),false);
+ assert.equal(window('night59','2026-11-11T02:00:00+07:00'),false);
+ assert.equal(window('night59','2026-12-01T02:00:00+07:00'),false);
+ assert.equal(window('breakfast29','2026-11-07T07:59:00+07:00'),false);
+ assert.equal(window('breakfast29','2026-11-07T08:00:00+07:00'),true);
+ assert.equal(window('breakfast29','2026-11-09T06:00:00+07:00'),true);
+ assert.equal(window('breakfast29','2026-11-10T06:00:00+07:00'),false);
+ assert.equal(a.run("signaturePromoStatus(state.items.find(x=>x.id==='promo-signature-app50'),new Date('2026-11-11T12:00:00+07:00'))"),'verify');
+ assert.equal(a.run("signaturePromoStatus(state.items.find(x=>x.id==='promo-signature-breakfast29'),new Date('2026-11-11T12:00:00+07:00'))"),'verify');
+});
+test('Signature timeline sorts by application date, preserves input and puts unknown dates last',()=>{
+ const a=app();a.run(`state.items=${JSON.stringify(promotions)};state.brand='TUTIMI SIGNATURE';state.type='promotion';`);
+ const dates=JSON.parse(a.run('JSON.stringify(sortItemsForDisplay(state.items).map(x=>x.startDate || "9999"))'));
+ assert.deepEqual(dates,[...dates].sort());
+ assert.equal(a.run('sortItemsForDisplay(state.items).at(-1).id'),'promo-signature-app50');
+ assert.equal(a.run('state.items[0].id'),promotions[0].id);
+ a.run("state.query='200.000'");assert.equal(a.run('getFilteredItems().some(x=>x.id===\'promo-signature-paper50\')'),true);
+ a.run("state.query='';state.status='verify'");assert.equal(a.run('getFilteredItems().length'),1);
+});

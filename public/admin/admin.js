@@ -20,7 +20,7 @@
     menu: "MENU",
     note: "GHI CHÚ KHÁC"
   };
-  var BASE_BRANDS = ["TUTIMI", "SEKAI", "DHI"];
+  var BASE_BRANDS = ["TUTIMI", "TUTIMI SIGNATURE", "SEKAI", "DHI", "BODUNO"];
   var TYPE_INTROS = {
     policy: { title: "Chính sách hậu mãi", copy: "Quy định xử lý và mẫu chat gửi khách." },
     script: {
@@ -253,6 +253,13 @@
 
   function getPromotionStatus(item) {
     if (!item || item.type !== "promotion") return "";
+    if (item.promotion) {
+      var day = new Intl.DateTimeFormat("en-CA", {timeZone:"Asia/Ho_Chi_Minh",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date());
+      if (item.promotion.needsConfirmation || !item.startDate) return "verify";
+      if (day < item.startDate) return "upcoming";
+      if (item.endDate && day > item.endDate) return item.promotion.awaitingContinuation ? "verify" : "expired";
+      return "active";
+    }
     var today = new Date();
     today.setHours(0, 0, 0, 0);
     var start = parseDateValue(item.startDate, false);
@@ -267,7 +274,8 @@
       active: "Đang áp dụng",
       upcoming: "Sắp áp dụng",
       expired: "Đã hết hạn",
-      archived: "Đã ẩn"
+      archived: "Đã ẩn",
+      verify: "Cần xác nhận"
     }[status] || "";
   }
 
@@ -300,6 +308,7 @@
   function comparableEditorItem(item) {
     return {
       policy: item.policy || null,
+      promotion: item.promotion || null,
       id: item.id || "",
       type: item.type || "",
       brand: item.brand || "",
@@ -373,6 +382,7 @@
     var bodyTitle = type === "note" ? "Ghi chú nội dung" : "Nội dung script";
 
     $("#policyEditor").hidden = type !== "policy";
+    $("#signaturePromotionEditor").hidden = !(type === "promotion" && $("#f_brand").value.trim().toUpperCase() === "TUTIMI SIGNATURE");
     $("#grpBodySection").hidden = !showBody;
     $("#grpPromoSection").hidden = !showPromo;
     $("#f_promoDatesTitleField").hidden = !showPromoDates;
@@ -717,6 +727,37 @@
     }
   }
 
+  var promoPeriodSequence = 0;
+  function addPromoPeriod(value) {
+    var box = document.createElement("div");
+    box.className = "promo-period-field group-grid";
+    ["startDate", "endDate", "startTime", "endTime"].forEach(function (key) {
+      var id = "promo-period-" + (++promoPeriodSequence);
+      var label = {startDate:"Từ ngày",endDate:"Đến ngày",startTime:"Từ giờ",endTime:"Đến giờ"}[key];
+      box.insertAdjacentHTML("beforeend", '<div class="field"><label class="field-label" for="'+id+'">'+label+'</label><input id="'+id+'" type="'+(key.indexOf("Date")>=0?"date":"time")+'" data-period="'+key+'" value="'+esc(value[key] || "")+'" /></div>');
+    });
+    box.insertAdjacentHTML("beforeend", '<button type="button" class="row-btn" data-remove-period>Bỏ giai đoạn</button>');
+    $("#promo_schedule").appendChild(box);
+  }
+  function readPromotionForm() {
+    var previous = state.editingIndex == null ? {} : state.items[state.editingIndex].promotion || {};
+    var result = Object.assign({}, previous);
+    ["benefit","location","startTime","endTime","dateNote","warning"].forEach(function(key) { result[key] = $("#promo_"+key).value.trim(); });
+    ["products","conditions"].forEach(function(key) { result[key] = $("#promo_"+key).value.split(/\n/).map(function(x){return x.trim();}).filter(Boolean); });
+    ["untilNotice","needsConfirmation","awaitingContinuation"].forEach(function(key){ result[key] = $("#promo_"+key).checked; });
+    result.schedule = Array.from(document.querySelectorAll(".promo-period-field")).map(function(box) {
+      var period={};box.querySelectorAll("[data-period]").forEach(function(input){period[input.dataset.period]=input.value;});return period;
+    });
+    return result;
+  }
+  function promotionCopy(item) {
+    var p=item.promotion, lines=[item.title,p.benefit,"Địa điểm: "+p.location];
+    if(item.startDate) lines.push("Thời gian: "+item.startDate+(item.endDate ? " đến "+item.endDate : p.untilNotice ? " đến khi có thông báo kết thúc" : " — chưa nêu ngày kết thúc"));
+    if(p.startTime && p.endTime) lines.push("Khung giờ: "+p.startTime+"–"+p.endTime+(p.startTime>p.endTime ? " hôm sau" : ""));
+    p.schedule.forEach(function(w){lines.push(w.startDate+" đến "+w.endDate+": "+w.startTime+"–"+w.endTime);});
+    return lines.concat(p.products,p.conditions,p.dateNote || [],p.warning || []).join("\n");
+  }
+
   function fillForm(it) {
     $("#f_id").value = it.id || "";
     $("#f_type").value = it.type || "script";
@@ -743,6 +784,12 @@
     });
     $("#policyMessageFields").innerHTML = "";
     (Array.isArray(policy.messages) && policy.messages.length ? policy.messages : [{title:"",content:""}]).forEach(addMessageField);
+    var promotion = it.promotion || {};
+    ["benefit","location","startTime","endTime","dateNote","warning"].forEach(function(key){$("#promo_"+key).value=promotion[key] || "";});
+    ["products","conditions"].forEach(function(key){$("#promo_"+key).value=(promotion[key] || []).join("\n");});
+    ["untilNotice","needsConfirmation","awaitingContinuation"].forEach(function(key){$("#promo_"+key).checked=Boolean(promotion[key]);});
+    $("#promo_schedule").innerHTML="";
+    (promotion.schedule || []).forEach(addPromoPeriod);
     updateTypeUI();
     updatePreview();
   }
@@ -771,6 +818,7 @@
     return {
       id: $("#f_id").value.trim(),
       type: type,
+      ...(type === "promotion" && $("#f_brand").value.trim().toUpperCase() === "TUTIMI SIGNATURE" ? {promotion:readPromotionForm()} : {}),
       ...(type === "policy" ? {policy: readPolicyForm()} : {}),
       brand: $("#f_brand").value.trim(),
       title: $("#f_title").value.trim(),
@@ -848,6 +896,15 @@
 
     clearInvalid();
     var problems = [];
+    if (item.promotion) {
+      var promo = item.promotion;
+      if (!promo.benefit) problems.push(["#promo_benefit","Ưu đãi chính"]);
+      if (!item.startDate && !promo.needsConfirmation) problems.push(["#f_startDate","Ngày bắt đầu hoặc đánh dấu chưa xác nhận"]);
+      if (Boolean(promo.startTime) !== Boolean(promo.endTime)) problems.push(["#promo_startTime","Điền đủ hai mốc giờ hoặc bỏ trống cả hai"]);
+      if (promo.untilNotice && item.endDate) problems.push(["#f_endDate","Không đặt ngày kết thúc khi chọn đến khi có thông báo"]);
+      if (promo.schedule.some(function(w){return !w.startDate || !w.endDate || !w.startTime || !w.endTime || w.startDate>w.endDate || (item.startDate && w.startDate<item.startDate) || (item.endDate && w.endDate>item.endDate);})) problems.push(["#promo_dateNote","Kiểm tra ngày giờ các giai đoạn trong khoảng chương trình"]);
+      item.content = promotionCopy(item);
+    }
     if (!item.title) problems.push(["#f_title", "Tiêu đề"]);
     if (!item.brand) problems.push(["#f_brand", "Brand"]);
     if (!item.type) problems.push(["#f_type", "Loại"]);
@@ -1067,6 +1124,10 @@
 
   /* ---- wiring -------------------------------------------------------- */
   function bind() {
+    $("#f_brand").addEventListener("input", updateTypeUI);
+    $("#addPromoPeriod").addEventListener("click", function(){addPromoPeriod({});});
+    $("#promo_schedule").addEventListener("click", function(e){var button=e.target.closest("[data-remove-period]");if(button) button.closest(".promo-period-field").remove();});
+
     $("#addPolicyMessage").addEventListener("click", function () { addMessageField({}); });
     $("#policyMessageFields").addEventListener("click", function (event) {
       var button = event.target.closest("[data-remove-message]");

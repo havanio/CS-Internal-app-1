@@ -800,3 +800,5 @@
 .policy-message-field input, .policy-message-field textarea { margin-bottom: 12px; }
 .policy-message-field .row-btn { margin-top: 4px; }
 .toolbar-add { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.promo-period-field { border: 1px solid var(--line); border-radius: 6px; padding: 12px; margin-bottom: 12px; }

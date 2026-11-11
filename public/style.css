@@ -847,3 +847,36 @@ body[data-brand="brand-boduno"] {
 
 body[data-brand="brand-boduno"] :is(button, a.button):focus-visible { outline-color: var(--green-dark); }
 body[data-brand="brand-boduno"] :is(input, select, textarea):focus { border-color: var(--green-dark); }
+
+/* Signature: chronological reference cards, original artwork remains intact. */
+body[data-brand="brand-tutimi-signature"], .brand-tutimi-signature {
+  --brand-color: #e6d4b8; --brand-soft: #f8f3eb; --brand-hover: #fbf8f3;
+  --brand-ink: #5d4230; --brand-accent: #694730; --brand-tab-text: #5d4230;
+}
+.results-grid.is-promotion-timeline { display: block; }
+.promotion-order-note { color: var(--muted); font-size: .9rem; margin: 0 0 20px; }
+.promo-date-heading { color: var(--brand-accent); font-size: 1rem; margin: 24px 0 12px; padding-left: 12px; border-left: 3px solid var(--brand-color); }
+.promo-entry { display: grid; grid-template-columns: 200px minmax(0, 1fr); border: 1px solid var(--line); border-radius: 8px; background: var(--surface); overflow: hidden; margin-bottom: 14px; }
+.promo-poster { display: flex; align-items: flex-start; justify-content: center; padding: 14px; background: var(--brand-hover); border-right: 1px solid var(--line); }
+.promo-poster img { width: 100%; max-height: 250px; object-fit: contain; }
+.promo-info { padding: 18px 22px; min-width: 0; }
+.promo-info h3 { font-size: 1.15rem; margin: 10px 0 8px; }
+.promo-benefit { font-weight: 600; margin: 0 0 14px; line-height: 1.5; }
+.promo-kind { color: var(--muted); font-size: .8rem; }
+.promo-facts { margin: 0; display: grid; gap: 7px; font-size: .9rem; }
+.promo-facts > div { display: grid; grid-template-columns: 110px minmax(0,1fr); gap: 8px; }
+.promo-facts dt { color: var(--muted); }
+.promo-facts dd { margin: 0; white-space: pre-line; }
+.promo-window { font-size: .78rem; padding: 4px 8px; border-radius: 4px; background: #f9efd9; color: #755014; }
+.promo-window.in-window { background: #e5f2e9; color: #28583b; }
+.promo-note, .promo-warning { font-size: .85rem; line-height: 1.5; margin: 12px 0 0; padding: 9px 12px; border-radius: 5px; background: #fff8e8; color: #76501c; }
+.promo-warning { background: var(--brand-soft); color: var(--brand-ink); }
+.promo-details { font-size: .9rem; margin-top: 14px; }
+.promo-details summary { cursor: pointer; font-weight: 600; padding: 5px 0; color: var(--brand-accent); }
+.promo-details ul { padding-left: 20px; line-height: 1.6; }
+.promo-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 18px; margin-top: 14px; font-size: .85rem; }
+.promo-actions a { color: var(--brand-accent); }
+@media(max-width:760px) { .promo-entry {grid-template-columns:110px minmax(0,1fr);} .promo-info {padding:14px;} .promo-poster {padding:8px;} .promo-facts > div {grid-template-columns:1fr;gap:2px;} }
+
+.promo-products { padding-left: 20px; margin: 0 0 14px; font-size: .9rem; line-height: 1.6; }
+.promo-eligibility { color: var(--brand-ink); font-size: .85rem; margin: 0 0 12px; font-weight: 600; }
