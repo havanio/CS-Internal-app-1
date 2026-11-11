@@ -255,7 +255,9 @@
     if (!item || item.type !== "promotion") return "";
     if (item.promotion) {
       var day = new Intl.DateTimeFormat("en-CA", {timeZone:"Asia/Ho_Chi_Minh",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date());
-      if (item.promotion.needsConfirmation || !item.startDate) return "verify";
+      if (item.promotion.needsConfirmation) return "verify";
+      if (item.promotion.ongoingWhileApp) return "active";
+      if (!item.startDate) return "verify";
       if (day < item.startDate) return "upcoming";
       if (item.endDate && day > item.endDate) return item.promotion.awaitingContinuation ? "verify" : "expired";
       return "active";
@@ -744,7 +746,7 @@
     var result = Object.assign({}, previous);
     ["benefit","location","startTime","endTime","dateNote","warning"].forEach(function(key) { result[key] = $("#promo_"+key).value.trim(); });
     ["products","conditions"].forEach(function(key) { result[key] = $("#promo_"+key).value.split(/\n/).map(function(x){return x.trim();}).filter(Boolean); });
-    ["untilNotice","needsConfirmation","awaitingContinuation"].forEach(function(key){ result[key] = $("#promo_"+key).checked; });
+    ["untilNotice","needsConfirmation","awaitingContinuation","ongoingWhileApp"].forEach(function(key){ result[key] = $("#promo_"+key).checked; });
     result.schedule = Array.from(document.querySelectorAll(".promo-period-field")).map(function(box) {
       var period={};box.querySelectorAll("[data-period]").forEach(function(input){period[input.dataset.period]=input.value;});return period;
     });
@@ -752,9 +754,10 @@
   }
   function promotionCopy(item) {
     var p=item.promotion, lines=[item.title,p.benefit,"Địa điểm: "+p.location];
+    if(p.ongoingWhileApp) lines.push("Thời gian: Còn hiệu lực trong thời gian app vận hành.");
     if(item.startDate) lines.push("Thời gian: "+item.startDate+(item.endDate ? " đến "+item.endDate : p.untilNotice ? " đến khi có thông báo kết thúc" : " — chưa nêu ngày kết thúc"));
     if(p.startTime && p.endTime) lines.push("Khung giờ: "+p.startTime+"–"+p.endTime+(p.startTime>p.endTime ? " hôm sau" : ""));
-    p.schedule.forEach(function(w){lines.push(w.startDate+" đến "+w.endDate+": "+w.startTime+"–"+w.endTime);});
+    p.schedule.forEach(function(w){lines.push(w.startDate+(w.endDate ? " đến "+w.endDate : " trở đi")+": "+w.startTime+"–"+w.endTime);});
     return lines.concat(p.products,p.conditions,p.dateNote || [],p.warning || []).join("\n");
   }
 
@@ -787,7 +790,7 @@
     var promotion = it.promotion || {};
     ["benefit","location","startTime","endTime","dateNote","warning"].forEach(function(key){$("#promo_"+key).value=promotion[key] || "";});
     ["products","conditions"].forEach(function(key){$("#promo_"+key).value=(promotion[key] || []).join("\n");});
-    ["untilNotice","needsConfirmation","awaitingContinuation"].forEach(function(key){$("#promo_"+key).checked=Boolean(promotion[key]);});
+    ["untilNotice","needsConfirmation","awaitingContinuation","ongoingWhileApp"].forEach(function(key){$("#promo_"+key).checked=Boolean(promotion[key]);});
     $("#promo_schedule").innerHTML="";
     (promotion.schedule || []).forEach(addPromoPeriod);
     updateTypeUI();
@@ -899,10 +902,10 @@
     if (item.promotion) {
       var promo = item.promotion;
       if (!promo.benefit) problems.push(["#promo_benefit","Ưu đãi chính"]);
-      if (!item.startDate && !promo.needsConfirmation) problems.push(["#f_startDate","Ngày bắt đầu hoặc đánh dấu chưa xác nhận"]);
+      if (!item.startDate && !promo.needsConfirmation && !promo.ongoingWhileApp) problems.push(["#f_startDate","Ngày bắt đầu hoặc đánh dấu chưa xác nhận"]);
       if (Boolean(promo.startTime) !== Boolean(promo.endTime)) problems.push(["#promo_startTime","Điền đủ hai mốc giờ hoặc bỏ trống cả hai"]);
       if (promo.untilNotice && item.endDate) problems.push(["#f_endDate","Không đặt ngày kết thúc khi chọn đến khi có thông báo"]);
-      if (promo.schedule.some(function(w){return !w.startDate || !w.endDate || !w.startTime || !w.endTime || w.startDate>w.endDate || (item.startDate && w.startDate<item.startDate) || (item.endDate && w.endDate>item.endDate);})) problems.push(["#promo_dateNote","Kiểm tra ngày giờ các giai đoạn trong khoảng chương trình"]);
+      if (promo.schedule.some(function(w){return !w.startDate || !w.startTime || !w.endTime || (w.endDate && w.startDate>w.endDate) || (item.startDate && w.startDate<item.startDate) || (item.endDate && w.endDate>item.endDate);})) problems.push(["#promo_dateNote","Kiểm tra ngày giờ các giai đoạn trong khoảng chương trình"]);
       item.content = promotionCopy(item);
     }
     if (!item.title) problems.push(["#f_title", "Tiêu đề"]);

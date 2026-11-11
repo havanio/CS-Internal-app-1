@@ -78,7 +78,7 @@
       "category": "Ưu đãi qua app",
       "startDate": "",
       "endDate": "",
-      "content": "Tải app TuTiMi – Giảm 50%\nGiảm 50% trên tổng hóa đơn, tối đa 100.000đ/hóa đơn.\nĐịa điểm: TuTiMi Signature – 146 Bình Lợi, P. Bình Lợi Trung, TP.HCM\nKhách tải và đăng ký app TuTiMi.\nChọn voucher muốn dùng và nhấn Đổi mã trên ứng dụng.\nNhân viên cửa hàng quét mã voucher sau khi khách đổi mã thành công.\nThông báo chưa ghi ngày bắt đầu/kết thúc. Cần xác nhận thời hạn trước khi tư vấn áp dụng.",
+      "content": "Tải app TuTiMi – Giảm 50%\nGiảm 50% trên tổng hóa đơn, tối đa 100.000đ/hóa đơn.\nĐịa điểm: TuTiMi Signature – 146 Bình Lợi, P. Bình Lợi Trung, TP.HCM\nKhách tải và đăng ký app TuTiMi.\nChọn voucher muốn dùng và nhấn Đổi mã trên ứng dụng.\nNhân viên cửa hàng quét mã voucher sau khi khách đổi mã thành công.\nÁp dụng khi khách tải và đăng ký app TuTiMi; còn hiệu lực trong thời gian app vận hành.",
       "imageUrl": "/media/tutimi-signature/tutimi-signature-04.jpg",
       "imageLabel": "Tải app TuTiMi – Giảm 50%",
       "promotion": {
@@ -90,8 +90,9 @@
           "Nhân viên cửa hàng quét mã voucher sau khi khách đổi mã thành công."
         ],
         "products": [],
-        "needsConfirmation": true,
-        "dateNote": "Thông báo chưa ghi ngày bắt đầu/kết thúc. Cần xác nhận thời hạn trước khi tư vấn áp dụng."
+        "needsConfirmation": false,
+        "dateNote": "Áp dụng khi khách tải và đăng ký app TuTiMi; còn hiệu lực trong thời gian app vận hành.",
+        "ongoingWhileApp": true
       },
       "sourceNote": "Nhóm Zalo DÙNG XONG XOÁ, thông báo và ảnh ngày 11/11/2026."
     },
@@ -102,8 +103,8 @@
       "title": "Combo buổi sáng no nê – 29K",
       "category": "Ưu đãi theo giờ",
       "startDate": "2026-11-07",
-      "endDate": "2026-11-09",
-      "content": "Combo buổi sáng no nê – 29K\n01 cà phê Phin Đen (S) hoặc Phin Sữa (S) + 01 bánh mì que, giá combo 29.000đ.\nĐịa điểm: TuTiMi Signature – 146 Bình Lợi, P. Bình Lợi Trung, TP.HCM\nThời gian: 2026-11-07 đến 2026-11-09\nLịch: 2026-11-07 đến 2026-11-08, 08:00–09:00\nLịch: 2026-11-09 đến 2026-11-09, 06:00–09:00\nPhin Đen (S) hoặc Phin Sữa (S).\n01 bánh mì que.\nNguồn chỉ xác nhận lịch 07–09/11. Chưa có xác nhận tiếp tục sau 09/11; không tư vấn là đang áp dụng.",
+      "endDate": "",
+      "content": "Combo buổi sáng no nê – 29K\n01 cà phê Phin Đen (S) hoặc Phin Sữa (S) + 01 bánh mì que, giá combo 29.000đ.\nĐịa điểm: TuTiMi Signature – 146 Bình Lợi, P. Bình Lợi Trung, TP.HCM\nThời gian: 2026-11-07 đến khi có thông báo kết thúc\nLịch: 2026-11-07 đến 2026-11-08, 08:00–09:00\nLịch: Từ 2026-11-09: 06:00–09:00 hằng ngày, chưa có ngày kết thúc\nPhin Đen (S) hoặc Phin Sữa (S).\n01 bánh mì que.\n07–08/11/2026: 08:00–09:00. Từ 09/11/2026: 06:00–09:00 hằng ngày, chưa có ngày kết thúc.",
       "imageUrl": "/media/tutimi-signature/tutimi-signature-05.jpg",
       "imageLabel": "Combo buổi sáng no nê – 29K",
       "promotion": {
@@ -123,13 +124,14 @@
           },
           {
             "startDate": "2026-11-09",
-            "endDate": "2026-11-09",
+            "endDate": "",
             "startTime": "06:00",
             "endTime": "09:00"
           }
         ],
-        "dateNote": "Nguồn chỉ xác nhận lịch 07–09/11. Chưa có xác nhận tiếp tục sau 09/11; không tư vấn là đang áp dụng.",
-        "awaitingContinuation": true
+        "dateNote": "07–08/11/2026: 08:00–09:00. Từ 09/11/2026: 06:00–09:00 hằng ngày, chưa có ngày kết thúc.",
+        "awaitingContinuation": false,
+        "untilNotice": true
       },
       "sourceNote": "Nhóm Zalo DÙNG XONG XOÁ, thông báo và ảnh ngày 11/11/2026."
     },

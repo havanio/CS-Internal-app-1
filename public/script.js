@@ -463,7 +463,9 @@ function promoTimeWindow(item, at = new Date()) {
   });
 }
 function signaturePromoStatus(item, at = new Date()) {
-  if(item.promotion?.needsConfirmation || !item.startDate) return 'verify';
+  if(item.promotion?.needsConfirmation) return 'verify';
+  if(item.promotion?.ongoingWhileApp) return 'active';
+  if(!item.startDate) return 'verify';
   const day=vietnamMoment(at).date;
   if(day<item.startDate) return 'upcoming';
   if(item.endDate && day>item.endDate) return item.promotion?.awaitingContinuation ? 'verify' : 'expired';
@@ -471,6 +473,7 @@ function signaturePromoStatus(item, at = new Date()) {
 }
 function promoDateLabel(value) { return /^\d{4}-\d{2}-\d{2}$/.test(value || '') ? value.split('-').reverse().join('/') : value || ''; }
 function promoPeriod(item) {
+  if(item.promotion?.ongoingWhileApp) return 'Khi tải app – Còn hiệu lực trong thời gian app vận hành';
   if(!item.startDate) return 'Chưa xác nhận ngày bắt đầu / kết thúc';
   return promoDateLabel(item.startDate)+(item.endDate ? ' – '+promoDateLabel(item.endDate) : item.promotion?.untilNotice ? ' – Đến khi có thông báo kết thúc' : ' – Chưa nêu ngày kết thúc');
 }
@@ -479,8 +482,8 @@ function renderSignaturePromotions(items) {
   return `<p class="promotion-order-note">Sắp theo ngày bắt đầu áp dụng, từ sớm đến muộn. Kiểm tra trạng thái, khung giờ và điều kiện trước khi tư vấn. Giờ Việt Nam.</p>` + items.map(item => {
     const p=item.promotion || {}, status=getPromotionStatus(item), image=getDisplayImageUrl(item.imageUrl);
     const day=item.startDate || 'unconfirmed';
-    const heading=day!==previous ? `<h3 class="promo-date-heading">${day==='unconfirmed' ? 'Chưa xác nhận lịch áp dụng' : 'Bắt đầu '+promoDateLabel(day)}</h3>` : ''; previous=day;
-    const hours=p.schedule?.length ? p.schedule.map(w=>`${promoDateLabel(w.startDate)}${w.endDate!==w.startDate ? '–'+promoDateLabel(w.endDate) : ''}: ${w.startTime}–${w.endTime}`).join('\n') : p.startTime && p.endTime ? `${p.startTime}–${p.endTime}${p.startTime>p.endTime ? ' hôm sau' : ''} hằng ngày` : 'Nguồn chưa nêu khung giờ riêng';
+    const heading=day!==previous ? `<h3 class="promo-date-heading">${day==='unconfirmed' ? (p.ongoingWhileApp ? 'Hiệu lực theo thời gian vận hành app' : 'Chưa xác nhận lịch áp dụng') : 'Bắt đầu '+promoDateLabel(day)}</h3>` : ''; previous=day;
+    const hours=p.schedule?.length ? p.schedule.map(w=>`${w.endDate ? '' : 'Từ '}${promoDateLabel(w.startDate)}${w.endDate && w.endDate!==w.startDate ? '–'+promoDateLabel(w.endDate) : ''}: ${w.startTime}–${w.endTime}${w.endDate ? '' : ' hằng ngày (chưa có ngày kết thúc)'}`).join('\n') : p.startTime && p.endTime ? `${p.startTime}–${p.endTime}${p.startTime>p.endTime ? ' hôm sau' : ''} hằng ngày` : 'Nguồn chưa nêu khung giờ riêng';
     const windowLabel=status==='active' && (p.startTime || p.schedule?.length) ? `<span class="promo-window ${promoTimeWindow(item) ? 'in-window' : ''}">${promoTimeWindow(item) ? 'Trong khung giờ' : 'Ngoài khung giờ hiện tại'}</span>` : '';
     return `${heading}<article class="promo-entry" aria-label="${escapeHtml(item.title)}">
       <a class="promo-poster" href="${escapeHtml(image)}" target="_blank" rel="noopener" aria-label="Xem hình gốc: ${escapeHtml(item.title)}"><img src="${escapeHtml(image)}" alt="${escapeHtml(item.imageLabel || item.title)}" loading="lazy" /></a>
